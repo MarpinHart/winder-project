@@ -10,13 +10,13 @@ const bcryptSalt = 10
 router.post("/signup", (req, res, next) => {
   const { email, password, name } = req.body
   if (!email || !password|| !name) {
-    res.status(400).json({ message: "Indicate email, name and password" })
+    res.status(400).json({ message: "Please indicate email, name and password" })
     return
   }
   User.findOne({ email })
     .then(userDoc => {
       if (userDoc !== null) {
-        res.status(409).json({ message: "The email already exists" })
+        res.status(409).json({ message: "The email is already registered" })
         return
       }
       const salt = bcrypt.genSaltSync(bcryptSalt)
@@ -46,7 +46,7 @@ router.post("/login", (req, res, next) => {
       // "userDoc" will be empty if the email is wrong (no document in database)
       if (!userDoc) {
         // create an error object to send to our error handler with "next()"
-        next(new Error("Incorrect email "))
+        next(new Error("Incorrect email"))
         return
       }
 
