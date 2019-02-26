@@ -9,7 +9,7 @@ const bcryptSalt = 10
 
 router.post("/signup", (req, res, next) => {
   const { email, password, name } = req.body
-  if (!email || !password|| !name) {
+  if (!email || !password || !name) {
     res.status(400).json({ message: "Please indicate email, name and password" })
     return
   }
