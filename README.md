@@ -200,7 +200,7 @@ If something bad happened, you should a send a different status code:
 - **`401` Unauthorized**: For missing or bad authentication.
 - **`403` Forbidden**: When the user is authenticated but isn’t authorized to perform the requested operation on the given resource.
 - **`404` Not Found**: The resources/route doesn't exist.
-- **`409` Conflict**: The request couldn't be completed because of a conflict (eg for signup: username already taken).
+- **`409` Conflict**: The request couldn't be completed because of a conflict (eg for signup: email already taken).
 - **`500` Internal Server Error**: The server encountered an unexpected condition which prevented it from fulfilling the request.
 
 By sending the write status code, you will catch more easily your error on the client side.

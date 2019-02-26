@@ -4,19 +4,33 @@ export default class Profile extends Component {
   constructor(props){
     super(props)
     this.state = {
-      username: '',
+      user: '',
     }
   }
+  handleChange(e){
+    this.setState({
+     [e.target.name] : e.target.value 
+    })
+  }
+  handleSubmit(e){
+    e.preventDefault()
+    this.setState({
+      
+    })
+  }
   render() {
+    console.log(this.state.user)
     return (
       <div className="Profile">
-        {this.state.username}
+      <input name="user" type="string" placeholder={this.state.user} onChange={e => this.handleChange(e)}/>
+      <button onClick={e=>this.handleSubmit(e)}>Submit</button>
       </div>
     )
   }
   componentDidMount(){
   this.setState({
-    username: localStorage.getItem('user').username
+    // Turns the data into JavaScript Object
+    user: JSON.parse(localStorage.getItem('user')).username
   })
   }
 }
