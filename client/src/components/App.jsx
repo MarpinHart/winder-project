@@ -3,6 +3,7 @@ import { Route, Link, NavLink, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import SearchBar from './pages/SearchBar';
 import api from '../api';
 import Profile from './pages/Profile'
 
@@ -33,6 +34,7 @@ export default class App extends Component {
           <Route path="/signup" component={Signup} />
           {api.isLoggedIn() && <Route path="/profile" component={Profile} />}
           <Route path="/login" component={Login} />
+          <Route path="/search-wines" component={SearchBar} />
           <Route render={() => <h2>404</h2>} />
         </Switch>
       </div>
