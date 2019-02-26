@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Link, NavLink, Switch } from 'react-router-dom';
 import Home from './pages/Home';
-import Secret from './pages/Secret';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import api from '../api';
@@ -35,7 +34,6 @@ export default class App extends Component {
           <Route path="/" exact component={Home} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
-          <Route path="/secret" component={Secret} />
           <Route render={() => <h2>404</h2>} />
         </Switch>
       </div>
