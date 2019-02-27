@@ -37,7 +37,7 @@ export default class Profile extends Component {
         <h1>Change your name:</h1>
           <FormGroup row>
             <InputGroup>
-              <InputGroupAddon addonType="prepend">@</InputGroupAddon>
+              <InputGroupAddon addonType="prepend">Name</InputGroupAddon>
               <Input placeholder={this.state.name} onChange={e=>this.handleChange(e)}/>
             </InputGroup>
             <Button color="primary" className="CenterButton" onClick={e => this.handleSubmit(e)}>

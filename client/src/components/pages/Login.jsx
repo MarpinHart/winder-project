@@ -29,6 +29,17 @@ export default class Login extends Component {
       .catch(err => this.setState({ message: err.toString() }))
   }
 
+  handleFacebook(){
+    // let domain = (process.env.PRODUCTION) ? "" : "localhost/5000"
+    // this.props.history.push(domain + "/auth/facebook")
+    api.loginWithFacebook()
+    .then(result => {
+      console.log('SUCCESS!')
+      this.props.history.push("/") // Redirect to the home page
+    })
+    .catch(err => this.setState({ message: err.toString() }))
+  }
+
   isEmailCorrect() {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(this.state.email).toLowerCase());
@@ -78,6 +89,7 @@ export default class Login extends Component {
                 Login
               </Button>
           </Form>
+        <Button onClick={this.handleFacebook}>Login with Facebook</Button>
         </Container>
         {this.state.message && <div className="info info-danger">
           {this.state.message}
