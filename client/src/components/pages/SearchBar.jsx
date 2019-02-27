@@ -28,14 +28,17 @@ export default class SearchBar extends Component {
     });
   }
   handleGetGeneralWines(e) {
-    e.preventDefault();
+   
+    e.preventDefault()
     this.setState({
       wines: [],
-      isLoading: true
-    });
-    winesApi
-      .getWinesGeneral(this.state.food)
+      isLoading: true,
+      wineDetail: null
+    })
+    winesApi.getWinesGeneral(this.state.food)
+
       .then(result => {
+         console.log('result.data.pairedWines',result.data)
         this.setState({
           isLoading: false,
           wines: result.data.pairedWines
@@ -46,6 +49,7 @@ export default class SearchBar extends Component {
   handleBottleClick(e, name) {
     e.preventDefault();
     this.setState({
+      wineDetail: null,
       isLoading: true
     });
 
