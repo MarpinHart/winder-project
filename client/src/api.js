@@ -85,4 +85,11 @@ export default {
       .then(res => res.data)
       .catch(errHandler)
   },
+  postFood(food) {
+    console.log('food from api.js',food)
+    return service  
+      .post('/foods', food)
+      .then(res => res.data)
+      .catch(errHandler)
+  }
 }

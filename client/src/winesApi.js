@@ -6,6 +6,11 @@ const winesApi = axios.create({
   withCredentials: false
 })
 
+const service = axios.create({
+  baseURL: process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:5000/api',
+  withCredentials: true
+})
+
 const errHandler = err => {
   console.error(err)
   if (err.response && err.response.data) {
@@ -17,14 +22,14 @@ const errHandler = err => {
 
 export default {
   winesApi: winesApi,
+  service: service,
   
   //get the three wines based on the food provided
   getWinesGeneral(food){
     return winesApi.get(`/pairing?maxPrice=1000000000&food=${food}`,{
       headers: { "X-RapidAPI-Key":  '83cd5eea93msh7a21ffe38ad05acp1b6b9djsn453f8ffb948c' }
-  }).then(res=>res)
-  .catch(errHandler)
-
+  }).then(res=>res.data)
+    .catch(errHandler)
   },
 
   getWineReccomendation(wine,maxPrice,minRating){
@@ -33,5 +38,5 @@ export default {
   }).then(res=>res)
   .catch(errHandler)
 
-  }
+  },
 }

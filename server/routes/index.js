@@ -1,12 +1,14 @@
 const express = require('express');
 const { isLoggedIn } = require('../middlewares')
 const router = express.Router();
+const Food = require('../models/Food')
 
-router.get('/secret', isLoggedIn, (req, res, next) => {
-  res.json({
-    secret: 42,
-    user: req.user
-  });
-});
+router.post('/foods', (req, res, next) => {
+  console.log('reqbody',req.body)
+  Food.create(req.body)
+    .then(res => {
+      console.log("We love food", res)
+    return res })
+})
 
 module.exports = router;

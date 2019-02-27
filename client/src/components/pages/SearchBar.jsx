@@ -9,6 +9,7 @@ import {
   FormGroup,
   Label
 } from "reactstrap";
+import api from '../../api'
 
 export default class SearchBar extends Component {
   constructor(props) {
@@ -38,11 +39,20 @@ export default class SearchBar extends Component {
     winesApi.getWinesGeneral(this.state.food)
 
       .then(result => {
-         console.log('result.data.pairedWines',result.data)
+         console.log('result.data.pairedWines',result)
         this.setState({
           isLoading: false,
-          wines: result.data.pairedWines
+          wines: result.pairedWines
         });
+        let foodData = {
+          name: this.state.food,
+          pairedWines:result.pairedWines,
+          pairingText: result.pairingText,
+        } 
+        console.log("foodData", foodData)
+        api.postFood(foodData)
+          .then(res =>res)
+          .catch(err => console.log(err))
       })
       .catch(err => this.setState({ message: err.toString() }));
   }
@@ -75,7 +85,7 @@ export default class SearchBar extends Component {
               color="primary"
               onClick={e => this.handleGetGeneralWines(e)}
             >
-              <i class="fas fa-search" />
+              <i className="fas fa-search" />
             </Button>
           </InputGroupAddon>
           <Input
