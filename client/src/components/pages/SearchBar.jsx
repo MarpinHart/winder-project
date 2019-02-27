@@ -7,6 +7,7 @@ export default class SearchBar extends Component {
     this.state = {
       food: "",
       wines: [],
+      isLoading:false
       
       
     }
@@ -24,11 +25,15 @@ export default class SearchBar extends Component {
   }
   handleClick(e) {
     e.preventDefault()
+    this.setState({
+      wines: [],
+      isLoading: true
+    })
     api.getWinesGeneral(this.state.food)
       .then(result => {
         console.log('RESULT',result)
         this.setState({
-          
+          isLoading: false,
           wines: result.data.pairedWines
         })
       })
@@ -40,12 +45,16 @@ export default class SearchBar extends Component {
       <div>
       FOOD: <input type="text" value={this.state.food} onChange={(e) => { this.handleInputChange("food", e) }} /> 
             <button onClick={(e) => this.handleClick(e)}>Search</button>
-           {this.state.wines? <div>
+           {this.state.wines && <div>
               <h1>list of wines:</h1> 
               {this.state.wines.map((wine, i)=> <li key={i}>{wine}</li> )}
-              </div> :
-              '' } 
+              </div> } 
+           {this.state.isLoading && <div>LOADING...</div> }
       </div>
     )
+  }
+  componentDidUpdate(){
+    
+    
   }
 }
