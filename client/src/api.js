@@ -55,6 +55,16 @@ export default {
       .catch(errHandler)
   },
 
+  getConnectedProfile(){
+    return service
+      .get('connected-profile')
+      .then(res => {
+        let user = res.data
+        localStorage.setItem('user', JSON.stringify(user))
+        return user
+      })
+  },
+
   logout() {
     localStorage.removeItem('user')
     return service

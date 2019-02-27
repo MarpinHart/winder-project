@@ -2,6 +2,7 @@ const express = require("express");
 const passport = require("passport");
 const FacebookStrategy = require("passport-facebook").Strategy;
 const router = express.Router();
+const {isLoggedIn} = require("../middlewares")
 const User = require("../models/User");
 
 // Bcrypt to encrypt passwords
@@ -11,34 +12,42 @@ const bcryptSalt = 10;
 passport.use(
   new FacebookStrategy(
     {
-      clientID: '390855841470886',
-      clientSecret: '9c36be7b26a7938b6507928545b74ab5',
-      callbackURL: `http://localhost:3000/`
+      clientID: process.env.FACEBOOK_CLIENT_ID,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+      callbackURL: process.env.FACEBOOK_CALLBACK_URL,
+      profileFields:  ['email', 'displayName']
     },
     function(accessToken, refreshToken, profile, done) {
-      console.log('getting here',profile)
-      User.findOrCreate(profile.email, function(err, user) {
-        if (err) { return done(err); }
-        done(null, user);
-      });
+      console.log('getting here', profile)
+      let email = profile.emails[0].value
+      User.findOne({email})
+      .then(user => {
+        if (user) {
+          done(null, user)
+        }
+        else {
+          User.create({
+            email,
+            name: profile.displayName,
+          })
+          .then(userCreated => {
+            done(null, userCreated)
+          })
+        }
+      })
     }
   )
 );
 
 router.get(
   "/login/facebook",
-  passport.authenticate("facebook", { scope: ["email"] })
+  passport.authenticate("facebook")
 );
 
-router.get("/login/facebook1", function(req, res) {
-  console.log("joy")
-})
-
-
 router.get(
-  "/return",
+  "/login/facebook/callback",
   passport.authenticate("facebook", {
-    successRedirect: "http://localhost:3000/",
+    successRedirect: process.env.FRONTEND_URI + "/success-login",
     failureRedirect: "/login"
   })
 );
@@ -107,6 +116,10 @@ router.post("/login", (req, res, next) => {
     })
     .catch(err => next(err));
 });
+
+router.get('/connected-profile', isLoggedIn, (req, res, next) => {
+  res.json(req.user)
+})
 
 router.get('/profile/:_id', (req, res, next) => {
   User.findById(req.params._id)

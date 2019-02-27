@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import api from '../../api';
+import {Link} from 'react-router-dom'
 import {Button, Label, Input, Form, FormGroup, Container,FormFeedback } from 'reactstrap';
 
 export default class Login extends Component {
@@ -66,7 +67,7 @@ export default class Login extends Component {
                 {/* The feedback is displayed when the input is valid */}
               <FormFeedback valid></FormFeedback>
               {/* The feedback is displayed when the input is invalid */}
-              <FormFeedback invalid>This is not a valid email</FormFeedback>
+              <FormFeedback>This is not a valid email</FormFeedback>
             </FormGroup>
             <FormGroup>
               <Label for="password">Password</Label>
@@ -80,7 +81,7 @@ export default class Login extends Component {
                 {/* The feedback is displayed when the input is valid */}
               <FormFeedback valid></FormFeedback>
               {/* The feedback is displayed when the input is invalid */}
-              <FormFeedback invalid>Password is too short</FormFeedback>
+              <FormFeedback>Password is too short</FormFeedback>
             </FormGroup>
             <Button 
                 color="primary" 
@@ -90,6 +91,7 @@ export default class Login extends Component {
               </Button>
           </Form>
         <Button onClick={this.handleFacebook}>Login with Facebook</Button>
+        <a href="http://localhost:5000/api/login/facebook">Login with Facebook</a>
         </Container>
         {this.state.message && <div className="info info-danger">
           {this.state.message}
