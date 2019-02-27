@@ -11,12 +11,12 @@ const bcryptSalt = 10;
 passport.use(
   new FacebookStrategy(
     {
-      clientID: process.env.FACEBOOK_CLIENT_ID,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-      callbackURL: "http://localhost:5000/api/return"
+      clientID: '390855841470886',
+      clientSecret: '9c36be7b26a7938b6507928545b74ab5',
+      callbackURL: `http://localhost:3000/`
     },
     function(accessToken, refreshToken, profile, done) {
-      console.log('getting here')
+      console.log('getting here',profile)
       User.findOrCreate(profile.email, function(err, user) {
         if (err) { return done(err); }
         done(null, user);
@@ -38,7 +38,7 @@ router.get("/login/facebook1", function(req, res) {
 router.get(
   "/return",
   passport.authenticate("facebook", {
-    successRedirect: "/",
+    successRedirect: "http://localhost:3000/",
     failureRedirect: "/login"
   })
 );

@@ -28,7 +28,8 @@ export default class SearchBar extends Component {
     e.preventDefault()
     this.setState({
       wines: [],
-      isLoading: true
+      isLoading: true,
+      wineDetail: null
     })
     winesApi.getWinesGeneral(this.state.food)
 
@@ -44,7 +45,7 @@ export default class SearchBar extends Component {
   handleBottleClick(e, name){
     e.preventDefault()
     this.setState({
-      
+      wineDetail: null,
       isLoading: true
     })
 
