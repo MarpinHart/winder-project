@@ -8,7 +8,6 @@ import {
   InputGroupAddon,
   Input
 } from "reactstrap";
-import { userInfo } from "os";
 
 export default class Profile extends Component {
   constructor(props) {
@@ -26,23 +25,27 @@ export default class Profile extends Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    api.editName(this.state.id, this.state.name);
+    api.editName(this.state.id, this.state.name)
   }
+
   render() {
     console.log(this.state.name)
     console.log(this.state.email)
     return (
-      <div className="Profile">
+      <div className="Profile container">
+       <div className="upperProfile">
+       <img className="profileIcon" src="/images/wineIcon.png" alt="profile"/>
         <h1>{this.state.name}</h1>
         <h2>{this.state.email}</h2>
-        <Form className="ProfileForm">
+       </div>
+        <Form className="ProfileForm" onSubmit={e => this.handleSubmit(e)}>
         <h1>Change your name:</h1>
           <FormGroup row>
             <InputGroup>
               <InputGroupAddon addonType="prepend">Name</InputGroupAddon>
               <Input placeholder={this.state.name} onChange={e=>this.handleChange(e)}/>
             </InputGroup>
-            <Button color="primary" className="CenterButton" onClick={e => this.handleSubmit(e)}>
+            <Button color="primary" className="CenterButton">
               Submit
             </Button>
           </FormGroup>
@@ -53,12 +56,13 @@ export default class Profile extends Component {
   componentDidMount() {
     api.getUser(this.props.match.params.id)
       .then(user =>{
+        console.log('user', user)
         this.setState({
-          // Turns the data of the user into JavaScript Object
           id: user._id,
           name: user.name,
           email: user.email
         });
       })
   }
+  
 }
