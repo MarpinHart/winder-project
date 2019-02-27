@@ -55,16 +55,14 @@ export default {
       .catch(errHandler)
   },
 
-  loginWithFacebook(){
-    console.log("hello from facebook")
+  getConnectedProfile(){
     return service
-      .get('/login/facebook')
+      .get('connected-profile')
       .then(res => {
-        // If we have localStorage.getItem('user') saved, the application will consider we are loggedin
-        localStorage.setItem('user', JSON.stringify(res.data))
-        return res.data
+        let user = res.data
+        localStorage.setItem('user', JSON.stringify(user))
+        return user
       })
-      .catch(errHandler)
   },
 
   logout() {

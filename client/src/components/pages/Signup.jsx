@@ -63,7 +63,7 @@ export default class Signup extends Component {
                 {/* The feedback is displayed when the input is valid */}
               <FormFeedback valid></FormFeedback>
               {/* The feedback is displayed when the input is invalid */}
-              <FormFeedback invalid>This is not a valid email</FormFeedback>
+              <FormFeedback>This is not a valid email</FormFeedback>
             </FormGroup>
             <FormGroup>
               <Label for="name">Name</Label>
@@ -86,7 +86,7 @@ export default class Signup extends Component {
                 {/* The feedback is displayed when the input is valid */}
               <FormFeedback valid>Password is strong enough</FormFeedback>
               {/* The feedback is displayed when the input is invalid */}
-              <FormFeedback invalid>Password is not strong enough</FormFeedback>
+              <FormFeedback>Password is not strong enough</FormFeedback>
             </FormGroup>
             <FormGroup>
               {/* Renders: */}

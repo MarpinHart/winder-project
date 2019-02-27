@@ -12,6 +12,7 @@ import Signup from './pages/Signup';
 import SearchBar from './pages/SearchBar';
 import api from '../api';
 import Profile from './pages/Profile'
+import SuccessLogin from './pages/SuccessLogin';
 
 export default class App extends Component {
   constructor(props) {
@@ -51,6 +52,7 @@ export default class App extends Component {
             <Route path="/signup" component={Signup} />
             {api.isLoggedIn() && <Route path="/profile/:id" component={Profile} />}
             <Route path="/login" component={Login} />
+            <Route path="/success-login" component={SuccessLogin} />
             <Route path="/search-wines" component={SearchBar} />
             <Route render={() => <h2>404</h2>} />
           </Switch>
