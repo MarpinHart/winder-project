@@ -40,7 +40,6 @@ export default class Login extends Component {
     return (
       <div className="Login">
         <Container>
-          <h2>Login</h2>
           <Form>
           <FormGroup>
               <Label for="email">Email</Label>

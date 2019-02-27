@@ -16,7 +16,7 @@ router.post("/signup", (req, res, next) => {
   User.findOne({ email })
     .then(userDoc => {
       if (userDoc !== null) {
-        res.status(409).json({ message: "The email is already registered" })
+        res.status(409).json({ message: "This email is already registered" })
         return
       }
       const salt = bcrypt.genSaltSync(bcryptSalt)
@@ -71,7 +71,8 @@ router.post("/login", (req, res, next) => {
 })
 
 router.put('/profile/:id', (req, res, next) => {
-  User.findByIdAndUpdate(req.params.id, {
+  console.log(req.body)
+  User.findByIdAndUpdate({_id:req.params.id}, {
     name : req.body.name 
   })
     .then(res=>res.json(user))

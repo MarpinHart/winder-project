@@ -1,4 +1,10 @@
 import React, { Component } from 'react';
+import {
+  Navbar,
+  NavbarBrand,
+  Nav,
+  NavItem
+} from 'reactstrap';
 import { Route, Link, NavLink, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -22,17 +28,27 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <NavLink to="/" exact>Home</NavLink>
-          {!api.isLoggedIn() && <NavLink to="/signup">Signup</NavLink>}
-          {!api.isLoggedIn() && <NavLink to="/login">Login</NavLink>}
-          {api.isLoggedIn() && <Link to="/" onClick={(e) => this.handleLogoutClick(e)}>Logout</Link>}
-          {api.isLoggedIn() && <Link to="/profile">Profile</Link>}
-        </header>
+        <Navbar color="light" light>
+            <NavbarBrand href="/"><img src='./images/wine.png' alt=""/></NavbarBrand>
+            <Nav className="justify-content-end">
+              <NavItem className="ml-3">
+                {!api.isLoggedIn() && <NavLink to="/signup">Signup</NavLink>}
+              </NavItem>
+              <NavItem className="ml-3">
+                {!api.isLoggedIn() && <NavLink to="/login">Login</NavLink>}
+              </NavItem>
+              <NavItem>
+              {api.isLoggedIn() && <Link to="/profile">Profile</Link>}
+              </NavItem>
+              <NavItem>
+              {api.isLoggedIn() && <Link to="/" onClick={(e) => this.handleLogoutClick(e)}>Logout</Link>}
+              </NavItem>
+            </Nav>
+        </Navbar>
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/signup" component={Signup} />
-          {api.isLoggedIn() && <Route path="/profile/:id" component={Profile} />}
+          {api.isLoggedIn() && <Route path="/profile" component={Profile} />}
           <Route path="/login" component={Login} />
           <Route path="/search-wines" component={SearchBar} />
           <Route render={() => <h2>404</h2>} />
