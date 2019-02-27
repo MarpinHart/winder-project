@@ -41,6 +41,9 @@ export default class App extends Component {
               {api.isLoggedIn() && <Link to={"/profile/"+JSON.parse(localStorage.getItem("user"))._id}>Profile</Link>}
               </NavItem>
               <NavItem>
+              {api.isLoggedIn() && <Link to={"/search-wines"}>Search</Link>}
+              </NavItem>
+              <NavItem>
               {api.isLoggedIn() && <Link to="/" onClick={(e) => this.handleLogoutClick(e)}>Logout</Link>}
               </NavItem>
             </Nav>
