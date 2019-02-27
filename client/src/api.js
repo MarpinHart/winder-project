@@ -95,13 +95,7 @@ export default {
       })
       .then(res => res.data)
       .catch(errHandler)
-  },
-//get the three wines based on the food provided
-  getWinesGeneral(food){
-    return axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/wine/pairing?maxPrice=1000000000&food=${food}`,{
-      headers: { "X-RapidAPI-Key":  '58a43d5ad7mshf95a9a31e4661dbp1c44fajsn267461ee1adc' }
-  }).then(res=>res)
-  .catch(err=>console.log(err))
-
   }
+
+
 }
