@@ -25,8 +25,8 @@ export default {
 
   },
 
-  getWineReccomendation(wine,maxPrice){
-    return winesApi.get(`/recommendation?maxPrice=${maxPrice}&minRating=0.7&number=3&wine=${wine}`,{
+  getWineReccomendation(wine,maxPrice,minRating){
+    return winesApi.get(`/recommendation?maxPrice=${maxPrice}&minRating=${minRating}&number=3&wine=${wine}`,{
       headers: { "X-RapidAPI-Key":  '58a43d5ad7mshf95a9a31e4661dbp1c44fajsn267461ee1adc' }
   }).then(res=>res)
   .catch(errHandler)
