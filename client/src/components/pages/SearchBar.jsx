@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import api from '../../api';
+import winesApi from '../../winesApi';
 
 export default class SearchBar extends Component {
   constructor(props) {
@@ -29,9 +29,9 @@ export default class SearchBar extends Component {
       wines: [],
       isLoading: true
     })
-    api.getWinesGeneral(this.state.food)
+    winesApi.getWinesGeneral(this.state.food)
       .then(result => {
-        console.log('RESULT',result)
+        
         this.setState({
           isLoading: false,
           wines: result.data.pairedWines
