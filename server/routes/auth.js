@@ -70,11 +70,11 @@ router.post("/login", (req, res, next) => {
     .catch(err => next(err))
 })
 
-router.put('/profile', (req, res, next) => {
-  User.findByIdAndUpdate(req.user._id, {
+router.put('/profile/:id', (req, res, next) => {
+  User.findByIdAndUpdate(req.params.id, {
     name : req.body.name 
   })
-    .then(res=>res.data)
+    .then(res=>res.json(user))
     .catch(next)
 })
 
