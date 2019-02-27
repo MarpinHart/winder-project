@@ -11,6 +11,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import SearchBar from './pages/SearchBar';
 import api from '../api';
+import Profile from './pages/Profile'
 
 export default class App extends Component {
   constructor(props) {
@@ -37,6 +38,9 @@ export default class App extends Component {
                 {!api.isLoggedIn() && <NavLink to="/login">Login</NavLink>}
               </NavItem>
               <NavItem>
+              {api.isLoggedIn() && <Link to="/profile">Profile</Link>}
+              </NavItem>
+              <NavItem>
               {api.isLoggedIn() && <Link to="/" onClick={(e) => this.handleLogoutClick(e)}>Logout</Link>}
               </NavItem>
             </Nav>
@@ -44,6 +48,7 @@ export default class App extends Component {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/signup" component={Signup} />
+          {api.isLoggedIn() && <Route path="/profile" component={Profile} />}
           <Route path="/login" component={Login} />
           <Route path="/search-wines" component={SearchBar} />
           <Route render={() => <h2>404</h2>} />

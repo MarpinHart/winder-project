@@ -70,6 +70,14 @@ router.post("/login", (req, res, next) => {
     .catch(err => next(err))
 })
 
+router.put('/profile', (req, res, next) => {
+  User.findByIdAndUpdate(req.user._id, {
+    name : req.body.name 
+  })
+    .then(res=>res.data)
+    .catch(next)
+})
+
 router.post('/login-with-passport-local-strategy', (req, res, next) => {
   passport.authenticate('local', (err, theUser, failureDetails) => {
     if (err) {
