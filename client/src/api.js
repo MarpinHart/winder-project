@@ -65,7 +65,7 @@ export default {
   // api.getCountries().then(countries => { /* ... */ })
   editName(userId, newName) {
     return service
-      .put('/profile', newName)
+      .put('/profile/'+userId, newName)
       .then(res => res.data)
       .catch(errHandler)
   },

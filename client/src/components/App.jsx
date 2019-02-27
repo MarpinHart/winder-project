@@ -32,7 +32,7 @@ export default class App extends Component {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/signup" component={Signup} />
-          {api.isLoggedIn() && <Route path="/profile" component={Profile} />}
+          {api.isLoggedIn() && <Route path="/profile/:id" component={Profile} />}
           <Route path="/login" component={Login} />
           <Route path="/search-wines" component={SearchBar} />
           <Route render={() => <h2>404</h2>} />
