@@ -26,7 +26,7 @@ export default class Profile extends Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    api.editName(this.state.id, this.state.name);
+    api.editName(this.state.id, this.state.name)
   }
   render() {
     console.log(this.state.name)
@@ -35,14 +35,14 @@ export default class Profile extends Component {
       <div className="Profile">
         <h1>{this.state.name}</h1>
         <h2>{this.state.email}</h2>
-        <Form className="ProfileForm">
+        <Form className="ProfileForm" onSubmit={e => this.handleSubmit(e)}>
         <h1>Change your name:</h1>
           <FormGroup row>
             <InputGroup>
               <InputGroupAddon addonType="prepend">@</InputGroupAddon>
               <Input name="name" placeholder={this.state.name} onChange={e=>this.handleChange(e)}/>
             </InputGroup>
-            <Button color="primary" className="CenterButton" onClick={e => this.handleSubmit(e)}>
+            <Button color="primary" className="CenterButton">
               Submit
             </Button>
           </FormGroup>
@@ -53,12 +53,13 @@ export default class Profile extends Component {
   componentDidMount() {
     api.getUser(this.props.match.params.id)
       .then(user =>{
+        console.log('user', user)
         this.setState({
-          // Turns the data of the user into JavaScript Object
           id: user._id,
           name: user.name,
           email: user.email
         });
       })
   }
+  
 }

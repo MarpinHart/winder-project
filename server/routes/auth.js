@@ -72,16 +72,21 @@ router.post("/login", (req, res, next) => {
 
 router.get('/profile/:_id', (req, res, next) => {
   User.findById(req.params._id)
-    .then(user => res.json(user))
+    .then(user => {
+      console.log(user)
+      res.json(user)})
     .catch(next)
 })
 
 router.put('/profile/:id', (req, res, next) => {
-  console.log(req.body)
-  User.findByIdAndUpdate({_id:req.params.id}, {
-    name : req.body.name 
-  })
-    .then(res=>res.json(user))
+  console.log("req.body", req.body)
+  let newName = req.body.name
+  User.findByIdAndUpdate(req.params.id,
+   {name: newName}
+  )
+    .then(user=>{
+      console.log("user after promise", user)
+      res.json(user)})
     .catch(next)
 })
 
