@@ -24,14 +24,16 @@ export default class SearchBar extends Component {
     
   }
   handleGetGeneralWines(e) {
+   
     e.preventDefault()
     this.setState({
       wines: [],
       isLoading: true
     })
     winesApi.getWinesGeneral(this.state.food)
+
       .then(result => {
-        
+         console.log('result.data.pairedWines',result.data)
         this.setState({
           isLoading: false,
           wines: result.data.pairedWines
