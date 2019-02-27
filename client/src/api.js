@@ -63,9 +63,9 @@ export default {
 
   // This is an example on how to use this method in a different file
   // api.getCountries().then(countries => { /* ... */ })
-  getCountries() {
+  editName(userId, newName) {
     return service
-      .get('/countries')
+      .put('/profile', newName)
       .then(res => res.data)
       .catch(errHandler)
   },

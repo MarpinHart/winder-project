@@ -9,7 +9,7 @@ const bcryptSalt = 10
 
 router.post("/signup", (req, res, next) => {
   const { email, password, name } = req.body
-  if (!email || !password|| !name) {
+  if (!email || !password || !name) {
     res.status(400).json({ message: "Please indicate email, name and password" })
     return
   }
@@ -68,6 +68,14 @@ router.post("/login", (req, res, next) => {
       })
     })
     .catch(err => next(err))
+})
+
+router.put('/profile', (req, res, next) => {
+  User.findByIdAndUpdate(req.user._id, {
+    name : req.body.name 
+  })
+    .then(res=>res.data)
+    .catch(next)
 })
 
 router.post('/login-with-passport-local-strategy', (req, res, next) => {
