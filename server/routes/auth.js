@@ -70,6 +70,12 @@ router.post("/login", (req, res, next) => {
     .catch(err => next(err))
 })
 
+router.get('/profile/:_id', (req, res, next) => {
+  User.findById(req.params._id)
+    .then(user => res.json(user))
+    .catch(next)
+})
+
 router.put('/profile/:id', (req, res, next) => {
   console.log(req.body)
   User.findByIdAndUpdate({_id:req.params.id}, {

@@ -8,6 +8,7 @@ import {
   InputGroupAddon,
   Input
 } from "reactstrap";
+import { userInfo } from "os";
 
 export default class Profile extends Component {
   constructor(props) {
@@ -22,13 +23,14 @@ export default class Profile extends Component {
     this.setState({
       [e.target.name]: e.target.value
     });
-    console.log(e.target.value)
   }
   handleSubmit(e) {
     e.preventDefault();
     api.editName(this.state.id, this.state.name);
   }
   render() {
+    console.log(this.state.name)
+    console.log(this.state.email)
     return (
       <div className="Profile">
         <h1>{this.state.name}</h1>
@@ -38,7 +40,7 @@ export default class Profile extends Component {
           <FormGroup row>
             <InputGroup>
               <InputGroupAddon addonType="prepend">@</InputGroupAddon>
-              <Input placeholder={this.state.name} onChange={e=>this.handleChange(e)}/>
+              <Input name="name" placeholder={this.state.name} onChange={e=>this.handleChange(e)}/>
             </InputGroup>
             <Button color="primary" className="CenterButton" onClick={e => this.handleSubmit(e)}>
               Submit
@@ -49,11 +51,14 @@ export default class Profile extends Component {
     );
   }
   componentDidMount() {
-    this.setState({
-      // Turns the data of the user into JavaScript Object
-      id: JSON.parse(localStorage.getItem("user"))._id,
-      name: JSON.parse(localStorage.getItem("user")).name,
-      email: JSON.parse(localStorage.getItem("user")).email
-    });
+    api.getUser(this.props.match.params.id)
+      .then(user =>{
+        this.setState({
+          // Turns the data of the user into JavaScript Object
+          id: user._id,
+          name: user.name,
+          email: user.email
+        });
+      })
   }
 }

@@ -83,6 +83,12 @@ export default {
       .then(res => res.data)
       .catch(errHandler)
   },
+  getUser(id){
+    return service
+      .get('/profile/'+id)
+      .then(res => res.data)
+      .catch(errHandler)
+  },
 
   addPicture(file) {
     const formData = new FormData()
