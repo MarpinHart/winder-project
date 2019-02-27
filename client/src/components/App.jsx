@@ -31,10 +31,10 @@ export default class App extends Component {
         <Navbar color="light" light>
             <NavbarBrand href="/"><img src='./images/wine.png' alt=""/></NavbarBrand>
             <Nav className="justify-content-end">
-              <NavItem className="ml-3">
+              <NavItem>
                 {!api.isLoggedIn() && <NavLink to="/signup">Signup</NavLink>}
               </NavItem>
-              <NavItem className="ml-3">
+              <NavItem>
                 {!api.isLoggedIn() && <NavLink to="/login">Login</NavLink>}
               </NavItem>
               <NavItem>
@@ -45,14 +45,16 @@ export default class App extends Component {
               </NavItem>
             </Nav>
         </Navbar>
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/signup" component={Signup} />
-          {api.isLoggedIn() && <Route path="/profile" component={Profile} />}
-          <Route path="/login" component={Login} />
-          <Route path="/search-wines" component={SearchBar} />
-          <Route render={() => <h2>404</h2>} />
-        </Switch>
+        <div className="main">
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/signup" component={Signup} />
+            {api.isLoggedIn() && <Route path="/profile" component={Profile} />}
+            <Route path="/login" component={Login} />
+            <Route path="/search-wines" component={SearchBar} />
+            <Route render={() => <h2>404</h2>} />
+          </Switch>
+        </div>
       </div>
     );
   }

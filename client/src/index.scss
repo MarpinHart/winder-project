@@ -1,23 +1,12 @@
 // --------------------
 // Definition of variables
-$primary: #32c3ff;
+$primary: #db5256;
+$secondary: #FF797B;
+$success: #198E39;
+$danger: #F23E41;
+$info: #52DB77;
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
 
-
-// ----------------------------------------
-// To install Boostrap:
-// 1) Run in the client folder: $ npm i bootstrap
-// 2) Import bootstrap with the following line
-// @import '../node_modules/bootstrap/scss/bootstrap.scss';
-// 
-// To install Reactstrap:
-// 1) Run in the client folder: $ npm i reactstrap
-// 2) Go to the official documentation and take some examples: https://reactstrap.github.io/
-// import { Button } from 'reactstrap';
-// <Button color="danger">Danger!</Button>
-// ----------------------------------------
-
-
-// --------------------
 // Style reusable for all components
 body {
   margin: 0;
@@ -26,18 +15,21 @@ body {
 }
 
 .info {
-  margin: 20px;
+  // margin: 20px;
   padding: 10px 20px;
-  border-radius: 10px;
+  border-radius: 5px;
   display: inline-block;
   background-color: #5776e9;
   color: white;
 }
 
 .info.info-danger {
-  background-color: #e73f3f;
+  background-color: $danger;
 }
 
+.main {
+  margin: 10px;
+}
 
 .Signup{
   margin-top:20px;
@@ -45,4 +37,10 @@ body {
 
 .Login{
   margin-top:20px;
+}
+
+.navbar{
+  a {
+    margin-left: 10px;
+  }
 }
