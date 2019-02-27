@@ -48,7 +48,6 @@ export default class Signup extends Component {
     return (
       <div className="Signup">
         <Container>
-          <h2>Signup</h2>
           <Form>
             <FormGroup>
               <Label for="email">Email</Label>

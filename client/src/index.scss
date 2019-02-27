@@ -38,64 +38,11 @@ body {
   background-color: #e73f3f;
 }
 
-// --------------------
-// Style for App component
-.App {
-  text-align: center;
 
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-    height: 80px;
-  }
-
-  .App-header {
-    background-color: $primary;
-    padding: 20px;
-    color: white;
-
-    a {
-      color: white;
-      padding: 0 5px;
-      text-decoration: unset;
-    }
-
-    a.active {
-      font-weight: bold;
-    }
-  }
-
-  .App-title {
-    font-size: 1.5em;
-  }
-
-  .App-intro {
-    font-size: large;
-  }
-
-  @keyframes App-logo-spin {
-    from {
-      transform: rotate(0deg);
-    }
-
-    to {
-      transform: rotate(360deg);
-    }
-  }
+.Signup{
+  margin-top:20px;
 }
 
-// --------------------
-// Style for Home component
-.Home {
-  p {
-    font-size: 1.2em;
-  }
-}
-
-// --------------------
-// Style for Secret component
-.Secret {
-  .result {
-    font-size: 1.2em;
-    color: $primary;
-  }
+.Login{
+  margin-top:20px;
 }
