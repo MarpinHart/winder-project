@@ -108,17 +108,20 @@ router.post("/login", (req, res, next) => {
     .catch(err => next(err));
 });
 
-router.put("/profile/:id", (req, res, next) => {
-  console.log(req.body);
-  User.findByIdAndUpdate(
-    { _id: req.params.id },
-    {
-      name: req.body.name
-    }
-  )
-    .then(res => res.json(user))
-    .catch(next);
-});
+router.get('/profile/:_id', (req, res, next) => {
+  User.findById(req.params._id)
+    .then(user => res.json(user))
+    .catch(next)
+})
+
+router.put('/profile/:id', (req, res, next) => {
+  console.log(req.body)
+  User.findByIdAndUpdate({_id:req.params.id}, {
+    name : req.body.name 
+  })
+    .then(res=>res.json(user))
+    .catch(next)
+})
 
 router.post("/login-with-passport-local-strategy", (req, res, next) => {
   passport.authenticate("local", (err, theUser, failureDetails) => {

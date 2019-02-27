@@ -38,7 +38,7 @@ export default class App extends Component {
                 {!api.isLoggedIn() && <NavLink to="/login">Login</NavLink>}
               </NavItem>
               <NavItem>
-              {api.isLoggedIn() && <Link to="/profile">Profile</Link>}
+              {api.isLoggedIn() && <Link to={"/profile/"+JSON.parse(localStorage.getItem("user"))._id}>Profile</Link>}
               </NavItem>
               <NavItem>
               {api.isLoggedIn() && <Link to="/" onClick={(e) => this.handleLogoutClick(e)}>Logout</Link>}
@@ -49,7 +49,7 @@ export default class App extends Component {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/signup" component={Signup} />
-            {api.isLoggedIn() && <Route path="/profile" component={Profile} />}
+            {api.isLoggedIn() && <Route path="/profile/:id" component={Profile} />}
             <Route path="/login" component={Login} />
             <Route path="/search-wines" component={SearchBar} />
             <Route render={() => <h2>404</h2>} />
