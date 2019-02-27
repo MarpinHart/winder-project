@@ -8,7 +8,6 @@ import {
   InputGroupAddon,
   Input
 } from "reactstrap";
-import { userInfo } from "os";
 
 export default class Profile extends Component {
   constructor(props) {
@@ -28,13 +27,17 @@ export default class Profile extends Component {
     e.preventDefault();
     api.editName(this.state.id, this.state.name)
   }
+
   render() {
     console.log(this.state.name)
     console.log(this.state.email)
     return (
-      <div className="Profile">
+      <div className="Profile container">
+       <div className="upperProfile">
+       <img className="profileIcon" src="/images/wineIcon.png" alt="profile"/>
         <h1>{this.state.name}</h1>
         <h2>{this.state.email}</h2>
+       </div>
         <Form className="ProfileForm" onSubmit={e => this.handleSubmit(e)}>
         <h1>Change your name:</h1>
           <FormGroup row>
