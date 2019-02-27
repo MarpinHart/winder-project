@@ -55,18 +55,6 @@ export default {
       .catch(errHandler)
   },
 
-  loginWithFacebook(){
-    console.log("hello from facebook")
-    return service
-      .get('/login/facebook')
-      .then(res => {
-        // If we have localStorage.getItem('user') saved, the application will consider we are loggedin
-        localStorage.setItem('user', JSON.stringify(res.data))
-        return res.data
-      })
-      .catch(errHandler)
-  },
-
   logout() {
     localStorage.removeItem('user')
     return service
@@ -80,6 +68,11 @@ export default {
       .put('/profile/'+userId, newName)
       .then(res => res.data)
       .catch(errHandler)
-  }
-
+  },
+  getUser(id){
+    return service
+      .get('/profile/'+id)
+      .then(res => res.data)
+      .catch(errHandler)
+  },
 }
