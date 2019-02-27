@@ -65,7 +65,7 @@ export default {
   // api.getCountries().then(countries => { /* ... */ })
   editName(userId, newName) {
     return service
-      .put('/profile', newName)
+      .put('/profile/'+userId, newName)
       .then(res => res.data)
       .catch(errHandler)
   },
@@ -80,6 +80,12 @@ export default {
   getSecret() {
     return service
       .get('/secret')
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+  getUser(id){
+    return service
+      .get('/profile/'+id)
       .then(res => res.data)
       .catch(errHandler)
   },

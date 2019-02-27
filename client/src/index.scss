@@ -39,6 +39,18 @@ body {
   margin-top:20px;
 }
 
+.ProfileForm{
+  width: 30rem;
+  margin: 5px auto;
+}
+.ProfileForm > h1{
+  margin: 1rem;
+  text-align: center;
+}
+
+.CenterButton {
+  margin: 1rem auto;
+}
 .navbar{
   a {
     margin-left: 10px;
