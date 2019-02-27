@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import winesApi from '../../winesApi';
+import WineBottle from '../WineBottle'
 
 export default class SearchBar extends Component {
   constructor(props) {
@@ -7,23 +8,19 @@ export default class SearchBar extends Component {
     this.state = {
       food: "",
       wines: [],
-      isLoading:false
+      isLoading:false,
+
       
       
     }
   }
   handleInputChange(stateFieldName, event) {
-  
-    // let newState = {}
-    // newState[stateFieldName] = event.target.value
-
-    // this.setState(newState)
     this.setState({
       [stateFieldName]: event.target.value
     })
     
   }
-  handleClick(e) {
+  handleGetGeneralWines(e) {
     e.preventDefault()
     this.setState({
       wines: [],
@@ -39,15 +36,24 @@ export default class SearchBar extends Component {
       })
       .catch(err => this.setState({ message: err.toString() }))
   }
+  handleBottleClick(e){
+    e.preventDefault()
+    console.log('e.target.name',e)
+
+    // winesApi.getWineReccomendation(this.)
+
+  }
+  
   render() {
     console.log(this.props)
     return (
       <div>
       FOOD: <input type="text" value={this.state.food} onChange={(e) => { this.handleInputChange("food", e) }} /> 
-            <button onClick={(e) => this.handleClick(e)}>Search</button>
+            <button onClick={(e) => this.handleGetGeneralWines(e)}>Search</button>
            {this.state.wines && <div>
               <h1>list of wines:</h1> 
-              {this.state.wines.map((wine, i)=> <li key={i}>{wine}</li> )}
+              
+              {this.state.wines.map((wine, i)=> <WineBottle onBottleClick={(e)=>this.handleBottleClick(e)} name={wine} /> )}
               </div> } 
            {this.state.isLoading && <div>LOADING...</div> }
       </div>
