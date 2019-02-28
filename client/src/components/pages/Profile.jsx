@@ -35,27 +35,40 @@ export default class Profile extends Component {
 
   render() {
     return (
-      <div className="Profile container">
-       <div className="upperProfile">
-        <img className="profileIcon" src="/images/wineIcon.png" alt="profile"/>
-        <div className="info-box">
-         <h3><strong>Name: </strong>{this.state.name}</h3>
-         <h5><strong>E-mail: </strong>{this.state.email}</h5>
-         </div>
-       </div>
-        <Form className="ProfileForm" >
-        <h1>Change your name:</h1>
-          <FormGroup row>
-            <InputGroup>
-              <InputGroupAddon addonType="prepend">Name</InputGroupAddon>
-              <Input name='name' placeholder={this.state.name} onChange={e=>this.handleChange(e)}/>
-            </InputGroup>
-            <Button onClick={e => this.handleClick(e)} color="primary" className="CenterButton">
-              Submit
-            </Button>
-          </FormGroup>
-        </Form>
-      </div>
+      // <div className="Profile container">
+      //  <div className="upperProfile">
+      //   <img className="profileIcon" src="/images/wineIcon.png" alt="profile"/>
+      //   <div className="info-box">
+
+      //    <h3><strong>Name: </strong>{this.state.name}</h3>
+      //    <h5><strong>E-mail: </strong>{this.state.email}</h5>
+      //    </div>
+      //  </div>
+      //  <div className="Profile container">
+        <div className="upperProfile">
+          <img className="profileIcon" src="/images/wineIcon.png" alt="profile"/>
+          <Form>
+            <FormGroup row>
+              <InputGroup>
+                <InputGroupAddon addonType="prepend">Name</InputGroupAddon>
+                <Input name='name' value={this.state.name} onChange={e=>this.handleChange(e)}/>
+                <InputGroupAddon addonType="append">
+                  <Button onClick={e => this.handleClick(e)} color="success">Save
+                  </Button>
+                </InputGroupAddon>
+              </InputGroup>
+            </FormGroup>
+            <FormGroup row>
+              <InputGroup>
+                <InputGroupAddon addonType="prepend">Email</InputGroupAddon>
+                <Input name='email' editable={false} value={this.state.email}/>
+              </InputGroup>
+            </FormGroup>
+          </Form> 
+        </div>
+        // </div>
+      //  </div>
+      // </div>
     );
   }
   componentDidMount() {
