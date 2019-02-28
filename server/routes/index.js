@@ -38,7 +38,7 @@ router.get('/wines', (req,res,next)=>{
 //GET food and send back the three types of wine
 router.get('/foods', (req, res, next) => {
   Food.findOne({name: req.query.name})
-  .then(food => res.json(food.pairedWines))
+  .then(food => res.json(food))
   .catch(err => console.log(err))
     
   })

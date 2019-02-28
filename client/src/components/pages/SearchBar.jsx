@@ -40,7 +40,8 @@ export default class SearchBar extends Component {
 
     api.getPairedWines(this.state.food)
     .then(result=>{
-      if(result.data.length===0){
+      console.log('result',result)
+      if(!result.data){
         
         //get the wine types recommendation
     winesApi.getWinesGeneral(this.state.food)
@@ -73,7 +74,7 @@ export default class SearchBar extends Component {
        
         this.setState({
           isLoading: false,
-          wines: result.data
+          wines: result.data.pairedWines
         });
       }
     })
