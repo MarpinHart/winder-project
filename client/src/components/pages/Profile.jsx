@@ -35,9 +35,11 @@ export default class Profile extends Component {
     return (
       <div className="Profile container">
        <div className="upperProfile">
-       <img className="profileIcon" src="/images/wineIcon.png" alt="profile"/>
-        <h1>{this.state.name}</h1>
-        <h2>{this.state.email}</h2>
+        <img className="profileIcon" src="/images/wineIcon.png" alt="profile"/>
+        <div className="info-box">
+         <h3><strong>Name: </strong>{this.state.name}</h3>
+         <h5><strong>E-mail: </strong>{this.state.email}</h5>
+         </div>
        </div>
         <Form className="ProfileForm" >
         <h1>Change your name:</h1>

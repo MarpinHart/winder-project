@@ -45,7 +45,7 @@ body {
   margin: 5px auto;
 }
 .ProfileForm > h1{
-  margin: 1rem;
+  margin-top: 10rem;
   text-align: center;
 }
 
@@ -86,10 +86,22 @@ body {
 
 .upperProfile {
   width: 100%;
-  height: 20%;
+  height: 40rem;
   margin: 0 auto;
+  padding: 4rem;
   text-align: center;
   background-color: $secondary; 
+}
+
+
+.upperProfile > .info-box {
+  // background-color: white;
+  height: 10rem;
+  width: 80%;
+  border-radius: 10px;
+  margin: 2rem auto;
+  box-shadow: 2px 2px 20px $primary;
+  padding: 2rem;
 }
 
 .Facebook-Login {
