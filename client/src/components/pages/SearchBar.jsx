@@ -11,7 +11,7 @@ import {
   Label,
   Spinner
 } from "reactstrap";
-import api from '../../api'
+import api from "../../api";
 
 export default class SearchBar extends Component {
   constructor(props) {
@@ -31,30 +31,31 @@ export default class SearchBar extends Component {
     });
   }
   handleGetGeneralWines(e) {
-   
-    e.preventDefault()
+    e.preventDefault();
     this.setState({
       wines: [],
       isLoading: true,
       wineDetail: null
-    })
-    winesApi.getWinesGeneral(this.state.food)
+    });
+    winesApi
+      .getWinesGeneral(this.state.food)
 
       .then(result => {
-         console.log('result.data.pairedWines',result)
+        console.log("result.data.pairedWines", result);
         this.setState({
           isLoading: false,
           wines: result.pairedWines
         });
         let foodData = {
           name: this.state.food,
-          pairedWines:result.pairedWines,
-          pairingText: result.pairingText,
-        } 
-        console.log("foodData", foodData)
-        api.postFood(foodData)
-          .then(res =>res)
-          .catch(err => console.log(err))
+          pairedWines: result.pairedWines,
+          pairingText: result.pairingText
+        };
+        console.log("foodData", foodData);
+        api
+          .postFood(foodData)
+          .then(res => res)
+          .catch(err => console.log(err));
       })
       .catch(err => this.setState({ message: err.toString() }));
   }
@@ -112,60 +113,70 @@ export default class SearchBar extends Component {
         <FormGroup>
           <Label for="maxPrice">Min Rating: </Label>
           <Input
-             type="number"
-             value={this.state.minRating}
-             placeholder="insert a value between 0 and 1"
-             onChange={e => {
-               this.handleInputChange("minRating", e);
-             }}
+            type="number"
+            value={this.state.minRating}
+            placeholder="insert a value between 0 and 1"
+            onChange={e => {
+              this.handleInputChange("minRating", e);
+            }}
           />
         </FormGroup>
-        
         {this.state.wines && (
           <div className="wine-bottles-container">
-        <h1>Out top picks: </h1>
-          <div className="winePicks">
-
-            {this.state.wines.map((wine, i) => (
-              <WineBottle
-                key={i}
-                onBottleClick={e =>
-                  this.handleBottleClick(e, this.state.wines[i])
-                }
-                name={wine}
-              />
-            ))}
-          </div>
+            <h1>Out top picks: </h1>
+            <div className="winePicks">
+              {this.state.wines.map((wine, i) => (
+                <WineBottle
+                  key={i}
+                  onBottleClick={e =>
+                    this.handleBottleClick(e, this.state.wines[i])
+                  }
+                  name={wine}
+                />
+              ))}
+            </div>
           </div>
         )}
-        {this.state.isLoading && <div><Spinner style={{ width: '5rem', height: '5rem' }} /></div>}
+        {this.state.isLoading && (
+          <div>
+            <Spinner style={{ width: "5rem", height: "5rem" }} />
+          </div>
+        )}
         {this.state.wineDetail && (
           <div>
             <h1> Details:</h1>
-            <hr/>
+            <hr />
             {this.state.wineDetail.recommendedWines.map((wine, i) => (
+              <div className="container">
+                <h5 className="wine-bottle-name">{wine.title}</h5>{" "}
               <div className="wineList" key={i}>
-                <h5 className="wine-bottle-name">name: {wine.title}</h5> <br />
-                <img
-                  className="wine-bottle-image"
-                  src={wine.imageUrl}
-                  alt=""
-                />{" "}
-                <br />
-                <h6 className="wine-bottle-description">Pescription: {wine.description}</h6> <hr />
-                <h4 className="wine-bottle-price">Price: {wine.price}</h4>
-                <Button outline color="warning" href={wine.link}>Buy it on Amazon</Button>
-            
-                <div className="Rating">
-                <h3>Rating:</h3>
-                {wine.averageRating*5 >= 0.5 ? '★' : '☆'}
-                {wine.averageRating*5 >= 1.5 ? '★' : '☆'}
-                {wine.averageRating*5 >= 2.5 ? '★' : '☆'}
-                {wine.averageRating*5 >= 3.5 ? '★' : '☆'}
-                {wine.averageRating*5 >= 4.5 ? '★' : '☆'}
-              </div>
-              <Button outline color="warning" href={wine.link}>Buy it on Amazon</Button>
-             <hr/>
+                <div className="wine-name-description">
+                  <img
+                    className="wine-bottle-image"
+                    src={wine.imageUrl}
+                    alt=""
+                  />{" "}
+                  <br />
+                  <p className="wine-bottle-description">
+                   {wine.description}
+                  </p>
+                <div className="wine-rating-price">
+                  <h6 className="wine-bottle-price">Price: {wine.price}</h6>
+                  <div className="Rating">
+                    <h6>Rating:</h6>
+                    {wine.averageRating * 5 >= 0.5 ? "★" : "☆"}
+                    {wine.averageRating * 5 >= 1.5 ? "★" : "☆"}
+                    {wine.averageRating * 5 >= 2.5 ? "★" : "☆"}
+                    {wine.averageRating * 5 >= 3.5 ? "★" : "☆"}
+                    {wine.averageRating * 5 >= 4.5 ? "★" : "☆"}
+                  </div>
+                  <Button outline color="warning" href={wine.link}>
+                    Buy it on Amazon
+                  </Button>
+                </div>
+                </div>
+
+                </div>
               </div>
             ))}
           </div>

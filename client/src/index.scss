@@ -61,11 +61,16 @@ body {
 .wine-image{
   margin-top: 2rem;
   height: 20rem;
+  
 }
 
 .wine-bottle-image{
+  display: block;
   height: 10rem;
-  width: auto;
+  width: 6rem;
+  border-radius: 20px;
+  object-fit: cover;
+  margin:0 1rem;
 }
 
 .SearchInputGroup {
@@ -79,9 +84,40 @@ body {
   flex-wrap: wrap;
   justify-content: space-between;
 }
-// .wine-bottle-page {
-//   padding: 2rem;
-// }
+
+.wineList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border-bottom: 1px solid black;
+  padding: 2% 0;
+}
+
+.wine-bottle-description {
+  width: 70%;
+  margin: 0 5%;
+  color: rgb(122, 117, 117);
+}
+
+.wine-rating-price{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin:0 1%;
+}
+
+.wine-bottle-name{
+  margin: 1rem 0 0 11rem;
+}
+
+.wine-name-description{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: center;
+
+}
+
 .wine-grape-name {
   margin: 2rem 0;
 }
@@ -96,22 +132,26 @@ body {
 
 .upperProfile {
   width: 100%;
-  height: 40rem;
+  height: 35rem;
   margin: 0 auto;
-  padding: 4rem;
+  padding: 3rem;
   text-align: center;
   background-color: $secondary; 
 }
-
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
 
 .upperProfile > .info-box {
-  // background-color: white;
-  height: 10rem;
+  -webkit-animation: fadein 1s;
+  background-color: white;
+  height: 60%;
   width: 80%;
   border-radius: 10px;
   margin: 2rem auto;
   box-shadow: 2px 2px 20px $primary;
-  padding: 2rem;
+  padding: 3rem 2rem;
 }
 
 .Facebook-Login {
