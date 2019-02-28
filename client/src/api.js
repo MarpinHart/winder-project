@@ -74,9 +74,8 @@ export default {
   // This is an example on how to use this method in a different file
   // api.getCountries().then(countries => { /* ... */ })
   editName(userId, newName) {
-    console.log('userId, newName',userId, newName)
     return service
-      .put('/profile/'+userId, newName)
+      .put('/profile/'+userId, {newName})
       .then(res => res.data)
       .catch(errHandler)
   },
@@ -87,7 +86,6 @@ export default {
       .catch(errHandler)
   },
   postFood(food) {
-    console.log('food from api.js',food)
     return service  
       .post('/foods', food)
       .then(res => res.data)

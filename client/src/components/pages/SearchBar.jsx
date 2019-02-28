@@ -155,6 +155,17 @@ export default class SearchBar extends Component {
                 <h6 className="wine-bottle-description">Pescription: {wine.description}</h6> <hr />
                 <h4 className="wine-bottle-price">Price: {wine.price}</h4>
                 <Button outline color="warning" href={wine.link}>Buy it on Amazon</Button>
+            
+                <div className="Rating">
+                <h3>Rating:</h3>
+                {wine.averageRating*5 >= 0.5 ? '★' : '☆'}
+                {wine.averageRating*5 >= 1.5 ? '★' : '☆'}
+                {wine.averageRating*5 >= 2.5 ? '★' : '☆'}
+                {wine.averageRating*5 >= 3.5 ? '★' : '☆'}
+                {wine.averageRating*5 >= 4.5 ? '★' : '☆'}
+              </div>
+              <Button outline color="warning" href={wine.link}>Buy it on Amazon</Button>
+             <hr/>
               </div>
             ))}
           </div>
