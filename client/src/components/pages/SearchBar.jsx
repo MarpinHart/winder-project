@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import winesApi from "../../winesApi";
 import WineBottle from "../WineBottle";
+
 import {
   InputGroup,
   Input,
   InputGroupAddon,
   Button,
   FormGroup,
-  Label
+  Label,
+  Spinner
 } from "reactstrap";
 import api from '../../api'
 
@@ -120,11 +122,11 @@ export default class SearchBar extends Component {
         </FormGroup>
         
         {this.state.wines && (
+          <div className="wine-bottles-container">
+        <h1>Out top picks: </h1>
           <div className="winePicks">
-            <h1>Out top picks: </h1>
 
             {this.state.wines.map((wine, i) => (
-            
               <WineBottle
                 key={i}
                 onBottleClick={e =>
@@ -134,24 +136,26 @@ export default class SearchBar extends Component {
               />
             ))}
           </div>
+          </div>
         )}
-        {this.state.isLoading && <div>LOADING...</div>}
+        {this.state.isLoading && <div><Spinner style={{ width: '5rem', height: '5rem' }} /></div>}
         {this.state.wineDetail && (
           <div>
             <h1> Details:</h1>
+            <hr/>
             {this.state.wineDetail.recommendedWines.map((wine, i) => (
-              <li className="wineList" key={i}>
-                <h1>name: {wine.title}</h1> <br />
+              <div className="wineList" key={i}>
+                <h5 className="wine-bottle-name">name: {wine.title}</h5> <br />
                 <img
-                  className="wine-image-detail"
+                  className="wine-bottle-image"
                   src={wine.imageUrl}
                   alt=""
                 />{" "}
                 <br />
-                <h3>description: {wine.description}</h3> <br />
-                <h1>price: {wine.price}</h1>
-                <a href={wine.link}>buy on amazon</a>
-              </li>
+                <h6 className="wine-bottle-description">Pescription: {wine.description}</h6> <hr />
+                <h4 className="wine-bottle-price">Price: {wine.price}</h4>
+                <Button outline color="warning" href={wine.link}>Buy it on Amazon</Button>
+              </div>
             ))}
           </div>
         )}

@@ -58,11 +58,11 @@ body {
 }
 
 .wine-image{
-  height: 50px;
-  width: 50px;
+  margin-top: 2rem;
+  height: 20rem;
 }
 
-.wine-image-detail{
+.wine-bottle-image{
   height: 10rem;
   width: auto;
 }
@@ -73,9 +73,19 @@ body {
 
 .winePicks{
   text-align: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+// .wine-bottle-page {
+//   padding: 2rem;
+// }
+.wine-grape-name {
+  margin: 2rem 0;
 }
 
-.wineList {
+.wineDetails {
   list-style-type: none;
 }
 .profileIcon {
