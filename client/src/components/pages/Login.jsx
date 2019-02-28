@@ -90,8 +90,10 @@ export default class Login extends Component {
                 Login
               </Button>
           </Form>
-        <Button onClick={this.handleFacebook}>Login with Facebook</Button>
-        <a href="http://localhost:5000/api/login/facebook">Login with Facebook</a>
+        <Button color="facebook" className="Facebook-Login mt-2">
+         <a href="http://localhost:5000/api/login/facebook">Login with Facebook</a>
+         </Button>
+        
         </Container>
         {this.state.message && <div className="info info-danger">
           {this.state.message}
