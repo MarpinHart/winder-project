@@ -23,9 +23,10 @@ export default class Profile extends Component {
       [e.target.name]: e.target.value
     });
   }
-  handleSubmit(e) {
-    e.preventDefault();
-    api.editName(this.state.id, this.state.name)
+  handleClick(e) {
+    e.preventDefault()
+    api.editName(this.state.id, this.state.name).then(res=>console.log(res))
+
   }
 
   render() {
@@ -40,14 +41,14 @@ export default class Profile extends Component {
          <h5><strong>E-mail: </strong>{this.state.email}</h5>
          </div>
        </div>
-        <Form className="ProfileForm" onSubmit={e => this.handleSubmit(e)}>
+        <Form className="ProfileForm" >
         <h1>Change your name:</h1>
           <FormGroup row>
             <InputGroup>
               <InputGroupAddon addonType="prepend">Name</InputGroupAddon>
-              <Input placeholder={this.state.name} onChange={e=>this.handleChange(e)}/>
+              <Input name='name' placeholder={this.state.name} onChange={e=>this.handleChange(e)}/>
             </InputGroup>
-            <Button color="primary" className="CenterButton">
+            <Button onClick={e => this.handleClick(e)} color="primary" className="CenterButton">
               Submit
             </Button>
           </FormGroup>
