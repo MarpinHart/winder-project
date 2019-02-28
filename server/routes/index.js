@@ -1,13 +1,20 @@
 const express = require('express');
-const { isLoggedIn } = require('../middlewares')
 const router = express.Router();
 const Food = require('../models/Food')
+const Wine = require('../models/Wine')
 
 router.post('/foods', (req, res, next) => {
-  console.log('reqbody',req.body)
-  Food.create(req.body)
+  Food.findOne({name: req.body.name})
     .then(res => {
-      console.log("We love food", res)
+      if(res === null)
+        Food.create(req.body)
+    })
+  })
+
+router.post('/wines', (req,res,next) => {
+  Wine.create(req.body.arrayWine)
+    .then(res => {
+      console.log("We love wine", res)
     return res })
 })
 

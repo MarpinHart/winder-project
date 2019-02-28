@@ -88,6 +88,14 @@ export default {
   postFood(food) {
     return service  
       .post('/foods', food)
+      .then(res => {
+        console.log("return in api", res)
+      })
+      .catch(errHandler)
+  },
+  postWine(wine) {
+    return service
+      .post('/wines', wine)
       .then(res => res.data)
       .catch(errHandler)
   }
