@@ -70,10 +70,10 @@ export default class SearchBar extends Component {
       isLoading: true
     });
 
-    winesApi
-      .getWineReccomendation(name)
+    api
+      .getWinesDetail(name,this.state.maxPrice, this.state.minRating)
       .then(result => {
-        console.log("result", result);
+        console.log("result wine detail", result);
         this.setState({
           isLoading: false,
           wineDetail: result.data
@@ -81,6 +81,7 @@ export default class SearchBar extends Component {
       })
       .catch(err => this.setState({ message: err.toString() }));
   }
+  
 
   render() {
     return (
@@ -109,6 +110,7 @@ export default class SearchBar extends Component {
           <Input
             type="number"
             value={this.state.maxPrice}
+            name="maxPrice"
             onChange={e => {
               this.handleInputChange("maxPrice", e);
             }}
@@ -118,6 +120,7 @@ export default class SearchBar extends Component {
           <Label for="maxPrice">Min Rating: </Label>
           <Input
              type="number"
+             name="minRating"
              value={this.state.minRating}
              placeholder="insert a value between 0 and 1"
              onChange={e => {
@@ -146,7 +149,7 @@ export default class SearchBar extends Component {
         {this.state.wineDetail && (
           <div>
             <h1> Details:</h1>
-            {this.state.wineDetail.recommendedWines.map((wine, i) => (
+            {this.state.wineDetail.map((wine, i) => (
               <li className="wineList" key={i}>
                 <h1>name: {wine.title}</h1> <br />
                 <img
