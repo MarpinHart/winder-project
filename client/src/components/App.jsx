@@ -30,7 +30,7 @@ export default class App extends Component {
     return (
       <div className="App">
       {/* Search Icon link for the SearchBar page */}
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"></link>
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossOrigin="anonymous"></link>
         <Navbar color="light" light>
             <NavbarBrand href="/"><img src='./images/wine.png' alt=""/></NavbarBrand>
             <Nav className="justify-content-end">

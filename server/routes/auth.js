@@ -18,7 +18,6 @@ passport.use(
       profileFields:  ['email', 'displayName']
     },
     function(accessToken, refreshToken, profile, done) {
-      console.log('getting here', profile)
       let email = profile.emails[0].value
       User.findOne({email})
       .then(user => {
@@ -124,20 +123,17 @@ router.get('/connected-profile', isLoggedIn, (req, res, next) => {
 router.get('/profile/:_id', (req, res, next) => {
   User.findById(req.params._id)
     .then(user => {
-      console.log(user)
       res.json(user)})
     .catch(next)
 })
 
-router.put('/profile/:id', (req, res, next) => {
-  console.log("req.body", req.body)
-  let newName = req.body.name
-  User.findByIdAndUpdate(req.params.id,
-   {name: newName}
+router.put('/profile/:_id', (req, res, next) => {
+  const name = req.body.newName
+  User.findByIdAndUpdate(req.params._id,
+   {name: name}, 
+   {new: true}
   )
-    .then(user=>{
-      console.log("user after promise", user)
-      res.json(user)})
+    .then(user=>{res.json(user)})
     .catch(next)
 })
 

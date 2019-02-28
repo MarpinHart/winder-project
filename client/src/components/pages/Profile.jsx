@@ -17,21 +17,23 @@ export default class Profile extends Component {
       email: "",
       id: ""
     };
+    this.handleChange = this.handleChange.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
   handleChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      name: e.target.value
     });
   }
+
   handleClick(e) {
     e.preventDefault()
-    api.editName(this.state.id, this.state.name).then(res=>console.log(res))
+    api.editName(this.state.id, this.state.name)
+      .then(res=>res)
 
   }
 
   render() {
-    console.log(this.state.name)
-    console.log(this.state.email)
     return (
       <div className="Profile container">
        <div className="upperProfile">
@@ -59,7 +61,6 @@ export default class Profile extends Component {
   componentDidMount() {
     api.getUser(this.props.match.params.id)
       .then(user =>{
-        console.log('user', user)
         this.setState({
           id: user._id,
           name: user.name,
