@@ -5,6 +5,7 @@ const foodSchema = new Schema({
   name:{
     type: String,
     required: true,
+    unique: true
   },
   pairedWines: {
     type: [String],

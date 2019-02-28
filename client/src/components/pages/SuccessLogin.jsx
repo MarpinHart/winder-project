@@ -5,8 +5,8 @@ export default class SuccessLogin extends Component {
   render() {
     return (
       <div>
-        <h1>Login Successfull</h1>
-        <p>You are going to be redirected to your profile</p>
+        <h1>Success!</h1>
+        <p>You are being redirected to your profile in a second</p>
       </div>
     )
   }

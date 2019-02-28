@@ -88,7 +88,18 @@ export default {
   postFood(food) {
     return service  
       .post('/foods', food)
+      .then(res => res)
+      .catch(errHandler)
+  },
+  postWine(wine) {
+    return service
+      .post('/wines', wine)
       .then(res => res.data)
       .catch(errHandler)
+  },
+  getWinesDetail(wine,maxPrice,minRating){
+    return service
+    .get(`/wines?wine=${wine}&maxPrice=${maxPrice}&minRating=${minRating}`)
+    .then(res=>res)
   }
 }
