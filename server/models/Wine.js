@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const wineSchema = new Schema({
+  wineType: {
+    type: String,
+    required: true
+  },
   averageRating:{
     type: Number,
     required: true,
@@ -29,6 +33,7 @@ const wineSchema = new Schema({
   title:{
     type: String,
     required: true,
+    unique: true
   }
 
   });

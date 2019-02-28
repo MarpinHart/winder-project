@@ -29,17 +29,15 @@ export default class SearchBar extends Component {
     });
   }
   handleGetGeneralWines(e) {
-   
     e.preventDefault()
     this.setState({
       wines: [],
       isLoading: true,
       wineDetail: null
     })
+    //get the wine types recommendation
     winesApi.getWinesGeneral(this.state.food)
-
       .then(result => {
-         console.log('result.data.pairedWines',result)
         this.setState({
           isLoading: false,
           wines: result.pairedWines
@@ -49,10 +47,19 @@ export default class SearchBar extends Component {
           pairedWines:result.pairedWines,
           pairingText: result.pairingText,
         } 
-       
-        api.postFood(foodData)
-          .then(res =>console.log(res))
-          .catch(err => console.log(err))
+        //save the result in our database
+        if(result.pairedWines.length > 0){
+          let promises = []
+          result.pairedWines.forEach(wine => {
+            promises.push(winesApi.getWineReccomendation(wine))
+          })
+            Promise.all([
+              api.postFood(foodData),
+              promises
+            ])
+              .then(res => console.log("results from our promises", res))
+              .catch(err => console.log(err))
+        }
       })
       .catch(err => this.setState({ message: err.toString() }));
   }
@@ -64,7 +71,7 @@ export default class SearchBar extends Component {
     });
 
     winesApi
-      .getWineReccomendation(name, this.state.maxPrice, this.state.minRating)
+      .getWineReccomendation(name)
       .then(result => {
         console.log("result", result);
         this.setState({
@@ -165,8 +172,5 @@ export default class SearchBar extends Component {
         )}
       </div>
     );
-  }
-  componentDidUpdate() {
-    console.log("componentDidUpdate");
   }
 }

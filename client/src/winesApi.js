@@ -1,4 +1,5 @@
 import axios from 'axios'
+import api from './api'
 //federicokey 83cd5eea93msh7a21ffe38ad05acp1b6b9djsn453f8ffb948c
 //juliakey 58a43d5ad7mshf95a9a31e4661dbp1c44fajsn267461ee1adc
 const service = axios.create({
@@ -30,9 +31,15 @@ export default {
   },
 
   getWineReccomendation(wine,maxPrice,minRating){
-    return service.get(`/recommendation?maxPrice=${maxPrice}&minRating=${minRating}&number=3&wine=${wine}`,{
+    return service.get(`/recommendation?wine=${wine}&number=100`,{
       headers: { "X-RapidAPI-Key": '83cd5eea93msh7a21ffe38ad05acp1b6b9djsn453f8ffb948c' }
-  }).then(res=>res)
+  }).then(res=> {
+    let arrayWine=res.data.recommendedWines.map(w => ({
+      ...w,
+      wineType: wine
+    }))
+    return api.postWine({arrayWine})
+  })
   .catch(errHandler)
 
   },
