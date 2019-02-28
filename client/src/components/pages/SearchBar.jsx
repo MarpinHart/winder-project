@@ -49,9 +49,9 @@ export default class SearchBar extends Component {
           pairedWines:result.pairedWines,
           pairingText: result.pairingText,
         } 
-        console.log("foodData", foodData)
+       
         api.postFood(foodData)
-          .then(res =>res)
+          .then(res =>console.log(res))
           .catch(err => console.log(err))
       })
       .catch(err => this.setState({ message: err.toString() }));
