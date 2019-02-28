@@ -150,6 +150,14 @@ export default class SearchBar extends Component {
                 <br />
                 <h3>description: {wine.description}</h3> <br />
                 <h1>price: {wine.price}</h1>
+                <div className="Rating">
+                <h3>Rating:</h3>
+                {wine.averageRating*5 >= 0.5 ? '★' : '☆'}
+                {wine.averageRating*5 >= 1.5 ? '★' : '☆'}
+                {wine.averageRating*5 >= 2.5 ? '★' : '☆'}
+                {wine.averageRating*5 >= 3.5 ? '★' : '☆'}
+                {wine.averageRating*5 >= 4.5 ? '★' : '☆'}
+              </div>
                 <a href={wine.link}>buy on amazon</a>
               </li>
             ))}
