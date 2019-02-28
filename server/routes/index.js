@@ -8,6 +8,8 @@ router.post('/foods', (req, res, next) => {
     .then(res => {
       if(res === null)
         Food.create(req.body)
+          .then(res => res)
+          .catch(err => next)
     })
   })
 
@@ -16,6 +18,7 @@ router.post('/wines', (req,res,next) => {
     .then(res => {
       console.log("We love wine", res)
     return res })
+    .catch(err => next)
 })
 
 module.exports = router;

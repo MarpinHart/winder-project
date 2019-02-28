@@ -88,9 +88,7 @@ export default {
   postFood(food) {
     return service  
       .post('/foods', food)
-      .then(res => {
-        console.log("return in api", res)
-      })
+      .then(res => res)
       .catch(errHandler)
   },
   postWine(wine) {

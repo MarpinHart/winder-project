@@ -70,16 +70,16 @@ export default class SearchBar extends Component {
       isLoading: true
     });
 
-    winesApi
-      .getWineReccomendation(name)
-      .then(result => {
-        console.log("result", result);
-        this.setState({
-          isLoading: false,
-          wineDetail: result.data
-        });
-      })
-      .catch(err => this.setState({ message: err.toString() }));
+    // winesApi
+    //   .getWineReccomendation(name)
+    //   .then(result => {
+    //     console.log("result", result);
+    //     this.setState({
+    //       isLoading: false,
+    //       wineDetail: result.data
+    //     });
+    //   })
+    //   .catch(err => this.setState({ message: err.toString() }));
   }
 
   render() {
