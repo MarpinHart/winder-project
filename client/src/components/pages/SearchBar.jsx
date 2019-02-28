@@ -37,33 +37,47 @@ export default class SearchBar extends Component {
       isLoading: true,
       wineDetail: null
     })
-    //get the wine types recommendation
+
+    api.getPairedWines(this.state.food)
+    .then(result=>{
+      if(result.data.length===0){
+        
+        //get the wine types recommendation
     winesApi.getWinesGeneral(this.state.food)
-      .then(result => {
+    .then(result => {
+      this.setState({
+        isLoading: false,
+        wines: result.pairedWines
+      });
+      let foodData = {
+        name: this.state.food,
+        pairedWines:result.pairedWines,
+        pairingText: result.pairingText,
+      } 
+      //save the result in our database
+      if(result.pairedWines.length > 0){
+        let promises = []
+        result.pairedWines.forEach(wine => {
+          promises.push(winesApi.getWineReccomendation(wine))
+        })
+          Promise.all([
+            api.postFood(foodData),
+            promises
+          ])
+            .then(res => console.log("results from our promises", res))
+            .catch(err => console.log(err))
+      }
+    })
+    .catch(err => this.setState({ message: err.toString() }));
+      }else{
+       
         this.setState({
           isLoading: false,
-          wines: result.pairedWines
+          wines: result.data
         });
-        let foodData = {
-          name: this.state.food,
-          pairedWines:result.pairedWines,
-          pairingText: result.pairingText,
-        } 
-        //save the result in our database
-        if(result.pairedWines.length > 0){
-          let promises = []
-          result.pairedWines.forEach(wine => {
-            promises.push(winesApi.getWineReccomendation(wine))
-          })
-            Promise.all([
-              api.postFood(foodData),
-              promises
-            ])
-              .then(res => console.log("results from our promises", res))
-              .catch(err => console.log(err))
-        }
-      })
-      .catch(err => this.setState({ message: err.toString() }));
+      }
+    })
+    
   }
   handleBottleClick(e, name) {
     e.preventDefault();
@@ -155,10 +169,10 @@ export default class SearchBar extends Component {
           <div>
             <h1> Details:</h1>
             <hr />
-            {this.state.wineDetail.recommendedWines.map((wine, i) => (
-              <div className="container">
+            {this.state.wineDetail.map((wine, i) => (
+              <div className="container" key={i}>
                 <h5 className="wine-bottle-name">{wine.title}</h5>{" "}
-              <div className="wineList" key={i}>
+              <div className="wineList" >
                 <div className="wine-name-description">
                   <img
                     className="wine-bottle-image"

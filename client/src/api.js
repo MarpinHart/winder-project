@@ -101,5 +101,13 @@ export default {
     return service
     .get(`/wines?wine=${wine}&maxPrice=${maxPrice}&minRating=${minRating}`)
     .then(res=>res)
+    .catch(err=>console.log(err))
+  },
+  getPairedWines(wine){
+    return service
+    .get(`/foods?name=${wine}`)
+     .then(res=>res)
+     .catch(err=>console.log(err))
   }
+
 }
