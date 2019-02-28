@@ -5,6 +5,7 @@ $secondary: #FF797B;
 $success: #198E39;
 $danger: #F23E41;
 $info: #52DB77;
+$facebook: #4267b2;
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
 
 // Style reusable for all components
@@ -88,5 +89,13 @@ body {
   height: 20%;
   margin: 0 auto;
   text-align: center;
-  background-color:#FF797B; 
+  background-color: $secondary; 
+}
+
+.Facebook-Login {
+  background-color: $facebook
+}
+.Facebook-Login > a {
+  color: white;
+  text-decoration: none;
 }
