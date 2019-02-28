@@ -81,7 +81,7 @@ export default class SearchBar extends Component {
       })
       .catch(err => this.setState({ message: err.toString() }));
   }
-  
+
 
   render() {
     return (
