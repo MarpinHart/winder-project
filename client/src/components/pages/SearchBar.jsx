@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import winesApi from "../../winesApi";
-import WineBottle from "../WineBottle";
+import WineCarousel from "../WineCarousel";
 
 import {
   InputGroup,
@@ -130,32 +130,25 @@ export default class SearchBar extends Component {
              }}
           />
         </FormGroup>
+        
         {this.state.wines && (
           <div className="wine-bottles-container">
             <h1>Out top picks: </h1>
             <div className="winePicks">
-              {this.state.wines.map((wine, i) => (
-                <WineBottle
-                  key={i}
-                  onBottleClick={e =>
-                    this.handleBottleClick(e, this.state.wines[i])
-                  }
-                  name={wine}
-                />
-              ))}
+            {this.state.wines.length > 0 && <WineCarousel onBottleClick={(e,name) => this.handleBottleClick(e, name)} wines={this.state.wines}/>}
             </div>
           </div>
         )}
         {this.state.isLoading && (
-          <div>
-            <Spinner style={{ width: "5rem", height: "5rem" }} />
+          <div className="spinner-loading-div">
+            <Spinner className="spinner-loading" />
           </div>
         )}
         {this.state.wineDetail && (
           <div>
             <h1> Details:</h1>
             <hr />
-            {this.state.wineDetail.recommendedWines.map((wine, i) => (
+            {this.state.wineDetail.map((wine, i) => (
               <div className="container">
                 <h5 className="wine-bottle-name">{wine.title}</h5>{" "}
               <div className="wineList" key={i}>
