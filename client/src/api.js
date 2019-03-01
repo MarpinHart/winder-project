@@ -108,6 +108,27 @@ export default {
     .get(`/foods?name=${wine}`)
      .then(res=>res)
      .catch(err=>console.log(err))
+  },
+  postSavedWine(_wine){
+    return service
+    .post(`/saved-wines`,{_wine})
+    .then(res=>res)
+    .catch(err=>console.log(err))
+  },
+  getSavedWinesByUser(query){
+    if(!query){
+      query=''
+    }
+    return service
+    .get('/saved-wines'+query)
+    .then(res=>res)
+    .catch(err=>console.log(err))
+  },
+  deleteSavedWineByUser(_wine){
+    return service
+    .delete('/saved-wines',{_wine})
+    .then(res=>res)
+    .catch(err=>console.log(err))
   }
 
 }

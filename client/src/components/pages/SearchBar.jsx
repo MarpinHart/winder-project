@@ -22,13 +22,41 @@ export default class SearchBar extends Component {
       isLoading: false,
       wineDetail: null,
       maxPrice: 1000,
-      minRating: 0.7
+      minRating: 0.7,
+      savedWines:[]
     };
   }
   handleInputChange(stateFieldName, event) {
     this.setState({
       [stateFieldName]: event.target.value
     });
+  }
+  handleSaveWine(e, _wine){
+    e.preventDefault()
+    console.log('handleSaveWine',_wine)
+    api.postSavedWine(_wine)
+    .then(result=>{
+      console.log('result wine saved',result)
+      this.setState(prevState=>({
+        savedWines:[...prevState.savedWines, result.data._wine]
+      }))
+    })
+    .catch(err=>console.log(err))
+  }
+  handleDeleteSaveWine(e, _wine){
+    e.preventDefault()
+   
+    api.deleteSavedWineByUser(_wine)
+    .then(result=>{
+      
+      let array = [...this.state.savedWines]
+      array.splice(array.indexOf(result.data._wine),1)
+      this.setState({
+        savedWines:array
+      })
+      console.log('thisstate wine deleted',this.state)
+    })
+    .catch(err=>console.log(err))
   }
   handleGetGeneralWines(e) {
     e.preventDefault()
@@ -98,9 +126,24 @@ export default class SearchBar extends Component {
       })
       .catch(err => this.setState({ message: err.toString() }));
   }
+  componentDidMount(){
+    api.getSavedWinesByUser('?getOnlyId=true')
+    .then(result=>{
+      console.log('getSavedWinesByUser',result)
+      this.setState({
+        savedWines:result.data
+      })
+    })
+  }
+  componentDidUpdate(prevProps,prevState) {
+   
+		
+    
+  }
 
 
   render() {
+   
     return (
       <div className="container">
         FILTERS:
@@ -197,6 +240,12 @@ export default class SearchBar extends Component {
                   <Button outline color="warning" href={wine.link}>
                     Buy it on Amazon
                   </Button>
+                 {!this.state.savedWines.includes(wine._id)?<Button outline color="warning" onClick={e => this.handleSaveWine(e,wine._id)}>
+                    Save
+                  </Button>:<Button outline color="warning" onClick={e => this.handleDeleteSaveWine(e,wine._id)}>
+                    UNSAVE
+                  </Button>} 
+
                 </div>
                 </div>
 
