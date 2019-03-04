@@ -129,6 +129,16 @@ export default {
     .delete('/saved-wines',{_wine})
     .then(res=>res)
     .catch(err=>console.log(err))
+  },
+  getFoods(query){
+    let allfoods = ''
+    if(query){
+      allfoods=query
+    }
+    return service
+    .get(`/foods${allfoods}`)
+    .then(res=>res)
+    .catch(err=>console.log(err))
   }
 
 }

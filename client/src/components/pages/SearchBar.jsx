@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import winesApi from "../../winesApi";
 import WineCarousel from "../WineCarousel";
+import Autosuggest from 'react-autosuggest';
 
 import {
   InputGroup,
@@ -12,7 +13,24 @@ import {
   Spinner
 } from "reactstrap";
 import api from "../../api";
+let foods = [
+  
+  
+];
+const getSuggestions = value => {
+  const inputValue = value.trim().toLowerCase();
+  const inputLength = inputValue.length;
 
+  return inputLength === 0 ? [] : foods.filter(food =>
+    food.toLowerCase().slice(0, inputLength) === inputValue
+  );
+};
+const getSuggestionValue = suggestion => suggestion;
+const renderSuggestion = suggestion => (
+  <div>
+    {suggestion}
+  </div>
+);
 export default class SearchBar extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +41,9 @@ export default class SearchBar extends Component {
       wineDetail: null,
       maxPrice: 1000,
       minRating: 0.7,
-      savedWines:[]
+      savedWines:[],
+      value: '',
+      suggestions: []
     };
   }
   handleInputChange(stateFieldName, event) {
@@ -31,6 +51,23 @@ export default class SearchBar extends Component {
       [stateFieldName]: event.target.value
     });
   }
+  onChange = (event, { newValue }) => {
+    this.setState({
+      value: newValue,
+      food: newValue
+    });
+  };
+  onSuggestionsFetchRequested = ({ value }) => {
+    this.setState({
+      suggestions: getSuggestions(value)
+    });
+  };
+  onSuggestionsClearRequested = () => {
+    this.setState({
+      suggestions: []
+    });
+  };
+
   handleSaveWine(e, _wine){
     e.preventDefault()
     console.log('handleSaveWine',_wine)
@@ -135,8 +172,16 @@ export default class SearchBar extends Component {
       })
     })
 
-    // winesApi.getWineReccomendation("merlot")
-    // .then(res=>console.log(res))
+
+    api.getFoods('?allfoods=yes')
+    .then(result=>{
+     foods=result.data
+     console.log('foods cmponent',foods)
+
+    })
+    .catch(err=>console.log(err))
+    
+    
   }
   componentDidUpdate(prevProps,prevState) {
    
@@ -146,6 +191,13 @@ export default class SearchBar extends Component {
 
 
   render() {
+    const { value, suggestions } = this.state;
+    const inputProps = {
+      placeholder: 'Type a Food',
+      value,
+      onChange: this.onChange
+    };
+
    
     return (
       <div className="container">
@@ -159,14 +211,22 @@ export default class SearchBar extends Component {
               <i className="fas fa-search" />
             </Button>
           </InputGroupAddon>
-          <Input
+          {/* <Input
             placeholder="Food"
             type="text"
             value={this.state.food}
             onChange={e => {
               this.handleInputChange("food", e);
             }}
-          />
+          /> */}
+          <Autosuggest
+        suggestions={suggestions}
+        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+        getSuggestionValue={getSuggestionValue}
+        renderSuggestion={renderSuggestion}
+        inputProps={inputProps}
+      />
         </InputGroup>
         <FormGroup>
           <Label for="maxPrice">Max Price: </Label>
