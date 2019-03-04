@@ -35,6 +35,8 @@ export default class SearchBar extends Component {
       isLoading: true,
       wineDetail: null
     })
+    //check if the food is already there
+    
     //get the wine types recommendation
     winesApi.getWinesGeneral(this.state.food)
       .then(result => {
@@ -57,7 +59,7 @@ export default class SearchBar extends Component {
               api.postFood(foodData),
               promises
             ])
-              .then(res => console.log("results from our promises", res))
+              .then(res => res)
               .catch(err => console.log(err))
         }
       })
@@ -69,17 +71,6 @@ export default class SearchBar extends Component {
       wineDetail: null,
       isLoading: true
     });
-
-    // winesApi
-    //   .getWineReccomendation(name)
-    //   .then(result => {
-    //     console.log("result", result);
-    //     this.setState({
-    //       isLoading: false,
-    //       wineDetail: result.data
-    //     });
-    //   })
-    //   .catch(err => this.setState({ message: err.toString() }));
   }
 
   render() {
