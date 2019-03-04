@@ -193,14 +193,7 @@ export default class SearchBar extends Component {
               <i className="fas fa-search" />
             </Button>
           </InputGroupAddon>
-          {/* <Input
-            placeholder="What will you eat? (e.g. beef, salmon, chicken ...)"
-            type="text"
-            value={this.state.food}
-            onChange={e => {
-              this.handleInputChange("food", e);
-            }}
-          />  */}
+         
           <Autosuggest
         suggestions={suggestions}
         onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
