@@ -12,7 +12,7 @@ $facebook: #4267b2;
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Playfair Display', serif;
 }
 
 .info {
@@ -106,6 +106,14 @@ body {
   margin: 1rem 0 0 11rem;
 }
 
+.wine-bottles-container > h1 {
+  margin: 3% 0 0 0;
+  text-align: center;
+}
+.details-container{
+  margin: 10%;
+}
+
 .wine-name-description{
   display:flex;
   flex-direction: row;
@@ -140,7 +148,7 @@ body {
 }
 
 .upperProfile > .info-box {
-  -webkit-animation: fadein 2s;
+  -webkit-animation: fadein 1s;
   background-color: white;
   height: 60%;
   width: 80%;
@@ -192,9 +200,10 @@ body {
   margin: auto auto;
   position: absolute;
   margin-top: 70%;
+  color: white;
 }
 
-@media only screen and (min-width: 400px) and (max-width: 600px){
+@media only screen and (min-width: 400px) and (max-width: 800px){
   .carouselImg > p > img {
     width: 80%;
   }
@@ -207,7 +216,7 @@ body {
 
 }
 
-@media only screen and (min-width: 600px){
+@media only screen and (min-width: 800px){
   .carouselImg > p > img {
     width: 50%;
   }
@@ -232,5 +241,31 @@ body {
     margin-top: 65%;
   }  
 
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+ height: 100px;
+ width: 100px;
+ background-size: 100%, 100%;
+ border-radius: 50%;
+ background-image: none;
+}
+
+.carousel-control-next-icon:after
+{
+ content: '>';
+ font-size: 55px;
+ color: red;
+}
+
+.carousel-control-prev-icon:after {
+ content: '<';
+ font-size: 55px;
+ color: red;
+}
+
+.carousel-indicators > li{
+  background-color: red;
 }
 

@@ -192,7 +192,7 @@ export default class SearchBar extends Component {
           />
         </FormGroup>
         
-        {this.state.wines && (
+        {this.state.wines.length > 0 && (
           <div className="wine-bottles-container">
             <h1>Out top picks: </h1>
             <div className="winePicks">
@@ -201,16 +201,16 @@ export default class SearchBar extends Component {
           </div>
         )}
         {this.state.isLoading && (
-          <div className="spinner-loading-div">
+          <div data-aos="fade-right" className="spinner-loading-div">
             <Spinner className="spinner-loading" />
           </div>
         )}
         {this.state.wineDetail && (
-          <div>
+          <div data-aos= 'fade-up'>
             <h1> Details:</h1>
             <hr />
             {this.state.wineDetail.map((wine, i) => (
-              <div className="container" key={i}>
+              <div data-aos="fade-right" aos-duration="1000" className="details-container" key={i}>
                 <h5 className="wine-bottle-name">{wine.title}</h5>{" "}
                   <img
                     className="wine-bottle-image"
