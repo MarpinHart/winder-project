@@ -1,15 +1,17 @@
 import React, { Component } from "react";
 import winesApi from "../../winesApi";
-import WineBottle from "../WineBottle";
+import WineCarousel from "../WineCarousel";
+
 import {
   InputGroup,
   Input,
   InputGroupAddon,
   Button,
   FormGroup,
-  Label
+  Label,
+  Spinner
 } from "reactstrap";
-import api from '../../api'
+import api from "../../api";
 
 export default class SearchBar extends Component {
   constructor(props) {
@@ -20,7 +22,8 @@ export default class SearchBar extends Component {
       isLoading: false,
       wineDetail: null,
       maxPrice: 1000,
-      minRating: 0.7
+      minRating: 0.7,
+      savedWines: []
     };
   }
   handleInputChange(stateFieldName, event) {
@@ -28,42 +31,74 @@ export default class SearchBar extends Component {
       [stateFieldName]: event.target.value
     });
   }
+  handleSaveWine(e, _wine) {
+    e.preventDefault();
+    console.log("handleSaveWine", _wine);
+    api
+      .postSavedWine(_wine)
+      .then(result => {
+        console.log("result wine saved", result);
+        this.setState(prevState => ({
+          savedWines: [...prevState.savedWines, result.data._wine]
+        }));
+      })
+      .catch(err => console.log(err));
+  }
+  handleDeleteSaveWine(e, _wine) {
+    e.preventDefault();
+    api.deleteSavedWineByUser(_wine)
+      .then(result => {
+        let array = [...this.state.savedWines];
+        array.splice(array.indexOf(result.data._wine), 1);
+        this.setState({
+          savedWines: array
+        });
+        console.log("thisstate wine deleted", this.state);
+      })
+      .catch(err => console.log(err));
+  }
   handleGetGeneralWines(e) {
-    e.preventDefault()
+    e.preventDefault();
     this.setState({
       wines: [],
       isLoading: true,
       wineDetail: null
-    })
-    //check if the food is already there
-    
-    //get the wine types recommendation
-    winesApi.getWinesGeneral(this.state.food)
-      .then(result => {
+    });
+    api.getPairedWines(this.state.food).then(result => {
+      if (!result.data) {
+        //get the wine types recommendation
+        winesApi
+          .getWinesGeneral(this.state.food)
+          .then(result => {
+            this.setState({
+              isLoading: false,
+              wines: result.pairedWines
+            });
+            let foodData = {
+              name: this.state.food,
+              pairedWines: result.pairedWines,
+              pairingText: result.pairingText
+            };
+            //save the result in our database
+            if (result.pairedWines.length > 0) {
+              let promises = [];
+              result.pairedWines.forEach(wine => {
+                promises.push(winesApi.getWineReccomendation(wine));
+              });
+              console.log('getting so far')
+              Promise.all([api.postFood(foodData), promises])
+                .then(res => console.log("results from our promises", res))
+                .catch(err => console.log(err));
+            }
+          })
+          .catch(err => this.setState({ message: err.toString() }));
+      } else {
         this.setState({
           isLoading: false,
-          wines: result.pairedWines
+          wines: result.data.pairedWines
         });
-        let foodData = {
-          name: this.state.food,
-          pairedWines:result.pairedWines,
-          pairingText: result.pairingText,
-        } 
-        //save the result in our database
-        if(result.pairedWines.length > 0){
-          let promises = []
-          result.pairedWines.forEach(wine => {
-            promises.push(winesApi.getWineReccomendation(wine))
-          })
-            Promise.all([
-              api.postFood(foodData),
-              promises
-            ])
-              .then(res => res)
-              .catch(err => console.log(err))
-        }
-      })
-      .catch(err => this.setState({ message: err.toString() }));
+      }
+    });
   }
   handleBottleClick(e, name) {
     e.preventDefault();
@@ -71,8 +106,29 @@ export default class SearchBar extends Component {
       wineDetail: null,
       isLoading: true
     });
-  }
 
+    api
+      .getWinesDetail(name, this.state.maxPrice, this.state.minRating)
+      .then(result => {
+        console.log("result wine detail", result, name);
+        this.setState({
+          isLoading: false,
+          wineDetail: result.data
+        });
+      })
+      .catch(err => this.setState({ message: err.toString() }));
+  }
+  componentDidMount() {
+    api.getSavedWinesByUser("?getOnlyId=true").then(result => {
+      console.log("getSavedWinesByUser", result);
+      this.setState({
+        savedWines: result.data
+      });
+    });
+
+    // winesApi.getWineReccomendation("merlot")
+    // .then(res=>console.log(res))
+  }
   render() {
     return (
       <div className="container">
@@ -100,6 +156,7 @@ export default class SearchBar extends Component {
           <Input
             type="number"
             value={this.state.maxPrice}
+            name="maxPrice"
             onChange={e => {
               this.handleInputChange("maxPrice", e);
             }}
@@ -108,56 +165,85 @@ export default class SearchBar extends Component {
         <FormGroup>
           <Label for="maxPrice">Min Rating: </Label>
           <Input
-             type="number"
-             value={this.state.minRating}
-             placeholder="insert a value between 0 and 1"
-             onChange={e => {
-               this.handleInputChange("minRating", e);
-             }}
+            type="number"
+            name="minRating"
+            value={this.state.minRating}
+            placeholder="insert a value between 0 and 1"
+            onChange={e => {
+              this.handleInputChange("minRating", e);
+            }}
           />
         </FormGroup>
-        
         {this.state.wines && (
-          <div className="winePicks">
+          <div className="wine-bottles-container">
             <h1>Out top picks: </h1>
-
-            {this.state.wines.map((wine, i) => (
-            
-              <WineBottle
-                key={i}
-                onBottleClick={e =>
-                  this.handleBottleClick(e, this.state.wines[i])
-                }
-                name={wine}
-              />
-            ))}
+            <div className="winePicks">
+              {this.state.wines.length > 0 && (
+                <WineCarousel
+                  onBottleClick={(e, name) => this.handleBottleClick(e, name)}
+                  wines={this.state.wines}
+                />
+              )}
+            </div>
           </div>
         )}
-        {this.state.isLoading && <div>LOADING...</div>}
+        {this.state.isLoading && (
+          <div className="spinner-loading-div">
+            <Spinner className="spinner-loading" />
+          </div>
+        )}
         {this.state.wineDetail && (
           <div>
             <h1> Details:</h1>
-            {this.state.wineDetail.recommendedWines.map((wine, i) => (
-              <li className="wineList" key={i}>
-                <h1>name: {wine.title}</h1> <br />
-                <img
-                  className="wine-image-detail"
-                  src={wine.imageUrl}
-                  alt=""
-                />{" "}
-                <br />
-                <h3>description: {wine.description}</h3> <br />
-                <h1>price: {wine.price}</h1>
-                <div className="Rating">
-                <h3>Rating:</h3>
-                {wine.averageRating*5 >= 0.5 ? '★' : '☆'}
-                {wine.averageRating*5 >= 1.5 ? '★' : '☆'}
-                {wine.averageRating*5 >= 2.5 ? '★' : '☆'}
-                {wine.averageRating*5 >= 3.5 ? '★' : '☆'}
-                {wine.averageRating*5 >= 4.5 ? '★' : '☆'}
+            <hr />
+            {this.state.wineDetail.map((wine, i) => (
+              <div className="container" key={i}>
+                <h5 className="wine-bottle-name">{wine.title}</h5>{" "}
+                <div className="wineList">
+                  <div className="wine-name-description">
+                    <img
+                      className="wine-bottle-image"
+                      src={wine.imageUrl}
+                      alt=""
+                    />{" "}
+                    <br />
+                    <p className="wine-bottle-description">
+                      {wine.description}
+                    </p>
+                    <div className="wine-rating-price">
+                      <h6 className="wine-bottle-price">Price: {wine.price}</h6>
+                      <div className="Rating">
+                        <h6>Rating:</h6>
+                        {wine.averageRating * 5 >= 0.5 ? "★" : "☆"}
+                        {wine.averageRating * 5 >= 1.5 ? "★" : "☆"}
+                        {wine.averageRating * 5 >= 2.5 ? "★" : "☆"}
+                        {wine.averageRating * 5 >= 3.5 ? "★" : "☆"}
+                        {wine.averageRating * 5 >= 4.5 ? "★" : "☆"}
+                      </div>
+                      <Button outline color="warning" href={wine.link}>
+                        Buy it on Amazon
+                      </Button>
+                      {!this.state.savedWines.includes(wine._id) ? (
+                        <Button
+                          outline
+                          color="warning"
+                          onClick={e => this.handleSaveWine(e, wine._id)}
+                        >
+                          Save
+                        </Button>
+                      ) : (
+                        <Button
+                          outline
+                          color="warning"
+                          onClick={e => this.handleDeleteSaveWine(e, wine._id)}
+                        >
+                          UNSAVE
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </div>
               </div>
-                <a href={wine.link}>buy on amazon</a>
-              </li>
             ))}
           </div>
         )}

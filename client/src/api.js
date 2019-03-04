@@ -96,5 +96,39 @@ export default {
       .post('/wines', wine)
       .then(res => res.data)
       .catch(errHandler)
+  },
+  getWinesDetail(wine,maxPrice,minRating){
+    return service
+    .get(`/wines?wine=${wine}&maxPrice=${maxPrice}&minRating=${minRating}`)
+    .then(res=>res)
+    .catch(err=>console.log(err))
+  },
+  getPairedWines(wine){
+    return service
+    .get(`/foods?name=${wine}`)
+     .then(res=>res)
+     .catch(err=>console.log(err))
+  },
+  postSavedWine(_wine){
+    return service
+    .post(`/saved-wines`,{_wine})
+    .then(res=>res)
+    .catch(err=>console.log(err))
+  },
+  getSavedWinesByUser(query){
+    if(!query){
+      query=''
+    }
+    return service
+    .get('/saved-wines'+query)
+    .then(res=>res)
+    .catch(err=>console.log(err))
+  },
+  deleteSavedWineByUser(_wine){
+    return service
+    .delete('/saved-wines',{_wine})
+    .then(res=>res)
+    .catch(err=>console.log(err))
   }
+
 }

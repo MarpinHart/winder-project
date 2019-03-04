@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const wineSchema = new Schema({
@@ -6,31 +6,30 @@ const wineSchema = new Schema({
     type: String,
     required: true
   },
-  averageRating:{
-    type: Number,
+  averageRating: {
+    type: Number
   },
   description: {
-    type: String,
+    type: String
   },
   imageUrl: {
-    type: String,
+    type: String
   },
-  link:{
-    type: String,
+  link: {
+    type: String
   },
-  price:{
-    type: String,
+  price: {
+    type: Number
   },
-  ratingCount:{
-    type: Number,
+  ratingCount: {
+    type: Number
   },
-  title:{
+  title: {
     type: String,
     required: true,
     unique: true
   }
+});
 
-  });
-
-const Wine = mongoose.model('Wine', wineSchema);
+const Wine = mongoose.model("Wine", wineSchema);
 module.exports = Wine;

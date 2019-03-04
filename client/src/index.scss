@@ -59,13 +59,18 @@ body {
 }
 
 .wine-image{
-  height: 50px;
-  width: 50px;
+  margin-top: 2rem;
+  height: 20rem;
+  
 }
 
-.wine-image-detail{
+.wine-bottle-image{
+  display: block;
   height: 10rem;
-  width: auto;
+  width: 6rem;
+  border-radius: 20px;
+  object-fit: cover;
+  margin:0 1rem;
 }
 
 .SearchInputGroup {
@@ -74,9 +79,52 @@ body {
 
 .winePicks{
   text-align: center;
+  margin: 0 auto;
+  // height: 10rem;
+  // display: flex;
+  // flex-direction: row;
+  // flex-wrap: wrap;
+  // justify-content: space-between;
 }
 
 .wineList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border-bottom: 1px solid black;
+  padding: 2% 0;
+}
+
+.wine-bottle-description {
+  width: 70%;
+  margin: 0 5%;
+  color: rgb(122, 117, 117);
+}
+
+.wine-rating-price{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin:0 1%;
+}
+
+.wine-bottle-name{
+  margin: 1rem 0 0 11rem;
+}
+
+.wine-name-description{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: center;
+
+}
+
+.wine-grape-name {
+  margin: 2rem 0;
+}
+
+.wineDetails {
   list-style-type: none;
 }
 .profileIcon {
@@ -86,22 +134,26 @@ body {
 
 .upperProfile {
   width: 100%;
-  height: 40rem;
+  height: 35rem;
   margin: 0 auto;
-  padding: 4rem;
+  padding: 3rem;
   text-align: center;
   background-color: $secondary; 
 }
-
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
 
 .upperProfile > .info-box {
-  // background-color: white;
-  height: 10rem;
+  -webkit-animation: fadein 1s;
+  background-color: white;
+  height: 60%;
   width: 80%;
   border-radius: 10px;
   margin: 2rem auto;
   box-shadow: 2px 2px 20px $primary;
-  padding: 2rem;
+  padding: 3rem 2rem;
 }
 
 .Facebook-Login {
@@ -111,3 +163,67 @@ body {
   color: white;
   text-decoration: none;
 }
+
+.spinner-loading {
+  width: 5rem;
+  height: 5rem;
+  margin: 10rem auto;
+}
+
+.spinner-loading-div {
+  text-align: center;
+}
+
+.carouselImg > p {
+  text-align: center;
+  width: 80%;
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  margin: 6% auto;
+}
+
+.carouselImg > p > img {
+  // width: 100%;
+  position: relative;
+}
+.carouselImg > p > h5 {
+  position: absolute;
+  color: #db5256;
+  width: 7rem;
+  text-align: center;
+}
+.wine-button-select {
+  text-align: center;
+  margin: auto auto;
+  position: absolute;
+  margin-top: 70%;
+}
+
+@media only screen and (min-width: 600px) {
+  .carouselImg > p > img {
+    width: 50%;
+  }
+  .carouselImg > p > h5 {
+    margin-top: 25%;
+  }
+  .wine-button-select {
+    margin-top: 32%;
+  }  
+
+}
+
+@media only screen and (max-width: 400px) {
+  .carouselImg > p > img {
+    width: 100%;
+  }
+  .carouselImg > p > h5 {
+    margin-top: 48%;
+    font-size: 18px;
+  }
+  .wine-button-select {
+    margin-top: 65%;
+  }  
+
+}
+

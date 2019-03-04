@@ -36,7 +36,8 @@ export default {
   }).then(res=> {
     let arrayWine=res.data.recommendedWines.map(w => ({
       ...w,
-      wineType: wine
+      wineType: wine,
+      
     }))
     return api.postWine({arrayWine})
   })
