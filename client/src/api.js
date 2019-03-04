@@ -57,7 +57,7 @@ export default {
 
   getConnectedProfile(){
     return service
-      .get('connected-profile')
+      .get('/connected-profile')
       .then(res => {
         let user = res.data
         localStorage.setItem('user', JSON.stringify(user))

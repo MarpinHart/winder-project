@@ -45,7 +45,6 @@ class WineCarousel extends Component {
   }
 
   render() {
-    console.log(this.props.wines)
     let wines
     const { activeIndex } = this.state;
     //WHY?
