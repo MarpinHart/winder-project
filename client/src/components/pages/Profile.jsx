@@ -36,7 +36,7 @@ export default class Profile extends Component {
   }
   handleDeleteSavedWine(e, wine,idx){
     let array = [...this.state.savedWines].filter(item => {
-      return item.toString() !== wine.toString()
+      return item._id.toString() !== wine.toString()
     })
     this.setState({
         savedWines: array

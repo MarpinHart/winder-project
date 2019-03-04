@@ -130,16 +130,21 @@ export default class SearchBar extends Component {
             </Button>
           </InputGroupAddon>
           <Input
-            placeholder="Food"
+            placeholder="What will you eat? (e.g. beef, salmon, chicken ...)"
             type="text"
             value={this.state.food}
             onChange={e => {
               this.handleInputChange("food", e);
             }}
+            onKeyPress={e => {
+              if (e.key === 'Enter') {
+                this.handleGetGeneralWines(e)
+              }
+            }}
           />
         </InputGroup>
         <FormGroup>
-          <Label for="maxPrice">Max Price: </Label>
+          <Label for="maxPrice">Max Price per Bottle:</Label>
           <Input
             type="number"
             value={this.state.maxPrice}
@@ -161,16 +166,15 @@ export default class SearchBar extends Component {
             }}
           />
         </FormGroup>
-        {this.state.wines && (
+
+      {this.state.wines.length > 0 && (
           <div className="wine-bottles-container">
-            <h1>Our top picks: </h1>
+            <h1>Try these wines: </h1>
             <div className="winePicks">
-              {this.state.wines.length > 0 && (
                 <WineCarousel
                   onBottleClick={(e, name) => this.handleBottleClick(e, name)}
                   wines={this.state.wines}
                 />
-              )}
             </div>
           </div>
         )}
