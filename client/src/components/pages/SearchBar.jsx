@@ -202,30 +202,3 @@ export default class SearchBar extends Component {
   }
 }
 
-
-// const parallaxData = [
-//   {
-//     start: 0,
-//     end: 500,
-//     properties: [
-//       {
-//         startValue: 1,
-//         endValue: 2,
-//         property: 'scale',
-//       },
-//     ],
-//   },
-// ];
-
-// class Example extends Component {
-//   render() {
-//     return (
-//       <Plx
-//         className='MyAwesomeParallax'
-//         parallaxData={ parallaxData }
-//       >
-//         /* Your content */
-//       </Plx>
-//     );
-//   }
-// }
