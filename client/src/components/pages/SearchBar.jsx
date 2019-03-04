@@ -130,16 +130,21 @@ export default class SearchBar extends Component {
             </Button>
           </InputGroupAddon>
           <Input
-            placeholder="Food"
+            placeholder="What will you eat? (e.g. beef, salmon, chicken ...)"
             type="text"
             value={this.state.food}
             onChange={e => {
               this.handleInputChange("food", e);
             }}
+            onKeyPress={e => {
+              if (e.key === 'Enter') {
+                this.handleGetGeneralWines(e)
+              }
+            }}
           />
         </InputGroup>
         <FormGroup>
-          <Label for="maxPrice">Max Price: </Label>
+          <Label for="maxPrice">Max Price per Bottle:</Label>
           <Input
             type="number"
             value={this.state.maxPrice}
@@ -161,16 +166,15 @@ export default class SearchBar extends Component {
             }}
           />
         </FormGroup>
-        {this.state.wines && (
+
+      {this.state.wines.length > 0 && (
           <div className="wine-bottles-container">
-            <h1>Our top picks: </h1>
+            <h1>Try these wines: </h1>
             <div className="winePicks">
-              {this.state.wines.length > 0 && (
                 <WineCarousel
                   onBottleClick={(e, name) => this.handleBottleClick(e, name)}
                   wines={this.state.wines}
                 />
-              )}
             </div>
           </div>
         )}
@@ -190,43 +194,6 @@ export default class SearchBar extends Component {
                 delete={e => this.handleDeleteSavedWine(e,wine._id,i)}
                 save={e => this.handleSaveWine(e,wine._id)}
                 isSaved={this.state.savedWines.includes(wine._id) ? true : false} />
-              // <div className="container" key={i}>
-              //   <h5 className="wine-bottle-name">{wine.title}</h5>{" "}
-              //     <img
-              //       className="wine-bottle-image"
-              //       src={wine.imageUrl}
-              //       alt=""
-              //     />{" "}
-              // <div className="wineList" >
-              //   <div className="wine-name-description">
-              //   <div className="wine-rating-price">
-              //     <div className="Rating">
-              //       <h6>Rating:</h6>
-              //       {wine.averageRating * 5 >= 0.5 ? "★" : "☆"}
-              //       {wine.averageRating * 5 >= 1.5 ? "★" : "☆"}
-              //       {wine.averageRating * 5 >= 2.5 ? "★" : "☆"}
-              //       {wine.averageRating * 5 >= 3.5 ? "★" : "☆"}
-              //       {wine.averageRating * 5 >= 4.5 ? "★" : "☆"}
-              //     </div>
-              //     <h6 className="wine-bottle-price">Price: {wine.price}</h6>
-              //     <Button outline color="warning" href={wine.link}>
-              //       Buy it on Amazon
-              //     </Button>
-              //    {!this.state.savedWines.includes(wine._id)?<Button outline color="warning" onClick={e => this.handleSaveWine(e,wine._id)}>
-              //       Save
-              //     </Button>:<Button outline color="warning" onClick={e => this.handleDeleteSaveWine(e,wine._id)}>
-              //       UNSAVE
-              //     </Button>} 
-
-              //   </div>
-              //     <br />
-              //     <p className="wine-bottle-description">
-              //      {wine.description}
-              //     </p>
-              //   </div>
-
-              //   </div>
-              // </div>
             ))}
           </div>
         )}
