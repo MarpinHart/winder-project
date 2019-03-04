@@ -68,7 +68,7 @@ export default class SearchBar extends Component {
 
     api.getPairedWines(this.state.food)
     .then(result=>{
-      console.log('result',result)
+      
       if(!result.data){
         
         //get the wine types recommendation
@@ -118,7 +118,7 @@ export default class SearchBar extends Component {
     api
       .getWinesDetail(name,this.state.maxPrice, this.state.minRating)
       .then(result => {
-        console.log("result wine detail", result);
+        console.log("result wine detail", result, name);
         this.setState({
           isLoading: false,
           wineDetail: result.data
@@ -134,6 +134,9 @@ export default class SearchBar extends Component {
         savedWines:result.data
       })
     })
+
+    // winesApi.getWineReccomendation("merlot")
+    // .then(res=>console.log(res))
   }
   componentDidUpdate(prevProps,prevState) {
    
