@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const service = axios.create({
-  baseURL: process.env.REACT_APP_API_URL === 'production' ? '/api' : 'http://localhost:5000/api',
+  baseURL: process.env.REACT_APP_API_URL === 'production' ? `${process.env.REACT_APP_API_URL}/api` : 'http://localhost:5000/api',
   withCredentials: true
 })
 
