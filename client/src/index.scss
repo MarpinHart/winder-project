@@ -16,7 +16,6 @@ body {
 }
 
 .info {
-  // margin: 20px;
   padding: 10px 20px;
   border-radius: 5px;
   display: inline-block;
@@ -80,11 +79,6 @@ body {
 .winePicks{
   text-align: center;
   margin: 0 auto;
-  // height: 10rem;
-  // display: flex;
-  // flex-direction: row;
-  // flex-wrap: wrap;
-  // justify-content: space-between;
 }
 
 .wineList {
@@ -146,7 +140,7 @@ body {
 }
 
 .upperProfile > .info-box {
-  -webkit-animation: fadein 1s;
+  -webkit-animation: fadein 2s;
   background-color: white;
   height: 60%;
   width: 80%;
@@ -200,7 +194,21 @@ body {
   margin-top: 70%;
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 400px) and (max-width: 600px){
+  .carouselImg > p > img {
+    width: 80%;
+  }
+  .carouselImg > p > h5 {
+    margin-top: 35%;
+  }
+  .wine-button-select {
+    margin-top: 48%;
+  }  
+
+}
+
+
+@media only screen and (min-width: 600px){
   .carouselImg > p > img {
     width: 50%;
   }
@@ -208,7 +216,7 @@ body {
     margin-top: 25%;
   }
   .wine-button-select {
-    margin-top: 32%;
+    margin-top: 37%;
   }  
 
 }
@@ -219,7 +227,7 @@ body {
   }
   .carouselImg > p > h5 {
     margin-top: 48%;
-    font-size: 18px;
+    font-size: 15px;
   }
   .wine-button-select {
     margin-top: 65%;

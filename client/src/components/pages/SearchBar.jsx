@@ -209,19 +209,14 @@ export default class SearchBar extends Component {
             {this.state.wineDetail.map((wine, i) => (
               <div className="container" key={i}>
                 <h5 className="wine-bottle-name">{wine.title}</h5>{" "}
-              <div className="wineList" >
-                <div className="wine-name-description">
                   <img
                     className="wine-bottle-image"
                     src={wine.imageUrl}
                     alt=""
                   />{" "}
-                  <br />
-                  <p className="wine-bottle-description">
-                   {wine.description}
-                  </p>
+              <div className="wineList" >
+                <div className="wine-name-description">
                 <div className="wine-rating-price">
-                  <h6 className="wine-bottle-price">Price: {wine.price}</h6>
                   <div className="Rating">
                     <h6>Rating:</h6>
                     {wine.averageRating * 5 >= 0.5 ? "★" : "☆"}
@@ -230,6 +225,7 @@ export default class SearchBar extends Component {
                     {wine.averageRating * 5 >= 3.5 ? "★" : "☆"}
                     {wine.averageRating * 5 >= 4.5 ? "★" : "☆"}
                   </div>
+                  <h6 className="wine-bottle-price">Price: {wine.price}</h6>
                   <Button outline color="warning" href={wine.link}>
                     Buy it on Amazon
                   </Button>
@@ -240,6 +236,10 @@ export default class SearchBar extends Component {
                   </Button>} 
 
                 </div>
+                  <br />
+                  <p className="wine-bottle-description">
+                   {wine.description}
+                  </p>
                 </div>
 
                 </div>
