@@ -115,6 +115,14 @@ body {
   color: rgb(122, 117, 117);
 }
 
+.Rating > h6{
+  color: black;
+}
+.Rating {
+  color: #ffc107; 
+  margin: 2vh 0;
+}
+
 .wine-rating-price{
   display: flex;
   flex-direction: column;
@@ -162,13 +170,13 @@ body {
   text-align: center;
   background-color: $secondary; 
 }
-@keyframes fadein {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
+// @keyframes fadein {
+//   from { opacity: 0; }
+//   to   { opacity: 1; }
+// }
 
 .upperProfile > .info-box {
-  -webkit-animation: fadein 1s;
+  // -webkit-animation: fadein 1s;
   background-color: white;
   height: 60%;
   width: 80%;

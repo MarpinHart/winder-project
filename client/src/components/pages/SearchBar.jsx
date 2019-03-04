@@ -180,7 +180,7 @@ export default class SearchBar extends Component {
           </div>
         )}
         {this.state.wineDetail && (
-          <div data-aos= 'fade-up'>
+          <div>
             <h1> Details:</h1>
             <hr />
             {this.state.wineDetail.map((wine, i) => (
@@ -197,3 +197,31 @@ export default class SearchBar extends Component {
     );
   }
 }
+
+
+// const parallaxData = [
+//   {
+//     start: 0,
+//     end: 500,
+//     properties: [
+//       {
+//         startValue: 1,
+//         endValue: 2,
+//         property: 'scale',
+//       },
+//     ],
+//   },
+// ];
+
+// class Example extends Component {
+//   render() {
+//     return (
+//       <Plx
+//         className='MyAwesomeParallax'
+//         parallaxData={ parallaxData }
+//       >
+//         /* Your content */
+//       </Plx>
+//     );
+//   }
+// }

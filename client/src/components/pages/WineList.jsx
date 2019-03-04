@@ -19,7 +19,7 @@ export default class WineList extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container" data-aos="fade-right" aos-duration="500">
         <h5 className="wine-bottle-name">{this.props.content.title}</h5>{" "}
         <div className="wineList">
           <div className="wine-name-description">
@@ -34,15 +34,15 @@ export default class WineList extends Component {
             </p>
             <div className="wine-rating-price">
               <h6 className="wine-bottle-price">
-                Price: {this.props.content.price}
+                Price: {this.props.content.price}€
               </h6>
               <div className="Rating">
                 <h6>Rating:</h6>
-                {this.props.content.averageRating * 5 >= 0.5 ? "★" : "☆"}
-                {this.props.content.averageRating * 5 >= 1.5 ? "★" : "☆"}
-                {this.props.content.averageRating * 5 >= 2.5 ? "★" : "☆"}
-                {this.props.content.averageRating * 5 >= 3.5 ? "★" : "☆"}
-                {this.props.content.averageRating * 5 >= 4.5 ? "★" : "☆"}
+                {this.props.content.averageRating * 5 >= 0.5 ? <i class="fas fa-star"></i> : <i class="far fa-star"></i>}
+                {this.props.content.averageRating * 5 >= 1.5 ? <i class="fas fa-star"></i> : <i class="far fa-star"></i>}
+                {this.props.content.averageRating * 5 >= 2.5 ? <i class="fas fa-star"></i> : <i class="far fa-star"></i>}
+                {this.props.content.averageRating * 5 >= 3.5 ? <i class="fas fa-star"></i> : <i class="far fa-star"></i>}
+                {this.props.content.averageRating * 5 >= 4.5 ? <i class="fas fa-star"></i> : <i class="far fa-star"></i>}
               </div>
               <Button outline color="warning" href={this.props.content.link}>
                 Buy it on Amazon
