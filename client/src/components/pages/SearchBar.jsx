@@ -104,6 +104,7 @@ export default class SearchBar extends Component {
           }
         })
         .catch(err => this.setState({ message: err.toString() }));
+        
       } else {
         this.setState({
           isLoading: false,
@@ -111,6 +112,14 @@ export default class SearchBar extends Component {
         });
       }
     });
+    api.getWinesDetail(this.state.wines[0], this.state.maxPrice, this.state.minRating)
+      .then(result => {
+        this.setState({
+          isLoading: false,
+          wineDetail: result.data
+          });
+        })
+      .catch(err => this.setState({ message: err.toString() }))
   }
   handleBottleClick(e, name) {
     e.preventDefault();
