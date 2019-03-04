@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import winesApi from "../../winesApi";
 import WineCarousel from "../WineCarousel";
+import Autosuggest from 'react-autosuggest';
 import WineList from '../pages/WineList'
 
 import {
@@ -13,7 +14,24 @@ import {
   Spinner
 } from "reactstrap";
 import api from "../../api";
+let foods = [
+  
+  
+];
+const getSuggestions = value => {
+  const inputValue = value.trim().toLowerCase();
+  const inputLength = inputValue.length;
 
+  return inputLength === 0 ? [] : foods.filter(food =>
+    food.toLowerCase().slice(0, inputLength) === inputValue
+  );
+};
+const getSuggestionValue = suggestion => suggestion;
+const renderSuggestion = suggestion => (
+  <div>
+    {suggestion}
+  </div>
+);
 export default class SearchBar extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +42,9 @@ export default class SearchBar extends Component {
       wineDetail: null,
       maxPrice: 1000,
       minRating: 0.7,
-      savedWines: []
+      savedWines:[],
+      value: '',
+      suggestions: []
     };
   }
   handleInputChange(stateFieldName, event) {
@@ -32,6 +52,24 @@ export default class SearchBar extends Component {
       [stateFieldName]: event.target.value
     });
   }
+  onChange = (event, { newValue }) => {
+    this.setState({
+      value: newValue,
+      food: newValue
+    });
+  };
+  onSuggestionsFetchRequested = ({ value }) => {
+    this.setState({
+      suggestions: getSuggestions(value)
+    });
+  };
+  onSuggestionsClearRequested = () => {
+    this.setState({
+      suggestions: []
+    });
+  };
+
+
   handleGetGeneralWines(e) {
     e.preventDefault();
     this.setState({
@@ -97,6 +135,13 @@ export default class SearchBar extends Component {
         savedWines: result.data
       });
     });
+    api.getFoods('?allfoods=yes')
+    .then(result=>{
+     foods=result.data
+     console.log('foods cmponent',foods)
+
+    })
+    .catch(err=>console.log(err))
   }
   handleSaveWine(e, _wine) {
     e.preventDefault();
@@ -106,17 +151,36 @@ export default class SearchBar extends Component {
           savedWines: [...prevState.savedWines, result.data._wine]
         }));
       })
-      .catch(err => console.log(err));
-  }
-  handleDeleteSavedWine(e, wine,idx){
-    let array = [...this.state.savedWines].filter(item => {
-      return item.toString() !== wine.toString()
-    })
-    this.setState({
-        savedWines: array
+    }
+
+    handleDeleteSavedWine(e, wine,idx){
+      let array = [...this.state.savedWines].filter(item => {
+        return item.toString() !== wine.toString()
       })
-  }
+      this.setState({
+          savedWines: array
+        })
+    }
+    onKeyPress=e => {
+      if (e.key === 'Enter') {
+        this.handleGetGeneralWines(e)
+      }
+    }
+   
+    
+    
+  
+  
   render() {
+    const { value, suggestions } = this.state;
+    const inputProps = {
+      placeholder: 'Type a Food',
+      value,
+      onChange: this.onChange,
+      onKeyPress: this.onKeyPress
+    };
+
+   
     return (
       <div className="container">
         FILTERS:
@@ -129,19 +193,24 @@ export default class SearchBar extends Component {
               <i className="fas fa-search" />
             </Button>
           </InputGroupAddon>
-          <Input
+          {/* <Input
             placeholder="What will you eat? (e.g. beef, salmon, chicken ...)"
             type="text"
             value={this.state.food}
             onChange={e => {
               this.handleInputChange("food", e);
             }}
-            onKeyPress={e => {
-              if (e.key === 'Enter') {
-                this.handleGetGeneralWines(e)
-              }
-            }}
-          />
+          />  */}
+          <Autosuggest
+        suggestions={suggestions}
+        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+        getSuggestionValue={getSuggestionValue}
+        renderSuggestion={renderSuggestion}
+        inputProps={inputProps}
+      />
+           
+          
         </InputGroup>
         <FormGroup>
           <Label for="maxPrice">Max Price per Bottle:</Label>
