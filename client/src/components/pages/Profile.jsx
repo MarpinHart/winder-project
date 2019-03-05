@@ -71,7 +71,7 @@ export default class Profile extends Component {
             </div>
             <div className="saved-wines">
             <div>
-            <h1> Your wines:</h1>
+            {this.state.savedWines.length>0 && <h1> Your wines:</h1>}
             <hr />
             {this.state.savedWines && this.state.savedWines.map((wine, i) => (
                 <WineList key={i} content={wine} delete={e => this.handleDeleteSavedWine(e,wine._id,i)} isSaved={true} isProfile={true}/>

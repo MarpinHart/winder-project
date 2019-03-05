@@ -30,8 +30,6 @@ export default class Login extends Component {
   }
 
   handleFacebook(){
-    // let domain = (process.env.PRODUCTION) ? "" : "localhost/5000"
-    // this.props.history.push(domain + "/auth/facebook")
     api.loginWithFacebook()
     .then(result => {
       console.log('SUCCESS!')
@@ -90,7 +88,7 @@ export default class Login extends Component {
               </Button>
           </Form>
         <Button color="facebook" className="Facebook-Login mt-2">
-         <a href="http://localhost:5000/api/login/facebook">Login with Facebook</a>
+         <a href={`${process.env.REACT_APP_API_URL}/login/facebook`}>Login with Facebook</a>
          </Button>
         
         </Container>

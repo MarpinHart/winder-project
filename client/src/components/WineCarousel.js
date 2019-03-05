@@ -3,8 +3,7 @@ import {
   Carousel,
   CarouselItem,
   CarouselControl,
-  CarouselIndicators,
-  Button
+  CarouselIndicators
 } from 'reactstrap';
 
 
@@ -31,12 +30,14 @@ class WineCarousel extends Component {
     if (this.animating) return;
     const nextIndex = this.state.activeIndex === this.props.wines.length - 1 ? 0 : this.state.activeIndex + 1;
     this.setState({ activeIndex: nextIndex });
+    this.props.onBottleChange(this.props.wines[nextIndex])
   }
 
   previous() {
     if (this.animating) return;
     const nextIndex = this.state.activeIndex === 0 ? this.props.wines.length - 1 : this.state.activeIndex - 1;
     this.setState({ activeIndex: nextIndex });
+    this.props.onBottleChange(this.props.wines[nextIndex])
   }
 
   goToIndex(newIndex) {
@@ -48,7 +49,8 @@ class WineCarousel extends Component {
     let wines
     const { activeIndex } = this.state;
     //WHY?
-    wines = this.props.wines.map(wine=> wine = {name: wine, src:"https://www.manoswine.com/media/catalog/product/cache/1/image/790bb9cb46c431c1e54dab150582a452/c/u/custom_bottle3/www.manoswine.com-customized-bottle-33.jpg"})
+    wines = this.props.wines.map(wine => 
+      wine = {name: wine, src:"https://www.manoswine.com/media/catalog/product/cache/1/image/790bb9cb46c431c1e54dab150582a452/c/u/custom_bottle3/www.manoswine.com-customized-bottle-33.jpg"})
     const slides = wines.map((wine, i) => {
       return (
         <CarouselItem key={i}
@@ -56,10 +58,9 @@ class WineCarousel extends Component {
           onExiting={this.onExiting}
           onExited={this.onExited}
         > 
-        <p>
+          <p>
           <img src={wine.src} alt={wine.name} />
-          <h5>{wine.name}</h5>
-          <Button className="wine-button-select" onClick={e=>this.props.onBottleClick(e, wine.name)} color="secondary">Select</Button>
+          <h5>{wine.name.toUpperCase()}</h5>
           </p>
         </CarouselItem>
       );
@@ -70,6 +71,7 @@ class WineCarousel extends Component {
         activeIndex={activeIndex}
         next={this.next}
         previous={this.previous}
+        autoPlay={false}
       >
         <CarouselIndicators items={wines} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
         {slides}

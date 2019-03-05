@@ -17,7 +17,7 @@ export default class Home extends Component {
           <h2>Welcome to Winder</h2>
           <br/>
           <p>Got some food and don't know what wine to choose? <br/> 
-          We is here to help!</p>
+          We are here to help!</p>
           <p>Just <Link to='/signup'>sign up</Link> or <Link to='/login'>log in</Link> to use Winder 🍷</p>
         </Container>
       );

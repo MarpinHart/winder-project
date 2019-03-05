@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Button, Input } from "reactstrap";
 import api from "../../api";
+import StarRatingComponent from 'react-star-rating-component';
+
+
 
 export default class WineList extends Component {
   constructor(props) {
@@ -36,6 +39,19 @@ export default class WineList extends Component {
       .catch(err => console.log(err));
 
   }
+  onStarClick(nextValue, prevValue, name) {
+    this.setState({rating: nextValue});
+console.log('id saving',name)
+    api
+      .rateWine(name,nextValue)
+      .then(res => res)
+      .catch(err => console.log(err));
+  }
+  componentDidMount() {
+   console.log('component did mount rating',this.props.content.rating)
+   this.setState({rating: this.props.content.rating});
+  }
+
 
   render() {
     return (
@@ -58,14 +74,14 @@ export default class WineList extends Component {
               </h6>
               <div className="Rating">
                 <h6>Rating:</h6>
-                {this.props.content.averageRating * 5 >= 0.5 ? <i class="fas fa-star"></i> : <i class="far fa-star"></i>}
-                {this.props.content.averageRating * 5 >= 1.5 ? <i class="fas fa-star"></i> : <i class="far fa-star"></i>}
-                {this.props.content.averageRating * 5 >= 2.5 ? <i class="fas fa-star"></i> : <i class="far fa-star"></i>}
-                {this.props.content.averageRating * 5 >= 3.5 ? <i class="fas fa-star"></i> : <i class="far fa-star"></i>}
-                {this.props.content.averageRating * 5 >= 4.5 ? <i class="fas fa-star"></i> : <i class="far fa-star"></i>}
+                {this.props.content.averageRating * 5 >= 0.5 ? <i className="fas fa-star"></i> : <i className="far fa-star"></i>}
+                {this.props.content.averageRating * 5 >= 1.5 ? <i className="fas fa-star"></i> : <i className="far fa-star"></i>}
+                {this.props.content.averageRating * 5 >= 2.5 ? <i className="fas fa-star"></i> : <i className="far fa-star"></i>}
+                {this.props.content.averageRating * 5 >= 3.5 ? <i className="fas fa-star"></i> : <i className="far fa-star"></i>}
+                {this.props.content.averageRating * 5 >= 4.5 ? <i className="fas fa-star"></i> : <i className="far fa-star"></i>}
               </div>
               <Button outline color="warning" href={this.props.content.link}>
-                Buy it on Amazon
+                Order Online
               </Button>
               {!this.props.isSaved && <Button
                   outline
@@ -86,19 +102,13 @@ export default class WineList extends Component {
               </Button>
               
               }
-              {this.props.isSaved && this.props.isProfile && <div>
-                <Input name='rating' value={this.state.rating} onChange={e=>this.handleChange(e)}/>
-
-                <Button
-                outline
-                color="warning"
-                onClick={e =>
-                  this.handleRateWine(e, this.props.content.idSaving, this.state.rating*1)
-                }>
-                Rate
-              </Button>
-              <h1>{this.state.rating} </h1>
-              </div> 
+              {this.props.isSaved && this.props.isProfile && 
+                <StarRatingComponent 
+                name={this.props.content.idSaving} 
+          starCount={5}
+          value={this.state.rating}
+          onStarClick={this.onStarClick.bind(this)}
+        />
               
               }
             </div>
