@@ -176,10 +176,6 @@ export default class SearchBar extends Component {
       }
     }
    
-    
-    
-  
-  
   render() {
     const { value, suggestions } = this.state;
     const inputProps = {
@@ -188,7 +184,6 @@ export default class SearchBar extends Component {
       onChange: this.onChange,
       onKeyPress: this.onKeyPress
     };
-
    
     return (
       <div className="container">
