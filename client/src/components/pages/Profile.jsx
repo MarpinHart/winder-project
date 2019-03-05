@@ -69,8 +69,8 @@ export default class Profile extends Component {
             </FormGroup>
           </Form> 
             </div>
-            <div className="saved-wines">
-            <div>
+            <div className="profile-wines">
+            
             {this.state.savedWines.length>0 && <h1> Your wines:</h1>}
             <hr />
             {this.state.savedWines && this.state.savedWines.map((wine, i) => (
@@ -79,7 +79,6 @@ export default class Profile extends Component {
           </div>
               
             </div>
-        </div>
     );
   }
   componentDidMount() {
@@ -100,5 +99,4 @@ export default class Profile extends Component {
         console.log('this.state savedWines',this.state.savedWines)
       })
   }
-  
 }
