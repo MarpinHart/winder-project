@@ -3,6 +3,11 @@ import winesApi from "../../winesApi";
 import WineCarousel from "../WineCarousel";
 import Autosuggest from 'react-autosuggest';
 import WineList from '../pages/WineList'
+import StarRatingComponent from 'react-star-rating-component';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Slider from '@material-ui/lab/Slider';
 
 import {
   InputGroup,
@@ -11,7 +16,10 @@ import {
   Button,
   FormGroup,
   Label,
-  Spinner
+  Spinner,
+  Form,
+  Row,
+  Col
 } from "reactstrap";
 import api from "../../api";
 let foods = [
@@ -40,8 +48,8 @@ export default class SearchBar extends Component {
       wines: [],
       isLoading: false,
       wineDetail: null,
-      maxPrice: 1000,
-      minRating: 0.7,
+      maxPrice: 150,
+      minRating: 3,
       savedWines:[],
       value: '',
       suggestions: []
@@ -52,6 +60,10 @@ export default class SearchBar extends Component {
       [stateFieldName]: event.target.value
     });
   }
+  handleChange = (event, value) => {
+    this.setState({ maxPrice:value });
+  };
+
   onChange = (event, { newValue }) => {
     this.setState({
       value: newValue.toLowerCase(),
@@ -68,9 +80,15 @@ export default class SearchBar extends Component {
       suggestions: []
     });
   };
+  onStarClick(nextValue, prevValue, name) {
+    this.setState({minRating: nextValue});
+
+    
+  }
 
   handleGetGeneralWines(e) {
     e.preventDefault();
+    console.log('HELLO')
     this.setState({
       wines: [],
       isLoading: true,
@@ -116,7 +134,7 @@ export default class SearchBar extends Component {
     .then(result => {
       if(this.state.wines.length > 0) {
         api
-        .getWinesDetail(this.state.wines[0], this.state.maxPrice, this.state.minRating)
+        .getWinesDetail(this.state.wines[0], this.state.maxPrice, this.state.minRating/5)
         .then(result => {
           this.setState({
             isLoading: false,
@@ -134,7 +152,7 @@ export default class SearchBar extends Component {
       isLoading: true
     });
     api
-    .getWinesDetail(name, this.state.maxPrice, this.state.minRating)
+    .getWinesDetail(name, this.state.maxPrice, this.state.minRating/5)
     .then(result => {
       this.setState({
         isLoading: false,
@@ -209,31 +227,36 @@ export default class SearchBar extends Component {
             renderSuggestion={renderSuggestion}
             inputProps={inputProps} />
         </InputGroup>
-
-        <FormGroup>
-          <Label for="maxPrice">Max Price per Bottle:</Label>
-          <Input
-            type="number"
-            value={this.state.maxPrice}
-            name="maxPrice"
-            onChange={e => {
-              this.handleInputChange("maxPrice", e);
-            }}
-          />
+        <Form>
+        <Row form>
+        <Col md={6} xs={6}>
+        <FormGroup className="mr-5">
+        <Typography id="label">Max Price <strong>{this.state.maxPrice.toFixed(2)}€</strong> </Typography>
+        <Slider
+        min={10}
+          max={150}
+          value={this.state.maxPrice.toFixed(2)}
+          aria-labelledby="label"
+          onChange={this.handleChange}
+          className="mt-2 mr-5"
+        />
+         
+          
         </FormGroup>
-
+        </Col>
+        <Col md={6} xs={6}>
         <FormGroup>
-          <Label for="maxPrice">Min Rating: </Label>
-          <Input
-            type="number"
-            name="minRating"
-            value={this.state.minRating}
-            placeholder="insert a value between 0 and 1"
-            onChange={e => {
-              this.handleInputChange("minRating", e);
-            }}
-          />
+          <Label for="minRating">Min Rating: </Label>
+          <StarRatingComponent 
+                name="minRating"
+          starCount={5}
+          value={this.state.minRating}
+          onStarClick={this.onStarClick.bind(this)}
+        />
         </FormGroup>
+        </Col>
+        </Row>
+        </Form>
 
       {!this.state.isLoading && this.state.wines.length === 0 &&
           <div> <h1> No recommendations found </h1> </div>}
