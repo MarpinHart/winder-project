@@ -77,15 +77,17 @@ export default class SearchBar extends Component {
       isLoading: true,
       wineDetail: null
     });
-    api.getPairedWines(this.state.food).then(result => {
+    //ask for wines paired with the food in our database
+    api.getPairedWines(this.state.food)
+      .then(result => {
+      //if there are no paired wines in our DB, get it from the API
       if (!result.data) {
-        //get the wine types recommendation
         winesApi
         .getWinesGeneral(this.state.food)
         .then(result => {
           this.setState({
             isLoading: false,
-            wines: result.pairedWines
+            wines: result.pairedWines === undefined ? [] : result.pairedWines
           });
           let foodData = {
             name: this.state.food,
@@ -104,23 +106,16 @@ export default class SearchBar extends Component {
           }
         })
         .catch(err => this.setState({ message: err.toString() }));
-        
       } else {
+        // if the food is already in our DB, just set state to the results
         this.setState({
           isLoading: false,
           wines: result.data.pairedWines
         });
       }
     });
-    api.getWinesDetail(this.state.wines[0], this.state.maxPrice, this.state.minRating)
-      .then(result => {
-        this.setState({
-          isLoading: false,
-          wineDetail: result.data
-          });
-        })
-      .catch(err => this.setState({ message: err.toString() }))
   }
+
   handleBottleClick(e, name) {
     e.preventDefault();
     this.setState({
@@ -138,6 +133,7 @@ export default class SearchBar extends Component {
     })
     .catch(err => this.setState({ message: err.toString() }));
   }
+
   componentDidMount() {
     api.getSavedWinesByUser("?getOnlyId=true").then(result => {
       this.setState({
@@ -147,8 +143,6 @@ export default class SearchBar extends Component {
     api.getFoods('?allfoods=yes')
     .then(result=>{
      foods=result.data
-     console.log('foods cmponent',foods)
-
     })
     .catch(err=>console.log(err))
   }
@@ -175,7 +169,7 @@ export default class SearchBar extends Component {
         this.handleGetGeneralWines(e)
       }
     }
-   
+  
   render() {
     const { value, suggestions } = this.state;
     const inputProps = {
@@ -184,7 +178,7 @@ export default class SearchBar extends Component {
       onChange: this.onChange,
       onKeyPress: this.onKeyPress
     };
-   
+
     return (
       <div className="container">
         FILTERS:
@@ -233,6 +227,10 @@ export default class SearchBar extends Component {
           />
         </FormGroup>
 
+      {!this.state.isLoading && this.state.wines.length === 0 &&
+          <div> <h1> No recommendations found </h1> </div>}
+
+      
       {this.state.wines.length > 0 && (
           <div className="wine-bottles-container">
             <h1>Try these wines: </h1>
