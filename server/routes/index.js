@@ -81,4 +81,16 @@ router.delete("/saved-wines",(req, res, next)=>{
   .then(deleteSave=>res.json(deleteSave))
   .catch(err=>console.log(err))
 })
+
+//PUT rating wine saved by user
+router.put('/saved-wines',(req, res, next)=>{
+  SavedWine.findByIdAndUpdate(
+     req.body.idSaving,
+     { rating: req.body.rating},
+     {new: true})
+    .then((savedWine) => {
+      res.json(savedWine)
+    })
+    .catch(err=>console.log(err))
+})
 module.exports = router;

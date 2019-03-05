@@ -1,8 +1,18 @@
 import React, { Component } from "react";
-import { Button } from "reactstrap";
+import { Button, Input } from "reactstrap";
 import api from "../../api";
 
 export default class WineList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { rating: 0 };
+  }
+  handleChange(e) {
+    
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
   handleSaveWine(e, _wine, idx) {
     e.preventDefault();
     this.props.save(e, this.props.content._id, this.props.index);
@@ -15,6 +25,16 @@ export default class WineList extends Component {
       .deleteSavedWineByUser(_wine)
       .then(res => res)
       .catch(err => console.log(err));
+  }
+
+  handleRateWine(e, idSaving, rating){
+    e.preventDefault()
+   
+    api
+      .rateWine(idSaving,rating)
+      .then(res => res)
+      .catch(err => console.log(err));
+
   }
 
   render() {
@@ -63,7 +83,24 @@ export default class WineList extends Component {
                   this.handleDeleteSavedWine(e, this.props.content._id)
                 }>
                 Delete
-              </Button>}
+              </Button>
+              
+              }
+              {this.props.isSaved && this.props.isProfile && <div>
+                <Input name='rating' value={this.state.rating} onChange={e=>this.handleChange(e)}/>
+
+                <Button
+                outline
+                color="warning"
+                onClick={e =>
+                  this.handleRateWine(e, this.props.content.idSaving, this.state.rating*1)
+                }>
+                Rate
+              </Button>
+              <h1>{this.state.rating} </h1>
+              </div> 
+              
+              }
             </div>
           </div>
         </div>

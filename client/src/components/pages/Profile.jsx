@@ -23,8 +23,9 @@ export default class Profile extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
   handleChange(e) {
+    
     this.setState({
-      name: e.target.value
+      [e.target.name]: e.target.value
     });
   }
 
@@ -73,7 +74,7 @@ export default class Profile extends Component {
             <h1> Your wines:</h1>
             <hr />
             {this.state.savedWines && this.state.savedWines.map((wine, i) => (
-                <WineList key={i} content={wine} delete={e => this.handleDeleteSavedWine(e,wine._id,i)} isSaved={true} />
+                <WineList key={i} content={wine} delete={e => this.handleDeleteSavedWine(e,wine._id,i)} isSaved={true} isProfile={true}/>
             ))}
           </div>
               
@@ -87,13 +88,16 @@ export default class Profile extends Component {
       api.getSavedWinesByUser()])
     
       .then(([user,savedWines]) =>{
-        let array = savedWines.data.map(w=>w._wine)
+        console.log('savedWines',savedWines)
+        let array = savedWines.data.map(w=>( {...w._wine,rating: w.rating, idSaving:w._id}))
+        console.log('array',array)
         this.setState({
           id: user._id,
           name: user.name,
           email: user.email,
           savedWines: array
         });
+        console.log('this.state savedWines',this.state.savedWines)
       })
   }
   
