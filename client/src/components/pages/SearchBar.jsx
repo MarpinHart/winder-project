@@ -54,8 +54,8 @@ export default class SearchBar extends Component {
   }
   onChange = (event, { newValue }) => {
     this.setState({
-      value: newValue,
-      food: newValue
+      value: newValue.toLowerCase(),
+      food: newValue.toLowerCase()
     });
   };
   onSuggestionsFetchRequested = ({ value }) => {
@@ -68,7 +68,6 @@ export default class SearchBar extends Component {
       suggestions: []
     });
   };
-
 
   handleGetGeneralWines(e) {
     e.preventDefault();
@@ -113,16 +112,27 @@ export default class SearchBar extends Component {
           wines: result.data.pairedWines
         });
       }
-    });
+    })
+    .then(result => {
+      if(this.state.wines.length > 0) {
+        api
+        .getWinesDetail(this.state.wines[0], this.state.maxPrice, this.state.minRating)
+        .then(result => {
+          this.setState({
+            isLoading: false,
+            wineDetail: result.data
+          });
+        })
+        .catch(err => this.setState({ message: err.toString() }));
+      }
+    })
   }
 
-  handleBottleClick(e, name) {
-    e.preventDefault();
+  handleBottleChange(name) {
     this.setState({
       wineDetail: null,
       isLoading: true
     });
-    
     api
     .getWinesDetail(name, this.state.maxPrice, this.state.minRating)
     .then(result => {
@@ -173,7 +183,7 @@ export default class SearchBar extends Component {
   render() {
     const { value, suggestions } = this.state;
     const inputProps = {
-      placeholder: 'Type a Food',
+      placeholder: 'What are you going to eat?',
       value,
       onChange: this.onChange,
       onKeyPress: this.onKeyPress
@@ -191,18 +201,15 @@ export default class SearchBar extends Component {
               <i className="fas fa-search" />
             </Button>
           </InputGroupAddon>
-         
           <Autosuggest
-        suggestions={suggestions}
-        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-        getSuggestionValue={getSuggestionValue}
-        renderSuggestion={renderSuggestion}
-        inputProps={inputProps}
-      />
-           
-          
+            suggestions={suggestions}
+            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+            getSuggestionValue={getSuggestionValue}
+            renderSuggestion={renderSuggestion}
+            inputProps={inputProps} />
         </InputGroup>
+
         <FormGroup>
           <Label for="maxPrice">Max Price per Bottle:</Label>
           <Input
@@ -214,6 +221,7 @@ export default class SearchBar extends Component {
             }}
           />
         </FormGroup>
+
         <FormGroup>
           <Label for="maxPrice">Min Rating: </Label>
           <Input
@@ -236,7 +244,7 @@ export default class SearchBar extends Component {
             <h1>Try these wines: </h1>
             <div className="winePicks">
                 <WineCarousel
-                  onBottleClick={(e, name) => this.handleBottleClick(e, name)}
+                  onBottleChange={(e, name) => this.handleBottleChange(e, name)}
                   wines={this.state.wines}
                 />
             </div>
@@ -249,7 +257,6 @@ export default class SearchBar extends Component {
         )}
         {this.state.wineDetail && (
           <div>
-            <h1> Details:</h1>
             <hr />
             {this.state.wineDetail.map((wine, i) => (
               <WineList 

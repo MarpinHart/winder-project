@@ -3,8 +3,7 @@ import {
   Carousel,
   CarouselItem,
   CarouselControl,
-  CarouselIndicators,
-  Button
+  CarouselIndicators
 } from 'reactstrap';
 
 
@@ -31,12 +30,14 @@ class WineCarousel extends Component {
     if (this.animating) return;
     const nextIndex = this.state.activeIndex === this.props.wines.length - 1 ? 0 : this.state.activeIndex + 1;
     this.setState({ activeIndex: nextIndex });
+    this.props.onBottleChange(this.props.wines[nextIndex])
   }
 
   previous() {
     if (this.animating) return;
     const nextIndex = this.state.activeIndex === 0 ? this.props.wines.length - 1 : this.state.activeIndex - 1;
     this.setState({ activeIndex: nextIndex });
+    this.props.onBottleChange(this.props.wines[nextIndex])
   }
 
   goToIndex(newIndex) {
@@ -57,10 +58,9 @@ class WineCarousel extends Component {
           onExiting={this.onExiting}
           onExited={this.onExited}
         > 
-        <p>
+          <p>
           <img src={wine.src} alt={wine.name} />
-          <h5>{wine.name}</h5>
-          <Button className="wine-button-select" onClick={e=>this.props.onBottleClick(e, wine.name)} color="secondary">Select</Button>
+          <h5>{wine.name.toUpperCase()}</h5>
           </p>
         </CarouselItem>
       );
@@ -71,7 +71,7 @@ class WineCarousel extends Component {
         activeIndex={activeIndex}
         next={this.next}
         previous={this.previous}
-        interval={false}
+        autoPlay={false}
       >
         <CarouselIndicators items={wines} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
         {slides}
