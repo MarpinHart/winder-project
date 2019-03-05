@@ -8,7 +8,8 @@ export default class ReadMore extends Component {
     }; 
     this.handleExpandedText= this.handleExpandedText.bind(this)
   }
-  handleExpandedText() {
+  handleExpandedText(e) {
+    e.preventDefault()
     this.setState(prevState=> ({
       expanded: !prevState.expanded,
     }))
@@ -16,9 +17,8 @@ export default class ReadMore extends Component {
   render() {
     return (
       <p className="wine-bottle-description">
-      {this.state.expanded ? this.props.params.description : this.props.params.description.splice(0,200) }
-        <a onClick={this.handleExpandedText()}> Read more </a>
-        
+      {this.state.expanded ? this.props.description+' ' : this.props.description.slice(0, 200)+'... ' }
+        <a className="read-more" onClick={e=> this.handleExpandedText(e)} href="">Read {this.state.expanded ? 'less' : 'more'} </a>
       </p>
     )
   }

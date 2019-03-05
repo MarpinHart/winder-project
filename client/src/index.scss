@@ -1,18 +1,18 @@
 // --------------------
 // Definition of variables
 $primary: #db5256;
-$secondary: #FF797B;
-$success: #198E39;
-$danger: #F23E41;
-$info: #52DB77;
+$secondary: #ff797b;
+$success: #198e39;
+$danger: #f23e41;
+$info: #52db77;
 $facebook: #4267b2;
-@import '../node_modules/bootstrap/scss/bootstrap.scss';
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
 
 // Style reusable for all components
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
 }
 
 .info {
@@ -31,12 +31,12 @@ body {
   margin: 10px;
 }
 
-.Signup{
-  margin-top:20px;
+.Signup {
+  margin-top: 20px;
 }
 
-.Login{
-  margin-top:20px;
+.Login {
+  margin-top: 20px;
 }
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
@@ -44,26 +44,26 @@ body {
   width: 100px;
   outline: black;
   background-size: 100%, 100%;
-  
+
   background-image: none;
 }
 
-.carousel-control-next-icon:after
-{
-  content: '>';
+.carousel-control-next-icon:after {
+  content: ">";
   font-size: 55px;
   color: red;
 }
 
 .carousel-control-prev-icon:after {
-  content: '<';
+  content: "<";
   font-size: 55px;
-  color: red;}
-.ProfileForm{
+  color: red;
+}
+.ProfileForm {
   width: 30rem;
   margin: 5px auto;
 }
-.ProfileForm > h1{
+.ProfileForm > h1 {
   margin-top: 10rem;
   text-align: center;
 }
@@ -71,83 +71,107 @@ body {
 .CenterButton {
   margin: 1rem auto;
 }
-.navbar{
+.navbar {
   a {
     margin-left: 10px;
   }
 }
 
-.wine-image{
+.wine-image {
   margin-top: 2rem;
   height: 20rem;
-  
-}
-
-.wine-bottle-image{
-  display: block;
-  height: 10rem;
-  width: 6rem;
-  border-radius: 20px;
-  object-fit: cover;
-  margin:0 1rem;
 }
 
 .SearchInputGroup {
   margin: 10px auto;
 }
 
-.winePicks{
+.winePicks {
   text-align: center;
   margin: 0 auto;
 }
 
-.wineList {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  border-bottom: 1px solid black;
-  padding: 2% 0;
+.profile-list-container {
+  padding: 5vh 0;
+  border-bottom: 1px solid grey;
+}
+
+.wine-bottle-image {
+  // display: block;
+  height: 20vh;
+  width: 10vh;
+  border-radius: 20px;
+  object-fit: cover;
+  margin: 1vh;
 }
 
 .wine-bottle-description {
-  width: 70%;
-  margin: 0 5%;
+  // width: 70%;
+  // margin: 0 5%;
+  text-align: justify;
   color: rgb(122, 117, 117);
 }
 
-.Rating > h6{
-  color: black;
-}
-.Rating {
-  color: #ffc107; 
-  margin: 2vh 0;
+.wineList {
+  // display: flex;
+  // flex-direction: row;
+  // justify-content: space-around;
+  // border-bottom: 1px solid black;
+  // padding: 2% 0;
 }
 
-.wine-rating-price{
+.wine-name-description {
+  padding-top: 2vh;
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 2vh;
+  // justify-content: space-around;
+  // align-content: center;
+}
+
+.wine-buttons {
+  text-align: center;
+}
+
+.wine-bottle-name {
+  // margin:3rem 0 0 8rem;
+  // text-align: left;
+  // color: $secondary;
+}
+
+.wine-rating-price {
+  margin: 5vh 0 0 5vh;
+  border: 1px solid rgba(128, 128, 128, 0.788);
+  box-shadow: 2px 2px 5px grey;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: space-around;
-  margin:0 1%;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: space-around;
+  // margin:0 1%;
 }
 
-.wine-bottle-name{
-  margin: 1rem 0 0 11rem;
+.wine-bottle-price {
+}
+
+.Rating > h6 {
+  color: black;
+}
+
+.Rating {
+  color: #ffc107;
+  margin: 2vh 0;
 }
 
 .wine-bottles-container > h1 {
   margin: 3% 0 0 0;
   text-align: center;
 }
-.details-container{
+.details-container {
   margin: 10%;
-}
-
-.wine-name-description{
-  display:flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-content: center;
-
 }
 
 .wine-grape-name {
@@ -158,8 +182,8 @@ body {
   list-style-type: none;
 }
 .profileIcon {
-  height: 20rem; 
-  margin: 0 auto; 
+  height: 20rem;
+  margin: 0 auto;
 }
 
 .upperProfile {
@@ -168,7 +192,10 @@ body {
   margin: 0 auto;
   padding: 3rem;
   text-align: center;
-  background-color: $secondary; 
+  background-color: $secondary;
+}
+.upperProfile > .profile-wines {
+  text-align: left;
 }
 // @keyframes fadein {
 //   from { opacity: 0; }
@@ -187,7 +214,7 @@ body {
 }
 
 .Facebook-Login {
-  background-color: $facebook
+  background-color: $facebook;
 }
 .Facebook-Login > a {
   color: white;
@@ -208,7 +235,7 @@ body {
   text-align: center;
   width: 80%;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   align-items: center;
   margin: 6% auto;
 }
@@ -231,7 +258,7 @@ body {
   color: white;
 }
 
-@media only screen and (min-width: 400px) and (max-width: 800px){
+@media only screen and (min-width: 400px) and (max-width: 800px) {
   .carouselImg > p > img {
     width: 80%;
   }
@@ -240,11 +267,19 @@ body {
   }
   .wine-button-select {
     margin-top: 48%;
-  }  
-
+  }
+  .profile-list-container {
+    width: 38vh;
+    margin: 0 auto;
+  }
+  .wine-rating-price {
+    height: 12vh;
+    width: 12vh;
+    padding-top: 2vh;
+  }
 }
 
-@media only screen and (min-width: 800px){
+@media only screen and (min-width: 800px) {
   .carouselImg > p > img {
     width: 50%;
   }
@@ -253,8 +288,7 @@ body {
   }
   .wine-button-select {
     margin-top: 37%;
-  }  
-
+  }
 }
 
 @media only screen and (max-width: 400px) {
@@ -267,36 +301,33 @@ body {
   }
   .wine-button-select {
     margin-top: 65%;
-  }  
-
+  }
 }
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
- height: 100px;
- width: 100px;
- background-size: 100%, 100%;
- border-radius: 50%;
- background-image: none;
+  height: 100px;
+  width: 100px;
+  background-size: 100%, 100%;
+  border-radius: 50%;
+  background-image: none;
 }
 
-.carousel-control-next-icon:after
-{
- content: '>';
- font-size: 55px;
- color: red;
+.carousel-control-next-icon:after {
+  content: ">";
+  font-size: 55px;
+  color: red;
 }
 
 .carousel-control-prev-icon:after {
- content: '<';
- font-size: 55px;
- color: red;
+  content: "<";
+  font-size: 55px;
+  color: red;
 }
 
-.carousel-indicators > li{
+.carousel-indicators > li {
   background-color: red;
 }
-
 
 .react-autosuggest__suggestions-container--open {
   display: block;
@@ -318,10 +349,10 @@ body {
   padding: 0;
   list-style-type: none;
 }
-.react-autosuggest__input{
+.react-autosuggest__input {
   width: 99%;
   height: 40px;
 }
-.react-autosuggest__container{
-  width: 80%
+.react-autosuggest__container {
+  width: 80%;
 }
