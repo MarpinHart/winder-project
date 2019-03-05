@@ -139,6 +139,12 @@ export default {
     .get(`/foods${allfoods}`)
     .then(res=>res)
     .catch(err=>console.log(err))
+  },
+  rateWine(idSaving,rating){
+    return service
+    .put('/saved-wines',{idSaving, rating})
+    .then(res=>res)
+    .catch(err=>console.log(err))
   }
 
 }

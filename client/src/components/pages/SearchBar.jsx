@@ -191,7 +191,7 @@ export default class SearchBar extends Component {
 
     return (
       <div className="container">
-        FILTERS:
+       
         <InputGroup className="SearchInputGroup">
           <InputGroupAddon addonType="prepend">
             <Button
@@ -264,7 +264,8 @@ export default class SearchBar extends Component {
                 content={wine} 
                 delete={e => this.handleDeleteSavedWine(e,wine._id,i)}
                 save={e => this.handleSaveWine(e,wine._id)}
-                isSaved={this.state.savedWines.includes(wine._id) ? true : false} />
+                isSaved={this.state.savedWines.includes(wine._id) ? true : false}
+                isProfile={false}/>
             ))}
           </div>
         )}
