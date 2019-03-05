@@ -47,8 +47,8 @@ export default class WineList extends Component {
             
               
               <Button outline color="warning" href={this.props.content.link}>
-                Buy it
-              </Button> {'  '}
+                Order Online
+              </Button>
               {!this.props.isSaved && <Button
                   outline
                   color="warning"

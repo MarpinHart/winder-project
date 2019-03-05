@@ -54,8 +54,8 @@ export default class SearchBar extends Component {
   }
   onChange = (event, { newValue }) => {
     this.setState({
-      value: newValue,
-      food: newValue
+      value: newValue.toLowerCase(),
+      food: newValue.toLowerCase()
     });
   };
   onSuggestionsFetchRequested = ({ value }) => {
@@ -69,7 +69,6 @@ export default class SearchBar extends Component {
     });
   };
 
-
   handleGetGeneralWines(e) {
     e.preventDefault();
     this.setState({
@@ -77,15 +76,17 @@ export default class SearchBar extends Component {
       isLoading: true,
       wineDetail: null
     });
-    api.getPairedWines(this.state.food).then(result => {
+    //ask for wines paired with the food in our database
+    api.getPairedWines(this.state.food)
+      .then(result => {
+      //if there are no paired wines in our DB, get it from the API
       if (!result.data) {
-        //get the wine types recommendation
         winesApi
         .getWinesGeneral(this.state.food)
         .then(result => {
           this.setState({
             isLoading: false,
-            wines: result.pairedWines
+            wines: result.pairedWines === undefined ? [] : result.pairedWines
           });
           let foodData = {
             name: this.state.food,
@@ -105,20 +106,33 @@ export default class SearchBar extends Component {
         })
         .catch(err => this.setState({ message: err.toString() }));
       } else {
+        // if the food is already in our DB, just set state to the results
         this.setState({
           isLoading: false,
           wines: result.data.pairedWines
         });
       }
-    });
+    })
+    .then(result => {
+      if(this.state.wines.length > 0) {
+        api
+        .getWinesDetail(this.state.wines[0], this.state.maxPrice, this.state.minRating)
+        .then(result => {
+          this.setState({
+            isLoading: false,
+            wineDetail: result.data
+          });
+        })
+        .catch(err => this.setState({ message: err.toString() }));
+      }
+    })
   }
-  handleBottleClick(e, name) {
-    e.preventDefault();
+
+  handleBottleChange(name) {
     this.setState({
       wineDetail: null,
       isLoading: true
     });
-    
     api
     .getWinesDetail(name, this.state.maxPrice, this.state.minRating)
     .then(result => {
@@ -129,6 +143,7 @@ export default class SearchBar extends Component {
     })
     .catch(err => this.setState({ message: err.toString() }));
   }
+
   componentDidMount() {
     api.getSavedWinesByUser("?getOnlyId=true").then(result => {
       this.setState({
@@ -138,8 +153,6 @@ export default class SearchBar extends Component {
     api.getFoods('?allfoods=yes')
     .then(result=>{
      foods=result.data
-     console.log('foods cmponent',foods)
-
     })
     .catch(err=>console.log(err))
   }
@@ -166,21 +179,16 @@ export default class SearchBar extends Component {
         this.handleGetGeneralWines(e)
       }
     }
-   
-    
-    
-  
   
   render() {
     const { value, suggestions } = this.state;
     const inputProps = {
-      placeholder: 'Type a Food',
+      placeholder: 'What are you going to eat?',
       value,
       onChange: this.onChange,
       onKeyPress: this.onKeyPress
     };
 
-   
     return (
       <div className="container">
         FILTERS:
@@ -193,25 +201,15 @@ export default class SearchBar extends Component {
               <i className="fas fa-search" />
             </Button>
           </InputGroupAddon>
-          {/* <Input
-            placeholder="What will you eat? (e.g. beef, salmon, chicken ...)"
-            type="text"
-            value={this.state.food}
-            onChange={e => {
-              this.handleInputChange("food", e);
-            }}
-          />  */}
           <Autosuggest
-        suggestions={suggestions}
-        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-        getSuggestionValue={getSuggestionValue}
-        renderSuggestion={renderSuggestion}
-        inputProps={inputProps}
-      />
-           
-          
+            suggestions={suggestions}
+            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+            getSuggestionValue={getSuggestionValue}
+            renderSuggestion={renderSuggestion}
+            inputProps={inputProps} />
         </InputGroup>
+
         <FormGroup>
           <Label for="maxPrice">Max Price per Bottle:</Label>
           <Input
@@ -223,6 +221,7 @@ export default class SearchBar extends Component {
             }}
           />
         </FormGroup>
+
         <FormGroup>
           <Label for="maxPrice">Min Rating: </Label>
           <Input
@@ -236,12 +235,16 @@ export default class SearchBar extends Component {
           />
         </FormGroup>
 
+      {!this.state.isLoading && this.state.wines.length === 0 &&
+          <div> <h1> No recommendations found </h1> </div>}
+
+      
       {this.state.wines.length > 0 && (
           <div className="wine-bottles-container">
             <h1>Try these wines: </h1>
             <div className="winePicks">
                 <WineCarousel
-                  onBottleClick={(e, name) => this.handleBottleClick(e, name)}
+                  onBottleChange={(e, name) => this.handleBottleChange(e, name)}
                   wines={this.state.wines}
                 />
             </div>
@@ -254,7 +257,6 @@ export default class SearchBar extends Component {
         )}
         {this.state.wineDetail && (
           <div>
-            <h1> Details:</h1>
             <hr />
             {this.state.wineDetail.map((wine, i) => (
               <WineList 
