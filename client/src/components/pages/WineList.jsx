@@ -135,7 +135,7 @@ export default class WineList extends Component {
                 color="warning"
                 onClick={e => this.handleSaveWine(e, this.props.content._id)}
               >
-                Save
+               Save
               </Button>
             )}
             {this.props.isSaved && (
