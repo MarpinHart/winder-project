@@ -80,7 +80,7 @@ router.post("/signup", (req, res, next) => {
         res.json(userSaved);
       });
     })
-    .catch(err => next(err));
+    .catch(err => res.json(err));
 });
 
 router.post("/login", (req, res, next) => {
