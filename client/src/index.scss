@@ -103,22 +103,11 @@ body {
   width: 10vh;
   border-radius: 20px;
   object-fit: cover;
-  // margin: 1vh;
 }
 
 .wine-bottle-description {
-  // width: 70%;
-  // margin: 0 5%;
   text-align: justify;
   color: rgb(122, 117, 117);
-}
-
-.wineList {
-  // display: flex;
-  // flex-direction: row;
-  // justify-content: space-around;
-  // border-bottom: 1px solid black;
-  // padding: 2% 0;
 }
 
 .wine-name-description {
@@ -132,12 +121,8 @@ body {
 
 .wine-buttons {
   text-align: center;
-}
-
-.wine-bottle-name {
-  // margin:3rem 0 0 8rem;
-  // text-align: left;
-  // color: $secondary;
+  display: flex;
+  justify-content: space-around;
 }
 
 .wine-rating-price {
@@ -146,15 +131,7 @@ body {
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  // align-items: center;
   justify-content: space-around;
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: space-around;
-  // margin:0 1%;
-}
-
-.wine-bottle-price {
 }
 
 .Rating > h6 {
@@ -197,13 +174,8 @@ body {
 .upperProfile > .profile-wines {
   text-align: left;
 }
-// @keyframes fadein {
-//   from { opacity: 0; }
-//   to   { opacity: 1; }
-// }
 
 .upperProfile > .info-box {
-  // -webkit-animation: fadein 1s;
   background-color: white;
   height: 60%;
   width: 80%;
@@ -241,7 +213,6 @@ body {
 }
 
 .carouselImg > p > img {
-  // width: 100%;
   position: relative;
 }
 .carouselImg > p > h5 {
@@ -273,6 +244,7 @@ body {
     margin: 0 auto;
   }
   .wine-rating-price {
+    margin-top: 5vh;
     height: 12vh;
     width: 12vh;
     padding: 2vh 1vh 0 1vh;
