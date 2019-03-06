@@ -46,11 +46,10 @@ export default class WineList extends Component {
       .catch(err => console.log(err));
   }
   componentDidMount() {
-    if(this.props.isProfile){
-      console.log('component did mount rating',this.props.content.rating)
-      this.setState({rating: this.props.content.rating});
+    if (this.props.isProfile) {
+      console.log("component did mount rating", this.props.content.rating);
+      this.setState({ rating: this.props.content.rating });
     }
-   
   }
 
   render() {
@@ -60,26 +59,22 @@ export default class WineList extends Component {
         data-aos="fade-right"
         aos-duration="500"
       >
-        <h5 className="wine-bottle-name">{this.props.content.title}</h5>
-
+        <img
+          className="wine-bottle-image"
+          src={this.props.content.imageUrl}
+          alt=""
+        />
         <div className="wine-name-description">
-          <img
-            className="wine-bottle-image"
-            src={this.props.content.imageUrl}
-            alt=""
-          />
+          <h5 className="wine-bottle-name">{this.props.content.title}</h5>
 
           <div
             className="wine-rating-price"
             data-aos="fade-left"
             aos-duration="500"
           >
-            <h6 className="wine-bottle-price">
-              Price: {this.props.content.price}€
-            </h6>
+            <h6 className="wine-bottle-price">{this.props.content.price}€</h6>
 
             <div className="Rating">
-              <h6>Rating:</h6>
               {this.props.content.averageRating * 5 >= 0.5 ? (
                 <i class="fas fa-star" />
               ) : (
@@ -105,47 +100,46 @@ export default class WineList extends Component {
               ) : (
                 <i class="far fa-star" />
               )}
+              <ReadMore description={this.props.content.description} />
+              {/* <div className="rate-yourself-container">
+                <p className="rate-the-wine">Rate the wine:</p>
+                {this.props.isSaved && this.props.isProfile && (
+                  <StarRatingComponent
+                  className="star-rating"
+                  name={this.props.content.idSaving}
+                  starCount={5}
+                  value={this.state.rating}
+                  onStarClick={this.onStarClick.bind(this)}
+                  />
+                  )}
+                </div> */}
             </div>
           </div>
-        </div>
-        <ReadMore description={this.props.content.description} />
-
-        <div className="wine-buttons">
-          <Button outline color="warning" href={this.props.content.link}>
-            Order Online
-          </Button>
-          {!this.props.isSaved && (
-            <Button
-              outline
-              color="warning"
-              onClick={e => this.handleSaveWine(e, this.props.content._id)}
-            >
-              Save
+          <div className="wine-buttons">
+            <Button outline color="warning" href={this.props.content.link}>
+              Order Online
             </Button>
-          )}
-          {this.props.isSaved && (
-            <Button
-              outline
-              color="warning"
-              onClick={e =>
-                this.handleDeleteSavedWine(e, this.props.content._id)
-              }
-            >
-              Delete
-            </Button>
-          )}
-        </div>
-        <div className="rate-yourself-container">
-        <p className="rate-the-wine">Rate the wine:</p>
-        {this.props.isSaved && this.props.isProfile && (
-          <StarRatingComponent
-            className="star-rating"
-            name={this.props.content.idSaving}
-            starCount={5}
-            value={this.state.rating}
-            onStarClick={this.onStarClick.bind(this)}
-          />
-        )}
+            {!this.props.isSaved && (
+              <Button
+                outline
+                color="warning"
+                onClick={e => this.handleSaveWine(e, this.props.content._id)}
+              >
+                Save
+              </Button>
+            )}
+            {this.props.isSaved && (
+              <Button
+                outline
+                color="warning"
+                onClick={e =>
+                  this.handleDeleteSavedWine(e, this.props.content._id)
+                }
+              >
+                Delete
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     );
