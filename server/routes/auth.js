@@ -113,7 +113,7 @@ router.post("/login", (req, res, next) => {
         res.json(userDoc);
       });
     })
-    .catch(err => next(err));
+    .catch(err => res.json(err));
 });
 
 router.get('/connected-profile', isLoggedIn, (req, res, next) => {

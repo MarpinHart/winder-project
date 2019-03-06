@@ -88,7 +88,7 @@ export default class Profile extends Component {
     
       .then(([user,savedWines]) =>{
         console.log('savedWines',savedWines)
-        let array = savedWines.data.map(w=>( {...w._wine,rating: w.rating, idSaving:w._id}))
+        let array = savedWines.data.map(w=>( {...w._wine,isLiked: w.isLiked, idSaving:w._id}))
         console.log('array',array)
         this.setState({
           id: user._id,
