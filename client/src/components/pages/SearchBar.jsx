@@ -164,16 +164,17 @@ export default class SearchBar extends Component {
   }
 
   componentDidMount() {
-    api.getSavedWinesByUser("?getOnlyId=true").then(result => {
+    api.getSavedWinesByUser("?getOnlyId=true")
+      .then(result => {
       this.setState({
         savedWines: result.data
       });
     });
     api.getFoods('?allfoods=yes')
-    .then(result=>{
-     foods=result.data
-    })
-    .catch(err=>console.log(err))
+      .then(result=>{
+      foods=result.data
+      })
+      .catch(err=>console.log(err))
   }
   handleSaveWine(e, _wine) {
     e.preventDefault();

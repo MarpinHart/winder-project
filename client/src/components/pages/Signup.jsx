@@ -99,6 +99,7 @@ export default class Signup extends Component {
               </Button>
             </FormGroup>
           </Form>
+          <br/>
           {this.state.message && <div className="info info-danger">
             {this.state.message}
           </div>}
