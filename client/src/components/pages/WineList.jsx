@@ -86,29 +86,29 @@ export default class WineList extends Component {
 
             <div className="Rating">
               {this.props.content.averageRating * 5 >= 0.5 ? (
-                <i class="fas fa-star" />
+                <i className="fas fa-star" />
               ) : (
-                <i class="far fa-star" />
+                <i className="far fa-star" />
               )}
               {this.props.content.averageRating * 5 >= 1.5 ? (
-                <i class="fas fa-star" />
+                <i className="fas fa-star" />
               ) : (
-                <i class="far fa-star" />
+                <i className="far fa-star" />
               )}
               {this.props.content.averageRating * 5 >= 2.5 ? (
-                <i class="fas fa-star" />
+                <i className="fas fa-star" />
               ) : (
-                <i class="far fa-star" />
+                <i className="far fa-star" />
               )}
               {this.props.content.averageRating * 5 >= 3.5 ? (
-                <i class="fas fa-star" />
+                <i className="fas fa-star" />
               ) : (
-                <i class="far fa-star" />
+                <i className="far fa-star" />
               )}
               {this.props.content.averageRating * 5 >= 4.5 ? (
-                <i class="fas fa-star" />
+                <i className="fas fa-star" />
               ) : (
-                <i class="far fa-star" />
+                <i className="far fa-star" />
               )}
               <ReadMore description={this.props.content.description} />
               {/* <div className="rate-yourself-container">
