@@ -48,7 +48,7 @@ class WineCarousel extends Component {
   render() {
     let wines
     const { activeIndex } = this.state;
-    //WHY?
+   
     wines = this.props.wines.map(wine => 
       wine = {name: wine, src:"https://www.manoswine.com/media/catalog/product/cache/1/image/790bb9cb46c431c1e54dab150582a452/c/u/custom_bottle3/www.manoswine.com-customized-bottle-33.jpg"})
     const slides = wines.map((wine, i) => {
@@ -72,6 +72,7 @@ class WineCarousel extends Component {
         next={this.next}
         previous={this.previous}
         autoPlay={false}
+        interval={false}
       >
         <CarouselIndicators items={wines} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
         {slides}

@@ -49,8 +49,11 @@ console.log('id saving',name)
       .catch(err => console.log(err));
   }
   componentDidMount() {
-   console.log('component did mount rating',this.props.content.rating)
-   this.setState({rating: this.props.content.rating});
+    if(this.props.isProfile){
+      console.log('component did mount rating',this.props.content.rating)
+      this.setState({rating: this.props.content.rating});
+    }
+   
   }
 
 
