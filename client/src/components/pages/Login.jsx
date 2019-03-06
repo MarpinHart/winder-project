@@ -45,6 +45,7 @@ export default class Login extends Component {
   isPasswordStrong(){
     return this.state.password.length >= 6
   }
+  
   render() {
     return (
       <div className="Login">
