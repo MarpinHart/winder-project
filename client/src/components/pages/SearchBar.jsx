@@ -96,14 +96,17 @@ export default class SearchBar extends Component {
     //ask for wines paired with the food in our database
     api.getPairedWines(this.state.food)
       .then(result => {
+        console.log('paired wine result', result)
       //if there are no paired wines in our DB, get it from the API
       if (!result.data) {
         winesApi
         .getWinesGeneral(this.state.food)
         .then(result => {
+          console.log('paired wine result AFTER', result)
+
           this.setState({
             isLoading: false,
-            wines: result.pairedWines === undefined || result.pairedWines.length ===0? 'nothing' : result.pairedWines
+            wines: result.pairedWines === undefined || result.pairedWines.length ===0 || result.status === "failure"? 'nothing' : result.pairedWines
           });
           let foodData = {
             name: this.state.food,
@@ -127,7 +130,7 @@ export default class SearchBar extends Component {
         // if the food is already in our DB, just set state to the results
         this.setState({
           isLoading: false,
-          wines: result.pairedWines.length ===0 || result.pairedWines=== undefined? 'nothing' : result.pairedWines
+          wines: result.data.pairedWines.length ===0 || result.data.pairedWines=== undefined? 'nothing' : result.data.pairedWines
         });
       }
     })
@@ -154,6 +157,7 @@ export default class SearchBar extends Component {
     api
     .getWinesDetail(name, this.state.maxPrice, (this.state.minRating/5)-0.1)
     .then(result => {
+      console.log('result from our api', result)
       this.setState({
         isLoading: false,
         wineDetail: result.data
