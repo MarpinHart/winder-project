@@ -74,6 +74,8 @@ app.use((err, req, res, next) => {
   if (!res.headersSent) {
     res.status(err.status || 500)
 
+    console.log("I got an error", err)
+
     // A limited amount of information sent in production
     if (process.env.NODE_ENV === 'production')
       res.json(err)
