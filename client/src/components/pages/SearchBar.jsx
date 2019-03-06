@@ -135,7 +135,9 @@ export default class SearchBar extends Component {
             wines: result.data.pairedWines
           });
         }
-      })
+        )
+      }
+    })
       .then(result => {
         if (this.state.wines.length > 0) {
           api
