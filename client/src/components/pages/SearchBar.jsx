@@ -103,7 +103,7 @@ export default class SearchBar extends Component {
         .then(result => {
           this.setState({
             isLoading: false,
-            wines: result.pairedWines === undefined ? 'nothing' : result.pairedWines
+            wines: result.pairedWines === undefined || result.pairedWines.length ===0? 'nothing' : result.pairedWines
           });
           let foodData = {
             name: this.state.food,
