@@ -66,6 +66,7 @@ router.post("/saved-wines", (req, res, next) => {
 });
 
 router.get("/saved-wines",(req, res, next)=>{
+  console.log("user", req.user)
   SavedWine.find({_user:req.user._id})
   .populate('_wine')
   .then(savedWines=>{
@@ -76,6 +77,7 @@ router.get("/saved-wines",(req, res, next)=>{
    return res.json(savedWinesQuery)})
   .catch(err=>console.log(err))
 })
+
 router.delete("/saved-wines",(req, res, next)=>{
   SavedWine.findOneAndDelete({_user:req.user._id},{_wine:req.body._wine})
   .then(deleteSave=>res.json(deleteSave))

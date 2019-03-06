@@ -86,15 +86,17 @@ export default class Login extends Component {
                 onClick={(e) => this.handleClick(e)}>
                 Login
               </Button>
+              <br />
+              <Button color="facebook" className="Facebook-Login mt-2">
+              <a href={`${process.env.REACT_APP_API_URL}/login/facebook`}>Login with Facebook</a>
+              </Button>
           </Form>
-        <Button color="facebook" className="Facebook-Login mt-2">
-         <a href={`${process.env.REACT_APP_API_URL}/login/facebook`}>Login with Facebook</a>
-         </Button>
-        
-        </Container>
+        <br/>
         {this.state.message && <div className="info info-danger">
           {this.state.message}
         </div>}
+        
+        </Container>
       </div>
     );
   }

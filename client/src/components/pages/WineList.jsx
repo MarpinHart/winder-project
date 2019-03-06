@@ -71,11 +71,11 @@ console.log('id saving',name)
               
             <div className="Rating">
               <h6>Rating:</h6>
-                {this.props.content.averageRating * 5 >= 0.5 ? <i class="fas fa-star"></i> : <i class="far fa-star"></i>}
-                {this.props.content.averageRating * 5 >= 1.5 ? <i class="fas fa-star"></i> : <i class="far fa-star"></i>}
-                {this.props.content.averageRating * 5 >= 2.5 ? <i class="fas fa-star"></i> : <i class="far fa-star"></i>}
-                {this.props.content.averageRating * 5 >= 3.5 ? <i class="fas fa-star"></i> : <i class="far fa-star"></i>}
-                {this.props.content.averageRating * 5 >= 4.5 ? <i class="fas fa-star"></i> : <i class="far fa-star"></i>}
+                {this.props.content.averageRating * 5 >= 0.5 ? <i className="fas fa-star"></i> : <i className="far fa-star"></i>}
+                {this.props.content.averageRating * 5 >= 1.5 ? <i className="fas fa-star"></i> : <i className="far fa-star"></i>}
+                {this.props.content.averageRating * 5 >= 2.5 ? <i className="fas fa-star"></i> : <i className="far fa-star"></i>}
+                {this.props.content.averageRating * 5 >= 3.5 ? <i className="fas fa-star"></i> : <i className="far fa-star"></i>}
+                {this.props.content.averageRating * 5 >= 4.5 ? <i className="fas fa-star"></i> : <i className="far fa-star"></i>}
               </div>
             </div>
           </div>
