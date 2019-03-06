@@ -1,13 +1,5 @@
 import React, { Component } from "react";
 import api from "../../api";
-import {
-  Button,
-  Form,
-  FormGroup,
-  InputGroup,
-  InputGroupAddon,
-  Input
-} from "reactstrap";
 import WineList from '../pages/WineList'
 
 export default class Profile extends Component {
@@ -46,38 +38,24 @@ export default class Profile extends Component {
 
   render() {
     return (
+      <div>
         <div className="upperProfile">
           <img className="profileIcon mx-auto" src="/images/wineIcon.png" alt="profile"/>
-          <div className="info-box" data-aos="zoom-in">
-          <h1>Welcome</h1>
-          <Form>
-            <FormGroup row>
-              <InputGroup>
-                <InputGroupAddon addonType="prepend">Name</InputGroupAddon>
-                <Input name='name' value={this.state.name} onChange={e=>this.handleChange(e)}/>
-                <InputGroupAddon addonType="append">
-                  <Button onClick={e => this.handleClick(e)} color="primary">Save
-                  </Button>
-                </InputGroupAddon>
-              </InputGroup>
-            </FormGroup>
-            <FormGroup row>
-              <InputGroup>
-                <InputGroupAddon addonType="prepend">Email</InputGroupAddon>
-                <Input name='email' readOnly value={this.state.email}/>
-              </InputGroup>
-            </FormGroup>
-          </Form> 
-            </div>
+          <h1>Welcome, {this.state.name}!</h1>
+        </div>
+
+        
+            {this.state.savedWines.length>0 && 
             <div className="profile-wines">
-            
-            {this.state.savedWines.length>0 && <h1> Your wines:</h1>}
-            {this.state.savedWines && this.state.savedWines.map((wine, i) => (
-                <WineList key={i} content={wine} delete={e => this.handleDeleteSavedWine(e,wine._id,i)} isSaved={true} isProfile={true}/>
-            ))}
-          </div>
-              
+              <h2>Your wine collection</h2>
+              {this.state.savedWines && this.state.savedWines.map((wine, i) => (
+              <WineList key={i} content={wine} delete={e => this.handleDeleteSavedWine(e,wine._id,i)} isSaved={true} isProfile={true}/>
+              ))}
             </div>
+            }
+      </div>
+              
+            
     );
   }
   componentDidMount() {
@@ -86,9 +64,7 @@ export default class Profile extends Component {
       api.getSavedWinesByUser()])
     
       .then(([user,savedWines]) =>{
-        console.log('savedWines',savedWines)
         let array = savedWines.data.map(w=>( {...w._wine,isLiked: w.isLiked, idSaving:w._id}))
-        console.log('array',array)
         this.setState({
           id: user._id,
           name: user.name,
