@@ -243,15 +243,15 @@ export default class SearchBar extends Component {
             <Row form>
             <Col md={6} xs={6}>
             <FormGroup className="mr-5">
-            <Typography id="label">Max Price <strong>{this.state.maxPrice}€</strong> </Typography>
+            <Typography id="label">Max Price <strong>{this.state.maxPrice.toFixed(2)}€</strong> </Typography>
             <Slider
             min={10}
               max={150}
-              value={parseInt(this.state.maxPrice)}
+              value={parseFloat(this.state.maxPrice.toFixed(2))}
               aria-labelledby="label"
               onChange={this.handleChange}
               className="mt-2 mr-5"
-              step={1}
+              
             />
             </FormGroup>
             </Col>
