@@ -210,15 +210,16 @@ export default class SearchBar extends Component {
 
     return (
       <div>
-        {this.state.food === "" && this.state.wines.length === 0 && 
-        <div className="main-bg"> 
-        </div>}
+        {this.state.food === "" && this.state.wines.length === 0 && ( <div className="main-bg" />)
+       }
       <div className="container">
         
-       {this.state.food === "" && this.state.wines.length === 0 && 
-      <div className="welcomeText"> 
+       {this.state.food === "" && this.state.wines.length === 0 && (
+        <div className="welcomeText"> 
         <h1>Tell us what you are going to eat today and let us recommend the perfect wine!</h1> 
       </div>
+       )
+      
       }
         <InputGroup className="SearchInputGroup">
           <InputGroupAddon addonType="prepend">
@@ -243,15 +244,15 @@ export default class SearchBar extends Component {
             <Row form>
             <Col md={6} xs={6}>
             <FormGroup className="mr-5">
-            <Typography id="label">Max Price <strong>{this.state.maxPrice.toFixed(2)}€</strong> </Typography>
+            <Typography id="label">Max Price <strong>{this.state.maxPrice}€</strong> </Typography>
             <Slider
             min={10}
               max={150}
-              value={parseFloat(this.state.maxPrice.toFixed(2))}
+              value={parseInt(this.state.maxPrice)}
               aria-labelledby="label"
               onChange={this.handleChange}
               className="mt-2 mr-5"
-              
+              step={1}
             />
             </FormGroup>
             </Col>
