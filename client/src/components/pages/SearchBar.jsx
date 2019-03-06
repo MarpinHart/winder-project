@@ -127,7 +127,7 @@ export default class SearchBar extends Component {
         // if the food is already in our DB, just set state to the results
         this.setState({
           isLoading: false,
-          wines: result.data.pairedWines
+          wines: result.pairedWines.length ===0? 'nothing' : result.pairedWines
         });
       }
     })
