@@ -4,8 +4,6 @@ import WineCarousel from "../WineCarousel";
 import Autosuggest from "react-autosuggest";
 import WineList from "../pages/WineList";
 import StarRatingComponent from "react-star-rating-component";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/lab/Slider";
 
@@ -117,7 +115,6 @@ export default class SearchBar extends Component {
         })
         .catch(err => this.setState({ message: err.toString() }));
       } else {
-        console.log('food is already in our DB, just set state to the results',result.data.pairedWines )
         // if the food is already in our DB, just set state to the results
         this.setState({
           isLoading: false,

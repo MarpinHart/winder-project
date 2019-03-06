@@ -170,14 +170,13 @@ body {
   color: white;
   font-weight: bold;
 }
-.upperProfile > .profile-wines {
-  text-align: left;
-}
-.upperProfile > .profile-wines > h2 {
+
+.profile-wines > h2 {
   width: 50vh;
-  margin: 0 auto;
-  border-bottom: 1px solid grey;
+  margin: 5vh auto 0 auto;
   padding-bottom: 5vh;
+  border-bottom: 1px solid grey;
+  text-align: center;
 }
 .upperProfile > .info-box {
   background-color: white;
@@ -342,4 +341,9 @@ body {
 
 #label {
   font-family: "Playfair Display", serif !important;
+}
+
+.homepage {
+  color: white;
+  padding-top: 30px;
 }

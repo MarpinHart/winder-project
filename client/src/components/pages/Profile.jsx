@@ -43,19 +43,15 @@ export default class Profile extends Component {
           <img className="profileIcon mx-auto" src="/images/wineIcon.png" alt="profile"/>
           <h1>Welcome, {this.state.name}!</h1>
         </div>
-
-        
-            {this.state.savedWines.length>0 && 
+        {this.state.savedWines.length>0 && 
             <div className="profile-wines">
-              <h2>Your wine collection</h2>
+              <h2>Your wine collection:</h2>
               {this.state.savedWines && this.state.savedWines.map((wine, i) => (
               <WineList key={i} content={wine} delete={e => this.handleDeleteSavedWine(e,wine._id,i)} isSaved={true} isProfile={true}/>
               ))}
             </div>
-            }
+          }
       </div>
-              
-            
     );
   }
   componentDidMount() {
