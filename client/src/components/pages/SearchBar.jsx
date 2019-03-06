@@ -261,7 +261,13 @@ export default class SearchBar extends Component {
 
       {this.state.food === "" && this.state.wines.length === 0 &&
       <h1>Tell us what you are going to eat today and let us recommend the perfect wine!</h1>}
-      {this.state.wines.length > 0 && (
+      
+      {!this.state.isLoading && this.state.wines === 'nothing' &&
+          <div> <h1> No recommendations found </h1> </div>}
+
+      <div className="carousel-result">
+      <div classnName="wine-carousel">
+      {this.state.wines.length > 0 && this.state.wines !== 'nothing' && (
           <div className="wine-bottles-container">
             <h1>Try these wines: </h1>
             <div className="winePicks">
@@ -272,11 +278,13 @@ export default class SearchBar extends Component {
             </div>
           </div>
         )}
+        </div>
         {this.state.isLoading && (
           <div data-aos="fade-right" className="spinner-loading-div">
             <Spinner className="spinner-loading" />
           </div>
         )}
+        <div className="wine-list-component">
         {this.state.wineDetail && (
           <div>
             <hr />
@@ -291,7 +299,9 @@ export default class SearchBar extends Component {
             ))}
           </div>
         )}
+        </div>
       </div>
+    </div>
     );
   }
 }

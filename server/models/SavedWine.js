@@ -13,8 +13,9 @@ const savedWineSchema = new Schema(
       ref: "User",
       required: true
     },
-    rating:{
-      type: Number
+    isLiked:{
+      type: Boolean,
+      default:null
     }
   },
   {

@@ -140,9 +140,10 @@ export default {
     .then(res=>res)
     .catch(err=>console.log(err))
   },
-  rateWine(idSaving,rating){
+  likeWine(idSaving,kind){
+    console.log('kind', kind)
     return service
-    .put('/saved-wines',{idSaving, rating})
+    .put('/saved-wines',{idSaving, kind})
     .then(res=>res)
     .catch(err=>console.log(err))
   }
