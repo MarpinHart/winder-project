@@ -276,6 +276,14 @@ body {
   .wine-button-select {
     margin-top: 37%;
   }
+  .carousel-result{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  .wine-carousel{
+    width: 10vh;
+  }
 }
 
 @media only screen and (max-width: 400px) {
@@ -350,8 +358,5 @@ body {
   font-family: "Playfair Display", serif !important;
 }
 
-.carousel-resul{
-  display: flex;
-  flex-direction: column;
-}
+
 
