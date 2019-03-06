@@ -8,7 +8,7 @@ import ReadMore from "../pages/ReadMore";
 export default class WineList extends Component {
   constructor(props) {
     super(props);
-    this.state = { rating: 0 };
+    this.state = { isLiked: null };
   }
   handleChange(e) {
     this.setState({
@@ -29,26 +29,36 @@ export default class WineList extends Component {
       .catch(err => console.log(err));
   }
 
-  handleRateWine(e, idSaving, rating) {
-    e.preventDefault();
-
-    api
-      .rateWine(idSaving, rating)
-      .then(res => res)
-      .catch(err => console.log(err));
+  
+  handleLikeButton(e, kind){
+    if(kind==="like"){
+      if(this.state.isLiked){
+        this.setState({isLiked: null});
+        kind=null
+      }else{
+        this.setState({isLiked: true});
+      }
+      
+    }
+    if(kind==="dislike"){
+      if(this.state.isLiked===false){
+        this.setState({isLiked: null});
+        kind=null
+      }else{
+        this.setState({isLiked: false});
+      }
+      
+    }
+    console.log('kind winelist',kind)
+    api.likeWine(this.props.content.idSaving,kind)
+    .then(res=>res)
+    .catch(err=> console.log(err))
   }
-  onStarClick(nextValue, prevValue, name) {
-    this.setState({ rating: nextValue });
-    console.log("id saving", name);
-    api
-      .rateWine(name, nextValue)
-      .then(res => res)
-      .catch(err => console.log(err));
-  }
+  
   componentDidMount() {
-    if (this.props.isProfile) {
-      console.log("component did mount rating", this.props.content.rating);
-      this.setState({ rating: this.props.content.rating });
+    if(this.props.isProfile){
+      console.log('component did mount rating',this.props.content.idSaving)
+      this.setState({isLiked: this.props.content.isLiked});
     }
   }
 
@@ -138,9 +148,21 @@ export default class WineList extends Component {
               >
                 Delete
               </Button>
+              
             )}
-          </div>
-        </div>
+              {this.props.isSaved && this.props.isProfile && 
+              <div>
+              <Button outline={!this.state.isLiked} color="primary"   onClick={e =>
+                  this.handleLikeButton(e, "like")
+                }><i class="fas fa-thumbs-up"></i></Button>
+              <Button outline={this.state.isLiked || this.state.isLiked===null } color="primary"  onClick={e =>
+                this.handleLikeButton(e, "dislike")
+                }><i class="fas fa-thumbs-down"></i></Button>
+                </div> 
+                
+              
+              }
+            </div> </div>
       </div>
     );
   }

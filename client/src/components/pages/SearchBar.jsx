@@ -11,7 +11,6 @@ import Slider from '@material-ui/lab/Slider';
 
 import {
   InputGroup,
-  Input,
   InputGroupAddon,
   Button,
   FormGroup,
@@ -260,6 +259,9 @@ export default class SearchBar extends Component {
         </Row>
         </Form>
 
+      {this.state.food === "" && this.state.wines.length === 0 &&
+      <h1>Tell us what you are going to eat today and let us recommend the perfect wine!</h1>}
+      
       {!this.state.isLoading && this.state.wines === 'nothing' &&
           <div> <h1> No recommendations found </h1> </div>}
 

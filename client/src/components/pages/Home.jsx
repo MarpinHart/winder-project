@@ -23,7 +23,9 @@ export default class Home extends Component {
       );
     } else {
       return (
-        <SearchBar />
+        <div>
+          <SearchBar />
+        </div>
       )
     }         
   }

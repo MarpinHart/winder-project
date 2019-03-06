@@ -74,11 +74,17 @@ app.use((err, req, res, next) => {
   if (!res.headersSent) {
     res.status(err.status || 500)
 
+    console.log("I got an error", err)
+
     // A limited amount of information sent in production
-    if (process.env.NODE_ENV === 'production')
-      res.json(err)
-    else
-      res.json(JSON.parse(JSON.stringify(err, Object.getOwnPropertyNames(err))))
+    if (process.env.NODE_ENV === 'production') {
+      console.log("I got an error in production", err)
+      //res.json(err)
+      res.json(JSON.parse(JSON.stringify(err, Object.getOwnPropertyNames(err))))  
+    } else {
+      console.log("I got an error in development", JSON.parse(JSON.stringify(err, Object.getOwnPropertyNames(err))))
+      res.json(JSON.parse(JSON.stringify(err, Object.getOwnPropertyNames(err))))  
+    }
   }
 })
 app.use((req, res, next) => {
