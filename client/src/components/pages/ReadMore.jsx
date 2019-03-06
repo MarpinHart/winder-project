@@ -18,7 +18,7 @@ export default class ReadMore extends Component {
     if(this.props.description){
       return (
         <p className="wine-bottle-description">
-        {this.props.description && this.state.expanded ? this.props.description+' ' : this.props.description.slice(0, 200)+'... ' }
+        {this.props.description && this.state.expanded ? this.props.description+' ' : this.props.description.slice(0, 100)+'... ' }
           <a className="read-more" onClick={e=> this.handleExpandedText(e)} href="">Read {this.state.expanded ? 'less' : 'more'} </a>
         </p>
       )

@@ -164,16 +164,17 @@ export default class SearchBar extends Component {
   }
 
   componentDidMount() {
-    api.getSavedWinesByUser("?getOnlyId=true").then(result => {
+    api.getSavedWinesByUser("?getOnlyId=true")
+      .then(result => {
       this.setState({
         savedWines: result.data
       });
     });
     api.getFoods('?allfoods=yes')
-    .then(result=>{
-     foods=result.data
-    })
-    .catch(err=>console.log(err))
+      .then(result=>{
+      foods=result.data
+      })
+      .catch(err=>console.log(err))
   }
   handleSaveWine(e, _wine) {
     e.preventDefault();
@@ -262,7 +263,8 @@ export default class SearchBar extends Component {
       {!this.state.isLoading && this.state.wines === 'nothing' &&
           <div> <h1> No recommendations found </h1> </div>}
 
-      
+      <div className="carousel-result">
+      <div classnName="wine-carousel">
       {this.state.wines.length > 0 && this.state.wines !== 'nothing' && (
           <div className="wine-bottles-container">
             <h1>Try these wines: </h1>
@@ -274,11 +276,13 @@ export default class SearchBar extends Component {
             </div>
           </div>
         )}
+        </div>
         {this.state.isLoading && (
           <div data-aos="fade-right" className="spinner-loading-div">
             <Spinner className="spinner-loading" />
           </div>
         )}
+        <div className="wine-list-component">
         {this.state.wineDetail && (
           <div>
             <hr />
@@ -293,7 +297,9 @@ export default class SearchBar extends Component {
             ))}
           </div>
         )}
+        </div>
       </div>
+    </div>
     );
   }
 }

@@ -96,7 +96,6 @@ export default class Profile extends Component {
           email: user.email,
           savedWines: array
         });
-        console.log('this.state savedWines',this.state.savedWines)
       })
   }
 }
