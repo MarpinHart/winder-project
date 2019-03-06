@@ -90,41 +90,46 @@ export default class SearchBar extends Component {
     api
       .getPairedWines(this.state.food)
       .then(result => {
-        //if there are no paired wines in our DB, get it from the API
-        if (!result.data) {
-          winesApi
-            .getWinesGeneral(this.state.food)
-            .then(result => {
-              this.setState({
-                isLoading: false,
-                wines:
-                  result.pairedWines === undefined
-                    ? "nothing"
-                    : result.pairedWines
-              });
-              let foodData = {
-                name: this.state.food,
-                pairedWines: result.pairedWines,
-                pairingText: result.pairingText
-              };
-              //save the result in our database
-              if (result.pairedWines.length > 0) {
-                let promises = [];
-                result.pairedWines.forEach(wine => {
-                  promises.push(winesApi.getWineReccomendation(wine));
-                });
-                Promise.all([api.postFood(foodData), promises])
-                  .then(res => res)
-                  .catch(err => console.log(err));
-              }
-            })
-            .catch(err => this.setState({ message: err.toString() }));
-        } else {
-          console.log(
-            "food is already in our DB, just set state to the results",
-            result.data.pairedWines
-          );
-          // if the food is already in our DB, just set state to the results
+      //if there are no paired wines in our DB, get it from the API
+      if (!result.data) {
+        winesApi
+        .getWinesGeneral(this.state.food)
+        .then(result => {
+          this.setState({
+            isLoading: false,
+            wines: result.pairedWines === undefined || result.pairedWines.length ===0? 'nothing' : result.pairedWines
+          });
+          let foodData = {
+            name: this.state.food,
+            pairedWines: result.pairedWines,
+            pairingText: result.pairingText
+          };
+          //save the result in our database
+          if (result.pairedWines.length > 0) {
+            let promises = [];
+            result.pairedWines.forEach(wine => {
+              promises.push(winesApi.getWineReccomendation(wine));
+            });
+            Promise.all([api.postFood(foodData), promises])
+            .then(res => res)
+            .catch(err => console.log(err));
+          }
+        })
+        .catch(err => this.setState({ message: err.toString() }));
+      } else {
+        console.log('food is already in our DB, just set state to the results',result.data.pairedWines )
+        // if the food is already in our DB, just set state to the results
+        this.setState({
+          isLoading: false,
+          wines: result.data.pairedWines
+        });
+      }
+    })
+    .then(result => {
+      if(this.state.wines.length > 0) {
+        api
+        .getWinesDetail(this.state.wines[0], this.state.maxPrice, (this.state.minRating/5)-0.1)
+        .then(result => {
           this.setState({
             isLoading: false,
             wines: result.data.pairedWines
