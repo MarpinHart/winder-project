@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   Carousel,
   CarouselItem,
   CarouselControl,
   CarouselIndicators
-} from 'reactstrap';
-
+} from "reactstrap";
 
 class WineCarousel extends Component {
   constructor(props) {
@@ -28,16 +27,22 @@ class WineCarousel extends Component {
 
   next() {
     if (this.animating) return;
-    const nextIndex = this.state.activeIndex === this.props.wines.length - 1 ? 0 : this.state.activeIndex + 1;
+    const nextIndex =
+      this.state.activeIndex === this.props.wines.length - 1
+        ? 0
+        : this.state.activeIndex + 1;
     this.setState({ activeIndex: nextIndex });
-    this.props.onBottleChange(this.props.wines[nextIndex])
+    this.props.onBottleChange(this.props.wines[nextIndex]);
   }
 
   previous() {
     if (this.animating) return;
-    const nextIndex = this.state.activeIndex === 0 ? this.props.wines.length - 1 : this.state.activeIndex - 1;
+    const nextIndex =
+      this.state.activeIndex === 0
+        ? this.props.wines.length - 1
+        : this.state.activeIndex - 1;
     this.setState({ activeIndex: nextIndex });
-    this.props.onBottleChange(this.props.wines[nextIndex])
+    this.props.onBottleChange(this.props.wines[nextIndex]);
   }
 
   goToIndex(newIndex) {
@@ -46,21 +51,23 @@ class WineCarousel extends Component {
   }
 
   render() {
-    let wines
+    let wines;
     const { activeIndex } = this.state;
-   
-    wines = this.props.wines.map(wine => 
-      wine = {name: wine, src:"/images/wine-bottle.png"})
+
+    wines = this.props.wines.map(
+      wine => (wine = { name: wine, src: "/images/wine-bottle.png" })
+    );
     const slides = wines.map((wine, i) => {
       return (
-        <CarouselItem key={i}
-        className="carouselImg"
+        <CarouselItem
+          key={i}
+          className="carouselImg"
           onExiting={this.onExiting}
           onExited={this.onExited}
-        > 
+        >
           <p>
-          <img src={wine.src} alt={wine.name} />
-          <h5>{wine.name.toUpperCase()}</h5>
+            <img src={wine.src} alt={wine.name} />
+            <h5>{wine.name.toUpperCase()}</h5>
           </p>
         </CarouselItem>
       );
@@ -74,14 +81,25 @@ class WineCarousel extends Component {
         autoPlay={false}
         interval={false}
       >
-        <CarouselIndicators items={wines} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
+        <CarouselIndicators
+          items={wines}
+          activeIndex={activeIndex}
+          onClickHandler={this.goToIndex}
+        />
         {slides}
-        <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
-        <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
+        <CarouselControl
+          direction="prev"
+          directionText="Previous"
+          onClickHandler={this.previous}
+        />
+        <CarouselControl
+          direction="next"
+          directionText="Next"
+          onClickHandler={this.next}
+        />
       </Carousel>
     );
   }
 }
-
 
 export default WineCarousel;

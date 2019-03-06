@@ -57,7 +57,6 @@ export default class WineList extends Component {
   
   componentDidMount() {
     if(this.props.isProfile){
-      console.log('component did mount rating',this.props.content.idSaving)
       this.setState({isLiked: this.props.content.isLiked});
     }
   }
@@ -154,12 +153,11 @@ export default class WineList extends Component {
               <div>
               <Button outline={!this.state.isLiked} color="primary"   onClick={e =>
                   this.handleLikeButton(e, "like")
-                }><i class="fas fa-thumbs-up"></i></Button>
+                }><i className="fas fa-thumbs-up"></i></Button>
               <Button outline={this.state.isLiked || this.state.isLiked===null } color="primary"  onClick={e =>
                 this.handleLikeButton(e, "dislike")
-                }><i class="fas fa-thumbs-down"></i></Button>
-                </div> 
-                
+                }><i className="fas fa-thumbs-down"></i></Button>
+                </div>
               
               }
             </div> </div>
