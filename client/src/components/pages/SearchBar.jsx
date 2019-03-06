@@ -90,11 +90,14 @@ export default class SearchBar extends Component {
     api
       .getPairedWines(this.state.food)
       .then(result => {
+        console.log('result after getPairedWines(this.state.food)',result)
       //if there are no paired wines in our DB, get it from the API
       if (!result.data) {
+        console.log('no result from first call so look for general wines on api')
         winesApi
         .getWinesGeneral(this.state.food)
         .then(result => {
+          console.log('result from api call getWinesGeneral(this.state.food)' ,result)
           this.setState({
             isLoading: false,
             wines: result.pairedWines === undefined || result.pairedWines.length ===0? 'nothing' : result.pairedWines
