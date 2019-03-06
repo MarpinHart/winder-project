@@ -209,8 +209,17 @@ export default class SearchBar extends Component {
     };
 
     return (
+      <div>
+        {this.state.food === "" && this.state.wines.length === 0 && 
+        <div className="main-bg"> 
+        </div>}
       <div className="container">
-       
+        
+       {this.state.food === "" && this.state.wines.length === 0 && 
+      <div className="welcomeText"> 
+        <h1>Tell us what you are going to eat today and let us recommend the perfect wine!</h1> 
+      </div>
+      }
         <InputGroup className="SearchInputGroup">
           <InputGroupAddon addonType="prepend">
             <Button
@@ -228,40 +237,37 @@ export default class SearchBar extends Component {
             renderSuggestion={renderSuggestion}
             inputProps={inputProps} />
         </InputGroup>
-        <Form>
-        <Row form>
-        <Col md={6} xs={6}>
-        <FormGroup className="mr-5">
-        <Typography id="label">Max Price <strong>{this.state.maxPrice.toFixed(2)}€</strong> </Typography>
-        <Slider
-        min={10}
-          max={150}
-          value={parseFloat(this.state.maxPrice.toFixed(2))}
-          aria-labelledby="label"
-          onChange={this.handleChange}
-          className="mt-2 mr-5"
-        />
-         
-          
-        </FormGroup>
-        </Col>
-        <Col md={6} xs={6}>
-        <FormGroup>
-          <Label for="minRating">Min Rating: </Label>
-          <StarRatingComponent 
-                name="minRating"
-          starCount={5}
-          value={this.state.minRating}
-          onStarClick={this.onStarClick.bind(this)}
-        />
-        </FormGroup>
-        </Col>
-        </Row>
-        </Form>
 
-      {this.state.food === "" && this.state.wines.length === 0 &&
-      <h1>Tell us what you are going to eat today and let us recommend the perfect wine!</h1>}
-      
+        {this.state.food.length > 0 && 
+        <Form>
+            <Row form>
+            <Col md={6} xs={6}>
+            <FormGroup className="mr-5">
+            <Typography id="label">Max Price <strong>{this.state.maxPrice.toFixed(2)}€</strong> </Typography>
+            <Slider
+            min={10}
+              max={150}
+              value={parseFloat(this.state.maxPrice.toFixed(2))}
+              aria-labelledby="label"
+              onChange={this.handleChange}
+              className="mt-2 mr-5"
+            />
+            </FormGroup>
+            </Col>
+            <Col md={6} xs={6}>
+            <FormGroup>
+              <Label for="minRating">Min Rating: </Label>
+              <StarRatingComponent 
+                    name="minRating"
+              starCount={5}
+              value={this.state.minRating}
+              onStarClick={this.onStarClick.bind(this)}
+            />
+            </FormGroup>
+            </Col>
+            </Row>
+        </Form>
+        }
       {!this.state.isLoading && this.state.wines === 'nothing' &&
           <div> <h1> No recommendations found </h1> </div>}
 
@@ -301,6 +307,7 @@ export default class SearchBar extends Component {
         )}
         </div>
       </div>
+    </div>
     </div>
     );
   }
