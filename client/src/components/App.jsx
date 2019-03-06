@@ -52,6 +52,8 @@ export default class App extends Component {
             </Nav>
         </Navbar>
         <div className="main">
+        <div className="main-bg">
+        </div>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/signup" component={Signup} />
