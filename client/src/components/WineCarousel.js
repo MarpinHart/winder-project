@@ -72,6 +72,7 @@ class WineCarousel extends Component {
         next={this.next}
         previous={this.previous}
         autoPlay={false}
+        interval={false}
       >
         <CarouselIndicators items={wines} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
         {slides}

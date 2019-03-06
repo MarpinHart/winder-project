@@ -104,7 +104,7 @@ export default class SearchBar extends Component {
         .then(result => {
           this.setState({
             isLoading: false,
-            wines: result.pairedWines === undefined ? [] : result.pairedWines
+            wines: result.pairedWines === undefined ? 'nothing' : result.pairedWines
           });
           let foodData = {
             name: this.state.food,
@@ -124,6 +124,7 @@ export default class SearchBar extends Component {
         })
         .catch(err => this.setState({ message: err.toString() }));
       } else {
+        console.log('food is already in our DB, just set state to the results',result.data.pairedWines )
         // if the food is already in our DB, just set state to the results
         this.setState({
           isLoading: false,
@@ -134,7 +135,7 @@ export default class SearchBar extends Component {
     .then(result => {
       if(this.state.wines.length > 0) {
         api
-        .getWinesDetail(this.state.wines[0], this.state.maxPrice, this.state.minRating/5)
+        .getWinesDetail(this.state.wines[0], this.state.maxPrice, (this.state.minRating/5)-0.1)
         .then(result => {
           this.setState({
             isLoading: false,
@@ -152,7 +153,7 @@ export default class SearchBar extends Component {
       isLoading: true
     });
     api
-    .getWinesDetail(name, this.state.maxPrice, this.state.minRating/5)
+    .getWinesDetail(name, this.state.maxPrice, (this.state.minRating/5)-0.1)
     .then(result => {
       this.setState({
         isLoading: false,
@@ -235,7 +236,7 @@ export default class SearchBar extends Component {
         <Slider
         min={10}
           max={150}
-          value={this.state.maxPrice.toFixed(2)}
+          value={parseFloat(this.state.maxPrice.toFixed(2))}
           aria-labelledby="label"
           onChange={this.handleChange}
           className="mt-2 mr-5"
@@ -258,11 +259,11 @@ export default class SearchBar extends Component {
         </Row>
         </Form>
 
-      {!this.state.isLoading && this.state.wines.length === 0 &&
+      {!this.state.isLoading && this.state.wines === 'nothing' &&
           <div> <h1> No recommendations found </h1> </div>}
 
       
-      {this.state.wines.length > 0 && (
+      {this.state.wines.length > 0 && this.state.wines !== 'nothing' && (
           <div className="wine-bottles-container">
             <h1>Try these wines: </h1>
             <div className="winePicks">

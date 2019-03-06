@@ -47,7 +47,7 @@ export default class Profile extends Component {
   render() {
     return (
         <div className="upperProfile">
-          <img className="profileIcon" src="/images/wineIcon.png" alt="profile"/>
+          <img className="profileIcon mx-auto" src="/images/wineIcon.png" alt="profile"/>
           <div className="info-box" data-aos="zoom-in">
           <h1>Welcome</h1>
           <Form>
