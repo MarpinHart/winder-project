@@ -50,7 +50,7 @@ class WineCarousel extends Component {
     const { activeIndex } = this.state;
    
     wines = this.props.wines.map(wine => 
-      wine = {name: wine, src:"https://www.manoswine.com/media/catalog/product/cache/1/image/790bb9cb46c431c1e54dab150582a452/c/u/custom_bottle3/www.manoswine.com-customized-bottle-33.jpg"})
+      wine = {name: wine, src:"/images/wine-bottle.png"})
     const slides = wines.map((wine, i) => {
       return (
         <CarouselItem key={i}
