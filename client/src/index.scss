@@ -116,7 +116,8 @@ body {
 }
 
 .wine-bottle-image {
-  width: 30%;
+  max-width: 30%;
+  max-height: 100%;
   object-fit: contain;
   margin: 0 5vh 1vh 1vh;
   padding-top: 3vh;
@@ -152,7 +153,7 @@ body {
 }
 
 .price{
-  width: 50vw;
+  width: 80vw;
   margin: 0 auto;
 }
 
@@ -190,6 +191,7 @@ body {
 }
 .profileIcon {
   height: 30vh;
+  
 }
 
 .upperProfile {
@@ -197,12 +199,14 @@ body {
   margin: 0 auto;
   padding-bottom: 10px;
   text-align: center;
-  background-color: $secondary;
+  background-image: url('https://static.winenews.it/2018/09/VignetiMarche.jpg');
+  background-size: cover;
+  background-position: center;
   color: white;
   font-weight: bold;
 }
 
-.profile-wines > h2 {
+.profile-wines-h2-flex > h2 {
   width: 50vh;
   margin: 5vh auto 0 auto;
   padding-bottom: 5vh;
@@ -226,17 +230,6 @@ body {
   color: white;
   text-decoration: none;
 }
-
-.spinner-loading {
-  width: 5rem;
-  height: 5rem;
-  margin: 10rem auto;
-}
-
-.spinner-loading-div {
-  text-align: center;
-}
-
 
 .MuiSlider-thumb-43{
   background-color: $primary !important;
@@ -334,6 +327,11 @@ body {
   .profile-list-container {
     width: 30vw;
   }
+  .profile-wines{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 }
 
 @media only screen and (max-width: 400px) {
@@ -347,9 +345,6 @@ body {
   .profile-list-container {
     width: 90vw;
   }
-  // .wine-bottle-image {
-  //   max-width: 100%;
-  // }
   .wine-bottle{
     height: 300px;
   }

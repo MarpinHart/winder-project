@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import SearchBar from "./SearchBar";
-import api from "../../api.js";
+import api from "../../api";
 import { Container } from "reactstrap";
 import { Link } from "react-router-dom";
 
