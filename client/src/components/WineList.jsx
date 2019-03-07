@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Button } from "reactstrap";
-import api from "../../api";
+import api from "../api";
 
-import ReadMore from "../pages/ReadMore";
+import ReadMore from "./pages/ReadMore";
 
 export default class WineList extends Component {
   constructor(props) {
@@ -21,7 +21,7 @@ export default class WineList extends Component {
 
   handleDeleteSavedWine(e, _wine, idx) {
     e.preventDefault();
-    this.props.delete(e, this.props.content._id, this.props.index);
+    this.props.onDelete(e, this.props.content._id, this.props.index);
     api
       .deleteSavedWineByUser(_wine)
       .then(res => res)
@@ -79,6 +79,7 @@ export default class WineList extends Component {
           >
             <h6 className="wine-bottle-price">{this.props.content.price}€</h6>
 
+            {/* TODO: Create a Component <StarRating rating={this.props.content.averageRating} /> */}
             <div className="Rating">
               <div className="stars-likes">
                 

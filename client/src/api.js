@@ -103,9 +103,9 @@ export default {
     .then(res=>res)
     .catch(err=>console.log(err))
   },
-  getPairedWines(wine){
+  getPairedWines(foodName){
     return service
-    .get(`/foods?name=${wine}`)
+    .get(`/foods/${foodName}`)
      .then(res=>res)
      .catch(err=>console.log(err))
   },
@@ -131,12 +131,8 @@ export default {
     .catch(err=>console.log(err))
   },
   getFoods(query){
-    let allfoods = ''
-    if(query){
-      allfoods=query
-    }
     return service
-    .get(`/foods${allfoods}`)
+    .get(`/foods`)
     .then(res=>res)
     .catch(err=>console.log(err))
   },

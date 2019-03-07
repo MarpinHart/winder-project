@@ -3,6 +3,20 @@ const router = express.Router();
 const Food = require("../models/Food");
 const Wine = require("../models/Wine");
 const SavedWine = require("../models/SavedWine");
+const {isLoggedIn} = require('../middlewares')
+
+//GET food and send back the three types of wine
+router.get("/foods", (req, res, next) => {
+  Food.find()
+  .then(food => res.json(food.map(food=>food.name)))
+  .catch(err => console.log(err));
+});
+
+router.get("/foods/:name", (req, res, next) => {
+  Food.findOne({ name: req.params.name })
+    .then(food => res.json(food))
+    .catch(err => console.log(err));
+});
 
 //POST foods to the database
 router.post("/foods", (req, res, next) => {
@@ -28,35 +42,19 @@ router.post("/wines", (req, res, next) => {
 //GET wines details
 router.get("/wines", (req, res, next) => {
   Wine.find({
-    $and: [
-      { price: { $lte: req.query.maxPrice } },
-      { averageRating: { $gte: req.query.minRating } },
-      { wineType: req.query.wine }
-    ]
+    price: { $lte: req.query.maxPrice },
+    averageRating: { $gte: req.query.minRating },
+    wineType: req.query.wine
   })
+    .sort({averageRating: -1})
     .limit(3)
     .then(wines => res.json(wines))
     .catch(err => console.log(err));
 });
 
-//GET food and send back the three types of wine
-router.get("/foods", (req, res, next) => {
-  if(req.query.allfoods){
-    Food.find()
-    .then(food => res.json(food.map(food=>food.name)))
-    .catch(err => console.log(err));
-
-  } else{
-Food.findOne({ name: req.query.name })
-    .then(food => res.json(food))
-    .catch(err => console.log(err));
-  }
-  
-});
 
 
-
-router.post("/saved-wines", (req, res, next) => {
+router.post("/saved-wines", isLoggedIn, (req, res, next) => {
   const _wine = req.body._wine;
   const _user = req.user._id;
   SavedWine.create({ _wine, _user })
@@ -65,7 +63,7 @@ router.post("/saved-wines", (req, res, next) => {
 
 });
 
-router.get("/saved-wines",(req, res, next)=>{
+router.get("/saved-wines", isLoggedIn,(req, res, next)=>{
   console.log("user", req.user)
   SavedWine.find({_user:req.user._id})
   .populate('_wine')
@@ -78,7 +76,7 @@ router.get("/saved-wines",(req, res, next)=>{
   .catch(err=>console.log(err))
 })
 
-router.delete("/saved-wines",(req, res, next)=>{
+router.delete("/saved-wines", isLoggedIn,(req, res, next)=>{
   SavedWine.findOneAndDelete({_user:req.user._id},{_wine:req.body._wine})
   .then(deleteSave=>res.json(deleteSave))
   .catch(err=>console.log(err))
@@ -86,16 +84,16 @@ router.delete("/saved-wines",(req, res, next)=>{
 
 //PUT rating wine saved by user
 router.put('/saved-wines',(req, res, next)=>{
-  let boolean=null
+  let trilean=null
   if(req.body.type==="like"){
-    boolean = true
+    trilean = true
   }
   if(req.body.type==="dislike"){
-    boolean = false
+    trilean = false
   }
   SavedWine.findByIdAndUpdate(
      req.body.idSaving,
-     { isLiked: boolean},
+     { isLiked: trilean},
      {new: true})
     .then((savedWine) => {
       res.json(savedWine)

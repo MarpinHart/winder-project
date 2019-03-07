@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import winesApi from "../../winesApi";
 import WineCarousel from "../WineCarousel";
 import Autosuggest from "react-autosuggest";
-import WineList from "../pages/WineList";
+import WineList from "../WineList";
 import StarRatingComponent from "react-star-rating-component";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/lab/Slider";
@@ -327,7 +327,7 @@ export default class SearchBar extends Component {
                     <WineList
                       key={i}
                       content={wine}
-                      delete={e => this.handleDeleteSavedWine(e, wine._id, i)}
+                      onDelete={e => this.handleDeleteSavedWine(e, wine._id, i)}
                       save={e => this.handleSaveWine(e, wine._id)}
                       isSaved={
                         this.state.savedWines.includes(wine._id) ? true : false
