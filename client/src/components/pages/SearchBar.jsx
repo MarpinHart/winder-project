@@ -58,7 +58,11 @@ export default class SearchBar extends Component {
   };
 
   onChange = (event, { newValue }) => {
-    document.documentElement.scrollTop = 0;
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
     this.setState({
       value: newValue.toLowerCase(),
       food: newValue.toLowerCase()
