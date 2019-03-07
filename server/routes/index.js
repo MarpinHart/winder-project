@@ -87,10 +87,10 @@ router.delete("/saved-wines",(req, res, next)=>{
 //PUT rating wine saved by user
 router.put('/saved-wines',(req, res, next)=>{
   let boolean=null
-  if(req.body.kind==="like"){
+  if(req.body.type==="like"){
     boolean = true
   }
-  if(req.body.kind==="dislike"){
+  if(req.body.type==="dislike"){
     boolean = false
   }
   SavedWine.findByIdAndUpdate(
