@@ -88,9 +88,9 @@ export default class Login extends Component {
                 Login
               </Button>
               <br />
-              <Button color="facebook" className="Facebook-Login mt-2">
+              {/* <Button color="facebook" className="Facebook-Login mt-2">
               <a href={`${process.env.REACT_APP_API_URL}/login/facebook`}>Login with Facebook</a>
-              </Button>
+              </Button> */}
           </Form>
         <br/>
         {this.state.message && <div className="info info-danger">
