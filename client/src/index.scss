@@ -190,6 +190,7 @@ body {
 }
 .profileIcon {
   height: 30vh;
+  
 }
 
 .upperProfile {
@@ -197,7 +198,9 @@ body {
   margin: 0 auto;
   padding-bottom: 10px;
   text-align: center;
-  background-color: $secondary;
+  background-image: url('https://static.winenews.it/2018/09/VignetiMarche.jpg');
+  background-size: cover;
+  background-position: center;
   color: white;
   font-weight: bold;
 }
@@ -225,16 +228,6 @@ body {
 .Facebook-Login > a {
   color: white;
   text-decoration: none;
-}
-
-.spinner-loading {
-  width: 5rem;
-  height: 5rem;
-  margin: 10rem auto;
-}
-
-.spinner-loading-div {
-  text-align: center;
 }
 
 .MuiSlider-thumb-43{
