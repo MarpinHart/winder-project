@@ -113,7 +113,6 @@ body {
   padding: 5vh 0;
   border-bottom: 1px solid grey;
   margin: 0 auto;
-  // width: 40vw;
 }
 
 .wine-bottle-image {
@@ -294,6 +293,13 @@ body {
     width: 95vw;
     margin-left: 42px;
   }
+  .wine-bottle{
+    height: 350px;
+  }
+  .wine-bottle > p {
+    font-size: 0.9rem;
+    max-width: 100px;
+  }
 }
 
 @media only screen and (min-width: 800px) {
@@ -318,6 +324,16 @@ body {
     width: 40vw;
     margin-top:50px;
   }
+  .wine-bottle{
+    height: 350px;
+  }
+  .wine-bottle > p {
+    font-size: 0.9rem;
+    max-width: 100px;
+  }
+  .profile-list-container {
+    width: 30vw;
+  }
 }
 
 @media only screen and (max-width: 400px) {
@@ -332,7 +348,14 @@ body {
     width: 90vw;
   }
   .wine-bottle-image {
-    width: 40%;
+    max-width: 30%;
+  }
+  .wine-bottle{
+    height: 300px;
+  }
+  .wine-bottle > p {
+    font-size: 0.8rem;
+    max-width: 90px;
   }
 }
 
@@ -405,7 +428,6 @@ body {
 }
 
 .wine-bottle{
-  height: 300px;
   background-image: url("/images/wine-bottle.png");
   background-repeat: no-repeat;
   background-size: contain;
@@ -416,8 +438,6 @@ body {
 }
 .wine-bottle > p {
   color:white;
-  max-width: 90px;
   overflow-wrap: break-word;
   margin: auto;
-  font-size: 0.9rem;
 }
