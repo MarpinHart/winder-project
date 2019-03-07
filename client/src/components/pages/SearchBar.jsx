@@ -298,10 +298,10 @@ export default class SearchBar extends Component {
           )}
 
           <div className="carousel-result">
-            <div classnName="wine-carousel">
+            <div className="wine-carousel">
               {this.state.wines.length > 0 && this.state.wines !== "nothing" && (
                 <div className="wine-bottles-container">
-                  <h1>Try these wines: </h1>
+                  <h1>We recommend: </h1>
                   <div className="winePicks">
                     <WineCarousel
                       onBottleChange={(e, name) =>
