@@ -65,11 +65,11 @@ export default class WineList extends Component {
         data-aos="fade-right"
         aos-duration="500"
       >
-        <img
-          className="wine-bottle-image"
-          src={this.props.content.imageUrl}
-          alt=""
-        />
+      <img
+            className="wine-bottle-image"
+            src={this.props.content.imageUrl}
+            alt=""
+          />
         <div className="wine-name-description">
           <h5 className="wine-bottle-name">{this.props.content.title}</h5>
           <div
@@ -81,28 +81,7 @@ export default class WineList extends Component {
 
             <div className="Rating">
               <div className="stars-likes">
-                <div className="like-buttons">
-                  {this.props.isSaved && this.props.isProfile && (
-                    <div>
-                      <Button
-                        outline={!this.state.isLiked}
-                        color="primary"
-                        onClick={e => this.handleLikeButton(e, "like")}
-                      >
-                        <i className="fas fa-thumbs-up" />
-                      </Button>
-                      <Button
-                        outline={
-                          this.state.isLiked || this.state.isLiked === null
-                        }
-                        color="primary"
-                        onClick={e => this.handleLikeButton(e, "dislike")}
-                      >
-                        <i className="fas fa-thumbs-down" />
-                      </Button>
-                    </div>
-                  )}
-                </div>
+                
                 <div className="stars">
                   {this.props.content.averageRating * 5 >= 0.5 ? (
                     <i className="fas fa-star" />
@@ -131,17 +110,40 @@ export default class WineList extends Component {
                   )}
                 </div>
               </div>
+              <div className="like-buttons">
+                    {this.props.isSaved && this.props.isProfile && (
+                      <div>
+                        <Button
+                          outline={!this.state.isLiked}
+                          color="primary"
+                          onClick={e => this.handleLikeButton(e, "like")}
+                          className="mr-1"
+                        >
+                          <i className="fas fa-thumbs-up" />
+                        </Button>
+                        <Button
+                          outline={
+                            this.state.isLiked || this.state.isLiked === null
+                          }
+                          color="primary"
+                          onClick={e => this.handleLikeButton(e, "dislike")}
+                        >
+                          <i className="fas fa-thumbs-down" />
+                        </Button>
+                      </div>
+                    )}
+                  </div>
               <ReadMore description={this.props.content.description} />
             </div>
 
             <div className="wine-buttons">
-              <Button outline color="warning" href={this.props.content.link}>
-                Order Online
+              <Button className="mr-1" outline color="success" href={this.props.content.link}>
+                Order Now
               </Button>
               {!this.props.isSaved && (
                 <Button
                   outline
-                  color="warning"
+                  color="success"
                   onClick={e => this.handleSaveWine(e, this.props.content._id)}
                 >
                   Save
@@ -150,7 +152,7 @@ export default class WineList extends Component {
               {this.props.isSaved && (
                 <Button
                   outline
-                  color="warning"
+                  color="danger"
                   onClick={e =>
                     this.handleDeleteSavedWine(e, this.props.content._id)
                   }

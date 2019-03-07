@@ -45,8 +45,9 @@ export default class Profile extends Component {
           <h1>Welcome, {this.state.name}!</h1>
         </div>
         {this.state.savedWines.length > 0 && (
-          <div className="profile-wines">
+          <div className="profile-wines-h2-flex">
             <h2>Your wine collection:</h2>
+          <div className="profile-wines">
             {this.state.savedWines &&
               this.state.savedWines.map((wine, i) => (
                 <WineList
@@ -58,6 +59,7 @@ export default class Profile extends Component {
                 />
               ))}
           </div>
+        </div>
         )}
       </div>
     );
