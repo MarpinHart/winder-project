@@ -108,7 +108,7 @@ body {
 .profile-list-container {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-around;
   align-items: flex-start;
   padding: 5vh 0;
   border-bottom: 1px solid grey;
@@ -116,14 +116,14 @@ body {
 }
 
 .wine-bottle-image {
-  width: 10vmax;
+  width: 30%;
   object-fit: contain;
   margin: 0 5vh 1vh 1vh;
   padding-top: 3vh;
 }
 
 .wine-name-description {
-  width: 40vw;
+  width: 60%;
 }
 
 .wine-buttons {
@@ -133,8 +133,8 @@ body {
 }
 
 .like-buttons {
-  display: flex;
-  margin-top: 1vh;
+  // display: flex;
+  margin: 1vh 1vh 2vh 1vh;
 }
 .like-buttons > div {
   margin: 0 auto;
@@ -347,9 +347,9 @@ body {
   .profile-list-container {
     width: 90vw;
   }
-  .wine-bottle-image {
-    max-width: 30%;
-  }
+  // .wine-bottle-image {
+  //   max-width: 100%;
+  // }
   .wine-bottle{
     height: 300px;
   }
