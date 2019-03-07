@@ -23,7 +23,7 @@ export default class Login extends Component {
     e.preventDefault()
     api.login(this.state.email, this.state.password)
       .then(result => {
-        console.log('SUCCESS!')
+       
         this.props.history.push("/") // Redirect to the home page
       })
       .catch(err => this.setState({ message: err.toString()}))
@@ -32,7 +32,7 @@ export default class Login extends Component {
   handleFacebook(){
     api.loginWithFacebook()
     .then(result => {
-      console.log('SUCCESS!')
+      
       this.props.history.push("/") // Redirect to the home page
     })
     .catch(err => this.setState({ message: err.toString() }))
@@ -45,6 +45,7 @@ export default class Login extends Component {
   isPasswordStrong(){
     return this.state.password.length >= 6
   }
+  
   render() {
     return (
       <div className="Login">

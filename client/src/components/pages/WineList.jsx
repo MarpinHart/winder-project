@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Button, Input } from "reactstrap";
 import api from "../../api";
-import StarRatingComponent from "react-star-rating-component";
+
+
 
 import ReadMore from "../pages/ReadMore";
 
@@ -29,28 +30,28 @@ export default class WineList extends Component {
       .catch(err => console.log(err));
   }
 
-  handleLikeButton(e, kind) {
-    if (kind === "like") {
-      if (this.state.isLiked) {
-        this.setState({ isLiked: null });
-        kind = null;
-      } else {
-        this.setState({ isLiked: true });
+  
+  handleLikeButton(e, type){
+    if(type==="like"){
+      if(this.state.isLiked){
+        this.setState({isLiked: null});
+        type=null
+      }else{
+        this.setState({isLiked: true});
       }
     }
-    if (kind === "dislike") {
-      if (this.state.isLiked === false) {
-        this.setState({ isLiked: null });
-        kind = null;
-      } else {
-        this.setState({ isLiked: false });
+    if(type==="dislike"){
+      if(this.state.isLiked===false){
+        this.setState({isLiked: null});
+        type=null
+      }else{
+        this.setState({isLiked: false});
       }
     }
-    console.log("kind winelist", kind);
-    api
-      .likeWine(this.props.content.idSaving, kind)
-      .then(res => res)
-      .catch(err => console.log(err));
+   
+    api.likeWine(this.props.content.idSaving,type)
+    .then(res=>res)
+    .catch(err=> console.log(err))
   }
 
   componentDidMount() {
@@ -131,18 +132,7 @@ export default class WineList extends Component {
               </div>
               </div>
               <ReadMore description={this.props.content.description} />
-              {/* <div className="rate-yourself-container">
-                <p className="rate-the-wine">Rate the wine:</p>
-                {this.props.isSaved && this.props.isProfile && (
-                  <StarRatingComponent
-                  className="star-rating"
-                  name={this.props.content.idSaving}
-                  starCount={5}
-                  value={this.state.rating}
-                  onStarClick={this.onStarClick.bind(this)}
-                  />
-                  )}
-                </div> */}
+              
             </div>
           
           <div className="wine-buttons">
@@ -150,6 +140,7 @@ export default class WineList extends Component {
               Order Online
             </Button>
             {!this.props.isSaved && (
+              
               <Button
                 outline
                 color="warning"

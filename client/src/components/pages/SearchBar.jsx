@@ -40,6 +40,7 @@ export default class SearchBar extends Component {
     this.state = {
       food: "",
       wines: [],
+      pairingText: "",
       isLoading: false,
       wineDetail: null,
       maxPrice: 150,
@@ -59,6 +60,11 @@ export default class SearchBar extends Component {
   };
 
   onChange = (event, { newValue }) => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
     this.setState({
       value: newValue.toLowerCase(),
       food: newValue.toLowerCase()
@@ -80,7 +86,6 @@ export default class SearchBar extends Component {
 
   handleGetGeneralWines(e) {
     e.preventDefault();
-    console.log("HELLO");
     this.setState({
       wines: [],
       isLoading: true,
@@ -99,9 +104,11 @@ export default class SearchBar extends Component {
                 isLoading: false,
                 wines:
                   result.pairedWines === undefined ||
-                  result.pairedWines.length === 0
+                  result.pairedWines.length === 0 ||
+                  result.status === "failure"
                     ? "nothing"
-                    : result.pairedWines
+                    : result.pairedWines,
+                pairingText: result.pairingText
               });
               let foodData = {
                 name: this.state.food,
@@ -121,14 +128,15 @@ export default class SearchBar extends Component {
             })
             .catch(err => this.setState({ message: err.toString() }));
         } else {
-          console.log(
-            "food is already in our DB, just set state to the results",
-            result.data.pairedWines
-          );
           // if the food is already in our DB, just set state to the results
           this.setState({
             isLoading: false,
-            wines: result.data.pairedWines
+            wines:
+              result.data.pairedWines.length === 0 ||
+              result.data.pairedWines === undefined
+                ? "nothing"
+                : result.data.pairedWines,
+            pairingText: result.data.pairingText
           });
         }
       })
@@ -258,10 +266,11 @@ export default class SearchBar extends Component {
                     <Slider
                       min={10}
                       max={150}
-                      value={parseFloat(this.state.maxPrice.toFixed(2))}
+                      value={parseInt(this.state.maxPrice)}
                       aria-labelledby="label"
                       onChange={this.handleChange}
                       className="mt-2 mr-5"
+                      step={1}
                     />
                   </FormGroup>
                 </Col>
@@ -280,10 +289,16 @@ export default class SearchBar extends Component {
             </Form>
             </div>
           )}
-          {!this.state.isLoading && this.state.wines === "nothing" && (
+          {!this.state.isLoading && this.state.wines === "nothing" && this.state.pairingText==="" && (
             <div>
               {" "}
               <h1> No recommendations found </h1>{" "}
+            </div>
+          )}
+          {!this.state.isLoading && this.state.wines === "nothing" && (
+            <div>
+              {" "}
+              <p> {this.state.pairingText} </p>{" "}
             </div>
           )}
 
