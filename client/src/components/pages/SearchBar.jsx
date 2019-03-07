@@ -287,7 +287,7 @@ export default class SearchBar extends Component {
           {!this.state.isLoading && this.state.wines === "nothing" && this.state.pairingText==="" && (
             <div>
               {" "}
-              <h1> No recommendations found </h1>{" "}
+              <h2> Sorry, no recommendations found for your request</h2>{" "}
             </div>
           )}
           {!this.state.isLoading && this.state.wines === "nothing" && (
