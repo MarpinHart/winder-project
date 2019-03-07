@@ -4,6 +4,8 @@ import WineCarousel from "../WineCarousel";
 import Autosuggest from "react-autosuggest";
 import WineList from "../pages/WineList";
 import StarRatingComponent from "react-star-rating-component";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/lab/Slider";
 
@@ -252,12 +254,14 @@ export default class SearchBar extends Component {
           </InputGroup>
 
           {this.state.food.length > 0 && (
-            <Form>
+            <div className="search-filters">
+            <Form className="price">
               <Row form>
                 <Col md={6} xs={6}>
                   <FormGroup className="mr-5">
                     <Typography id="label">
-                      Max Price <strong>{this.state.maxPrice}€</strong>{" "}
+                      <h6>Max Price</h6>
+                      <strong>{this.state.maxPrice.toFixed(2)}€</strong>{" "}
                     </Typography>
                     <Slider
                       min={10}
@@ -270,9 +274,9 @@ export default class SearchBar extends Component {
                     />
                   </FormGroup>
                 </Col>
-                <Col md={6} xs={6}>
+                <Col md={6} xs={6} mt={2}>
                   <FormGroup>
-                    <Label for="minRating">Min Rating: </Label>
+                    <h6 className="min-rating">Min Rating: </h6>
                     <StarRatingComponent
                       name="minRating"
                       starCount={5}
@@ -283,6 +287,7 @@ export default class SearchBar extends Component {
                 </Col>
               </Row>
             </Form>
+            </div>
           )}
           {!this.state.isLoading && this.state.wines === "nothing" && this.state.pairingText==="" && (
             <div>
