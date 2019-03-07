@@ -133,11 +133,42 @@ body {
   justify-content: space-around;
 }
 
+.like-buttons {
+  display: flex;
+  margin-top: 1vh;
+}
+.like-buttons > div {
+  margin: 0 auto;
+}
+
 .wine-rating-price > h6 {
   font-size: 5vh;
 }
 
-.Rating > .fa-star {
+.search-filters{
+  margin: 0 0 0 4vh;;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.price{
+  width: 40vh;
+}
+
+.stars-likes{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  margin: 1vh;
+  align-items: center;
+}
+
+.stars {
+  margin-right: 1vh;
+}
+
+.Rating > div > .stars >.fa-star {
   color: #ffc107;
   margin: 2vh 0;
 }
@@ -170,14 +201,13 @@ body {
   color: white;
   font-weight: bold;
 }
-.upperProfile > .profile-wines {
-  text-align: left;
-}
-.upperProfile > .profile-wines > h2 {
+
+.profile-wines > h2 {
   width: 50vh;
-  margin: 0 auto;
-  border-bottom: 1px solid grey;
+  margin: 5vh auto 0 auto;
   padding-bottom: 5vh;
+  border-bottom: 1px solid grey;
+  text-align: center;
 }
 .upperProfile > .info-box {
   background-color: white;
@@ -352,5 +382,7 @@ body {
   font-family: "Playfair Display", serif !important;
 }
 
-
-
+.homepage {
+  color: white;
+  padding-top: 30px;
+}

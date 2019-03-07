@@ -90,57 +90,48 @@ export default class SearchBar extends Component {
     api
       .getPairedWines(this.state.food)
       .then(result => {
-        console.log('result after getPairedWines(this.state.food)',result)
-      //if there are no paired wines in our DB, get it from the API
-      if (!result.data) {
-        console.log('no result from first call so look for general wines on api')
-        winesApi
-        .getWinesGeneral(this.state.food)
-        .then(result => {
-          console.log('result from api call getWinesGeneral(this.state.food)' ,result)
-          this.setState({
-            isLoading: false,
-            wines: result.pairedWines === undefined || result.pairedWines.length ===0? 'nothing' : result.pairedWines
-          });
-          let foodData = {
-            name: this.state.food,
-            pairedWines: result.pairedWines,
-            pairingText: result.pairingText
-          };
-          //save the result in our database
-          if (result.pairedWines.length > 0) {
-            let promises = [];
-            result.pairedWines.forEach(wine => {
-              promises.push(winesApi.getWineReccomendation(wine));
-            });
-            Promise.all([api.postFood(foodData), promises])
-            .then(res => res)
-            .catch(err => console.log(err));
-          }
-        })
-        .catch(err => this.setState({ message: err.toString() }));
-      } else {
-        console.log('food is already in our DB, just set state to the results',result.data.pairedWines )
-        // if the food is already in our DB, just set state to the results
-        this.setState({
-          isLoading: false,
-          wines: result.data.pairedWines
-        });
-      }
-    })
-    .then(result => {
-      if(this.state.wines.length > 0) {
-        api
-        .getWinesDetail(this.state.wines[0], this.state.maxPrice, (this.state.minRating/5)-0.1)
-        .then(result => {
+        //if there are no paired wines in our DB, get it from the API
+        if (!result.data) {
+          winesApi
+            .getWinesGeneral(this.state.food)
+            .then(result => {
+              this.setState({
+                isLoading: false,
+                wines:
+                  result.pairedWines === undefined ||
+                  result.pairedWines.length === 0
+                    ? "nothing"
+                    : result.pairedWines
+              });
+              let foodData = {
+                name: this.state.food,
+                pairedWines: result.pairedWines,
+                pairingText: result.pairingText
+              };
+              //save the result in our database
+              if (result.pairedWines.length > 0) {
+                let promises = [];
+                result.pairedWines.forEach(wine => {
+                  promises.push(winesApi.getWineReccomendation(wine));
+                });
+                Promise.all([api.postFood(foodData), promises])
+                  .then(res => res)
+                  .catch(err => console.log(err));
+              }
+            })
+            .catch(err => this.setState({ message: err.toString() }));
+        } else {
+          console.log(
+            "food is already in our DB, just set state to the results",
+            result.data.pairedWines
+          );
+          // if the food is already in our DB, just set state to the results
           this.setState({
             isLoading: false,
             wines: result.data.pairedWines
           });
         }
-        )
-      }
-    })
+      })
       .then(result => {
         if (this.state.wines.length > 0) {
           api
@@ -255,12 +246,13 @@ export default class SearchBar extends Component {
           </InputGroup>
 
           {this.state.food.length > 0 && (
-            <Form>
+            <div className="search-filters">
+            <Form className="price">
               <Row form>
                 <Col md={6} xs={6}>
                   <FormGroup className="mr-5">
                     <Typography id="label">
-                      Max Price{" "}
+                      <h6>Max Price</h6>
                       <strong>{this.state.maxPrice.toFixed(2)}€</strong>{" "}
                     </Typography>
                     <Slider
@@ -273,9 +265,9 @@ export default class SearchBar extends Component {
                     />
                   </FormGroup>
                 </Col>
-                <Col md={6} xs={6}>
+                <Col md={6} xs={6} mt={2}>
                   <FormGroup>
-                    <Label for="minRating">Min Rating: </Label>
+                    <h6 className="min-rating">Min Rating: </h6>
                     <StarRatingComponent
                       name="minRating"
                       starCount={5}
@@ -286,6 +278,7 @@ export default class SearchBar extends Component {
                 </Col>
               </Row>
             </Form>
+            </div>
           )}
           {!this.state.isLoading && this.state.wines === "nothing" && (
             <div>
