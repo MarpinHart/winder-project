@@ -113,7 +113,6 @@ body {
   padding: 5vh 0;
   border-bottom: 1px solid grey;
   margin: 0 auto;
-  width: 50vh;
 }
 
 .wine-bottle-image {
@@ -124,7 +123,7 @@ body {
 }
 
 .wine-name-description {
-  width: 40vh;
+  width: 40vw;
 }
 
 .wine-buttons {
@@ -133,11 +132,43 @@ body {
   justify-content: space-around;
 }
 
+.like-buttons {
+  display: flex;
+  margin-top: 1vh;
+}
+.like-buttons > div {
+  margin: 0 auto;
+}
+
 .wine-rating-price > h6 {
   font-size: 5vh;
 }
 
-.Rating > .fa-star {
+.search-filters{
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.price{
+  width: 50vw;
+  margin: 0 auto;
+}
+
+.stars-likes{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  margin: 1vh;
+  align-items: center;
+}
+
+.stars {
+  margin-right: 1vh;
+}
+
+.Rating > div > .stars >.fa-star {
   color: #ffc107;
   margin: 2vh 0;
 }
@@ -206,6 +237,7 @@ body {
   text-align: center;
 }
 
+
 .MuiSlider-thumb-43{
   background-color: $primary !important;
 }
@@ -257,6 +289,17 @@ body {
   .wine-button-select {
     margin-top: 48%;
   }
+  .price {
+    width: 95vw;
+    margin-left: 42px;
+  }
+  .wine-bottle{
+    height: 350px;
+  }
+  .wine-bottle > p {
+    font-size: 0.9rem;
+    max-width: 100px;
+  }
 }
 
 @media only screen and (min-width: 800px) {
@@ -269,6 +312,28 @@ body {
   .wine-button-select {
     margin-top: 37%;
   }
+  .carousel-result{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  .wine-carousel{
+    width: 30vw;
+  }
+  .wine-list-component{
+    width: 40vw;
+    margin-top:50px;
+  }
+  .wine-bottle{
+    height: 350px;
+  }
+  .wine-bottle > p {
+    font-size: 0.9rem;
+    max-width: 100px;
+  }
+  .profile-list-container {
+    width: 30vw;
+  }
 }
 
 @media only screen and (max-width: 400px) {
@@ -278,6 +343,19 @@ body {
   .carouselImg > p > h5 {
     margin-top: 48%;
     font-size: 15px;
+  }
+  .profile-list-container {
+    width: 90vw;
+  }
+  .wine-bottle-image {
+    max-width: 30%;
+  }
+  .wine-bottle{
+    height: 300px;
+  }
+  .wine-bottle > p {
+    font-size: 0.8rem;
+    max-width: 90px;
   }
 }
 
@@ -341,9 +419,25 @@ body {
 
 #label {
   font-family: "Playfair Display", serif !important;
+  margin-bottom: 21px;
 }
 
 .homepage {
   color: white;
   padding-top: 30px;
+}
+
+.wine-bottle{
+  background-image: url("/images/wine-bottle.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  margin: 10px 0;
+  text-align: center;
+  display: flex;
+}
+.wine-bottle > p {
+  color:white;
+  overflow-wrap: break-word;
+  margin: auto;
 }

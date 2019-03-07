@@ -4,8 +4,6 @@ import WineCarousel from "../WineCarousel";
 import Autosuggest from "react-autosuggest";
 import WineList from "../pages/WineList";
 import StarRatingComponent from "react-star-rating-component";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/lab/Slider";
 
@@ -14,8 +12,6 @@ import {
   InputGroupAddon,
   Button,
   FormGroup,
-  Label,
-  Spinner,
   Form,
   Row,
   Col
@@ -40,6 +36,7 @@ export default class SearchBar extends Component {
     this.state = {
       food: "",
       wines: [],
+      pairingText: "",
       isLoading: false,
       wineDetail: null,
       maxPrice: 150,
@@ -62,7 +59,7 @@ export default class SearchBar extends Component {
     window.scroll({
       top: 0,
       left: 0,
-      behavior: 'smooth'
+      behavior: "smooth"
     });
     this.setState({
       value: newValue.toLowerCase(),
@@ -85,7 +82,6 @@ export default class SearchBar extends Component {
 
   handleGetGeneralWines(e) {
     e.preventDefault();
-
     this.setState({
       wines: [],
       isLoading: true,
@@ -100,8 +96,6 @@ export default class SearchBar extends Component {
           winesApi
             .getWinesGeneral(this.state.food)
             .then(result => {
-              console.log("paired wine result AFTER", result);
-
               this.setState({
                 isLoading: false,
                 wines:
@@ -109,7 +103,9 @@ export default class SearchBar extends Component {
                   result.pairedWines.length === 0 ||
                   result.status === "failure"
                     ? "nothing"
-                    : result.pairedWines
+                    : result.pairedWines,
+                pairingText:
+                  result.pairingText === undefined ? "" : result.pairingText
               });
               let foodData = {
                 name: this.state.food,
@@ -136,7 +132,8 @@ export default class SearchBar extends Component {
               result.data.pairedWines.length === 0 ||
               result.data.pairedWines === undefined
                 ? "nothing"
-                : result.data.pairedWines
+                : result.data.pairedWines,
+            pairingText: result.data.pairingText
           });
         }
       })
@@ -254,50 +251,64 @@ export default class SearchBar extends Component {
           </InputGroup>
 
           {this.state.food.length > 0 && (
-            <Form>
-              <Row form>
-                <Col md={6} xs={6}>
-                  <FormGroup className="mr-5">
-                    <Typography id="label">
-                      Max Price <strong>{this.state.maxPrice}€</strong>{" "}
-                    </Typography>
-                    <Slider
-                      min={10}
-                      max={150}
-                      value={parseInt(this.state.maxPrice)}
-                      aria-labelledby="label"
-                      onChange={this.handleChange}
-                      className="mt-2 mr-5"
-                      step={1}
-                    />
-                  </FormGroup>
-                </Col>
-                <Col md={6} xs={6}>
-                  <FormGroup>
-                    <Label for="minRating">Min Rating: </Label>
-                    <StarRatingComponent
-                      name="minRating"
-                      starCount={5}
-                      value={this.state.minRating}
-                      onStarClick={this.onStarClick.bind(this)}
-                    />
-                  </FormGroup>
-                </Col>
-              </Row>
-            </Form>
+            <div className="search-filters">
+              <Form className="price">
+                <Row form>
+                  <Col md={7} xs={7}>
+                    <FormGroup className="mr-5">
+                      <Typography id="label">
+                        <h6>
+                          Max Price:{" "}
+                          <strong>{this.state.maxPrice.toFixed(0)}€</strong>
+                        </h6>
+                      </Typography>
+                      <Slider
+                        min={10}
+                        max={150}
+                        value={parseInt(this.state.maxPrice)}
+                        aria-labelledby="label"
+                        onChange={this.handleChange}
+                        className="mt-2 mr-5"
+                        step={1}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col md={5} xs={5} mt={2}>
+                    <FormGroup>
+                      <h6 className="min-rating">Min Rating: </h6>
+                      <StarRatingComponent
+                        name="minRating"
+                        starCount={5}
+                        value={this.state.minRating}
+                        onStarClick={this.onStarClick.bind(this)}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+              </Form>
+            </div>
           )}
+          {!this.state.isLoading &&
+            this.state.wines === "nothing" &&
+            this.state.pairingText === "" && (
+              <div>
+                {" "}
+                <h2> Sorry, no recommendations found for your request</h2>{" "}
+              </div>
+            )}
           {!this.state.isLoading && this.state.wines === "nothing" && (
             <div>
               {" "}
-              <h1> No recommendations found </h1>{" "}
+              <p> {this.state.pairingText} </p>{" "}
             </div>
           )}
 
           <div className="carousel-result">
-            <div classnName="wine-carousel">
+            <div className="wine-carousel">
               {this.state.wines.length > 0 && this.state.wines !== "nothing" && (
                 <div className="wine-bottles-container">
-                  <h1>Try these wines: </h1>
+                  <h1>We recommend: </h1>
+                  <br />
                   <div className="winePicks">
                     <WineCarousel
                       onBottleChange={(e, name) =>
@@ -309,15 +320,9 @@ export default class SearchBar extends Component {
                 </div>
               )}
             </div>
-            {this.state.isLoading && (
-              <div data-aos="fade-right" className="spinner-loading-div">
-                <Spinner className="spinner-loading" />
-              </div>
-            )}
             <div className="wine-list-component">
               {this.state.wineDetail && (
                 <div>
-                  <hr />
                   {this.state.wineDetail.map((wine, i) => (
                     <WineList
                       key={i}

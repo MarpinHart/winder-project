@@ -1,38 +1,47 @@
-import React, { Component } from 'react';
-import api from '../../api';
-import {Button, Label, Input, Form, FormGroup, Container,FormFeedback } from 'reactstrap';
+import React, { Component } from "react";
+import api from "../../api";
+import {
+  Button,
+  Label,
+  Input,
+  Form,
+  FormGroup,
+  Container,
+  FormFeedback
+} from "reactstrap";
 
 export default class Signup extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       email: "",
       name: "",
       password: "",
       message: null
-    }
-    this.handleInputChange = this.handleInputChange.bind(this)
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   handleInputChange(event) {
     this.setState({
       [event.target.name]: event.target.value
-    })
+    });
   }
 
   handleClick(e) {
-    e.preventDefault()
+    e.preventDefault();
     let data = {
       email: this.state.email,
       name: this.state.name,
-      password: this.state.password,
-    }
-    api.signup(data)
+      password: this.state.password
+    };
+    api
+      .signup(data)
       .then(result => {
-        console.log('SUCCESS!')
-        this.props.history.push("/") // Redirect to the home page
+        console.log("SUCCESS!");
+        this.props.history.push("/"); // Redirect to the home page
       })
-      .catch(err => this.setState({ message: err.toString() }))
+      .catch(err => this.setState({ message: err.toString() }));
   }
 
   isEmailCorrect() {
@@ -40,8 +49,8 @@ export default class Signup extends Component {
     return re.test(String(this.state.email).toLowerCase());
   }
 
-  isPasswordStrong(){
-    return this.state.password.length >= 6
+  isPasswordStrong() {
+    return this.state.password.length >= 6;
   }
 
   render() {
@@ -51,39 +60,44 @@ export default class Signup extends Component {
           <Form>
             <FormGroup>
               <Label for="email">Email</Label>
-              <Input 
-                value={this.state.email} 
-                onChange={this.handleInputChange} 
+              <Input
+                value={this.state.email}
+                onChange={this.handleInputChange}
                 valid={this.isEmailCorrect()}
                 invalid={this.state.email.length > 0 && !this.isEmailCorrect()}
                 type="email"
                 name="email"
                 id="exampleEmail"
-                placeholder="alice@gmail.com" />
-                {/* The feedback is displayed when the input is valid */}
-              <FormFeedback valid></FormFeedback>
+                placeholder="alice@gmail.com"
+              />
+              {/* The feedback is displayed when the input is valid */}
+              <FormFeedback valid />
               {/* The feedback is displayed when the input is invalid */}
               <FormFeedback>This is not a valid email</FormFeedback>
             </FormGroup>
             <FormGroup>
               <Label for="name">Name</Label>
-              <Input 
-                value={this.state.name} 
-                onChange={this.handleInputChange} 
+              <Input
+                value={this.state.name}
+                onChange={this.handleInputChange}
                 type="text"
                 name="name"
-                placeholder="Alice Doe" />
+                placeholder="Alice Doe"
+              />
             </FormGroup>
             <FormGroup>
               <Label for="password">Password</Label>
-              <Input 
-                value={this.state.password} 
-                onChange={this.handleInputChange} 
+              <Input
+                value={this.state.password}
+                onChange={this.handleInputChange}
                 valid={this.isPasswordStrong()}
-                invalid={this.state.password.length > 0 && !this.isPasswordStrong()}
+                invalid={
+                  this.state.password.length > 0 && !this.isPasswordStrong()
+                }
                 type="password"
-                name="password"/>
-                {/* The feedback is displayed when the input is valid */}
+                name="password"
+              />
+              {/* The feedback is displayed when the input is valid */}
               <FormFeedback valid>Password is strong enough</FormFeedback>
               {/* The feedback is displayed when the input is invalid */}
               <FormFeedback>Password is not strong enough</FormFeedback>
@@ -91,18 +105,19 @@ export default class Signup extends Component {
             <FormGroup>
               {/* Renders: */}
               {/* <button class="btn btn-outline-primary">Enter</button> */}
-              <Button 
-                color="primary" 
+              <Button
+                color="primary"
                 disabled={!this.isEmailCorrect() || !this.isPasswordStrong()}
-                onClick={(e) => this.handleClick(e)}>
+                onClick={e => this.handleClick(e)}
+              >
                 Sign up
               </Button>
             </FormGroup>
           </Form>
-          <br/>
-          {this.state.message && <div className="info info-danger">
-            {this.state.message}
-          </div>}
+          <br />
+          {this.state.message && (
+            <div className="info info-danger">{this.state.message}</div>
+          )}
         </Container>
       </div>
     );
