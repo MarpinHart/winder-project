@@ -65,10 +65,10 @@ class WineCarousel extends Component {
           onExiting={this.onExiting}
           onExited={this.onExited}
         >
-          <p>
-            <img src={wine.src} alt={wine.name} />
-            <h5>{wine.name.toUpperCase()}</h5>
-          </p>
+          <div className="wine-bottle">
+            {/* <img src={wine.src} alt={wine.name} /> */}
+            <p>{wine.name.toUpperCase()}</p>
+          </div>
         </CarouselItem>
       );
     });
