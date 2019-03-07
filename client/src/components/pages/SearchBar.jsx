@@ -45,6 +45,7 @@ export default class SearchBar extends Component {
     this.state = {
       food: "",
       wines: [],
+      pairingText: "",
       isLoading: false,
       wineDetail: null,
       maxPrice: 150,
@@ -81,13 +82,10 @@ export default class SearchBar extends Component {
   };
   onStarClick(nextValue, prevValue, name) {
     this.setState({minRating: nextValue});
-
-    
   }
 
   handleGetGeneralWines(e) {
     e.preventDefault();
-    console.log('HELLO')
     this.setState({
       wines: [],
       isLoading: true,
@@ -96,17 +94,15 @@ export default class SearchBar extends Component {
     //ask for wines paired with the food in our database
     api.getPairedWines(this.state.food)
       .then(result => {
-        console.log('paired wine result', result)
       //if there are no paired wines in our DB, get it from the API
       if (!result.data) {
         winesApi
         .getWinesGeneral(this.state.food)
         .then(result => {
-          console.log('paired wine result AFTER', result)
-
           this.setState({
             isLoading: false,
-            wines: result.pairedWines === undefined || result.pairedWines.length ===0 || result.status === "failure"? 'nothing' : result.pairedWines
+            wines: result.pairedWines === undefined || result.pairedWines.length ===0 || result.status === "failure"? 'nothing' : result.pairedWines,
+            pairingText: result.pairingText
           });
           let foodData = {
             name: this.state.food,
@@ -126,11 +122,11 @@ export default class SearchBar extends Component {
         })
         .catch(err => this.setState({ message: err.toString() }));
       } else {
-        console.log('food is already in our DB, just set state to the results',result.data.pairedWines )
         // if the food is already in our DB, just set state to the results
         this.setState({
           isLoading: false,
-          wines: result.data.pairedWines.length ===0 || result.data.pairedWines=== undefined? 'nothing' : result.data.pairedWines
+          wines: result.data.pairedWines.length ===0 || result.data.pairedWines=== undefined? 'nothing' : result.data.pairedWines,
+          pairingText: result.data.pairingText
         });
       }
     })
@@ -157,7 +153,6 @@ export default class SearchBar extends Component {
     api
     .getWinesDetail(name, this.state.maxPrice, (this.state.minRating/5)-0.1)
     .then(result => {
-      console.log('result from our api', result)
       this.setState({
         isLoading: false,
         wineDetail: result.data
@@ -274,11 +269,14 @@ export default class SearchBar extends Component {
             </Row>
         </Form>
         }
-      {!this.state.isLoading && this.state.wines === 'nothing' &&
+      {!this.state.isLoading && this.state.wines === 'nothing' && this.state.pairingText === "" &&
           <div> <h1> No recommendations found </h1> </div>}
+      
+      {!this.state.isLoading && this.state.wines === 'nothing' && 
+          <div> <p> {this.state.pairingText} </p> </div>}
 
       <div className="carousel-result">
-      <div classnName="wine-carousel">
+      <div className="wine-carousel">
       {this.state.wines.length > 0 && this.state.wines !== 'nothing' && (
           <div className="wine-bottles-container">
             <h1>Try these wines: </h1>
