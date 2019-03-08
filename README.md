@@ -31,4 +31,5 @@ Are always welcome please submit a well commented pull request with changes or c
 
 ## Heroku
 The application can be found on Heroku under https://winderapp.herokuapp.com/
+
 <img src='/screenshot.png'>
