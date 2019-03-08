@@ -1,6 +1,5 @@
 const express = require("express");
 const passport = require("passport");
-const FacebookStrategy = require("passport-facebook").Strategy;
 const router = express.Router();
 const {isLoggedIn} = require("../middlewares")
 const User = require("../models/User");
@@ -8,48 +7,6 @@ const User = require("../models/User");
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
-
-passport.use(
-  new FacebookStrategy(
-    {
-      clientID: process.env.FACEBOOK_CLIENT_ID,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-      callbackURL: process.env.FACEBOOK_CALLBACK_URL,
-      profileFields:  ['email', 'displayName']
-    },
-    function(accessToken, refreshToken, profile, done) {
-      let email = profile.emails[0].value
-      User.findOne({email})
-      .then(user => {
-        if (user) {
-          done(null, user)
-        }
-        else {
-          User.create({
-            email,
-            name: profile.displayName,
-          })
-          .then(userCreated => {
-            done(null, userCreated)
-          })
-        }
-      })
-    }
-  )
-);
-
-router.get(
-  "/login/facebook",
-  passport.authenticate("facebook")
-);
-
-router.get(
-  "/login/facebook/callback",
-  passport.authenticate("facebook", {
-    successRedirect: process.env.FRONTEND_URI + "/success-login",
-    failureRedirect: "/login"
-  })
-);
 
 router.post("/signup", (req, res, next) => {
   const { email, password, name } = req.body;

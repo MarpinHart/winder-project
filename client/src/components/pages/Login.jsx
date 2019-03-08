@@ -29,15 +29,6 @@ export default class Login extends Component {
       .catch(err => this.setState({ message: err.toString()}))
   }
 
-  handleFacebook(){
-    api.loginWithFacebook()
-    .then(result => {
-      
-      this.props.history.push("/") // Redirect to the home page
-    })
-    .catch(err => this.setState({ message: err.toString() }))
-  }
-
   isEmailCorrect() {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(this.state.email).toLowerCase());
@@ -87,10 +78,6 @@ export default class Login extends Component {
                 onClick={(e) => this.handleClick(e)}>
                 Login
               </Button>
-              <br />
-              {/* <Button color="facebook" className="Facebook-Login mt-2">
-              <a href={`${process.env.REACT_APP_API_URL}/login/facebook`}>Login with Facebook</a>
-              </Button> */}
           </Form>
         <br/>
         {this.state.message && <div className="info info-danger">

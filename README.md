@@ -8,16 +8,23 @@ Users can sign up and log in, search for wine recommendations, save specific win
 ## Getting Started
 - Clone or fork this repository
 - In the command line for the project folder
-- $ npm init
-- $ npm install
+
+```sh
+$ npm init
+$ npm install
+```
 - create a .env file with the following properties:
 PORT = "num" // for local development
 MONGODB_URI = // URI for connection to a MongoDB database
 
 use the following command lines to run the server locally:
+```sh
 $ npm run dev:server
+```
 and to run the client locally:
+```sh
 $ npm run dev:client
+```
 
 ## Stack
 - MERN boilerplate

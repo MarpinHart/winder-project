@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import winesApi from "../../winesApi";
-import WineCarousel from "../WineCarousel";
+import winesApi from "../winesApi";
+import WineCarousel from "./WineCarousel";
 import Autosuggest from "react-autosuggest";
-import WineList from "../WineList";
+import WineList from "./WineList";
 import StarRatingComponent from "react-star-rating-component";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/lab/Slider";
@@ -16,7 +16,7 @@ import {
   Row,
   Col
 } from "reactstrap";
-import api from "../../api";
+import api from "../api";
 let foods = [];
 const getSuggestions = value => {
   const inputValue = value.trim().toLowerCase();

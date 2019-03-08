@@ -6,7 +6,6 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import api from "../api";
 import Profile from "./pages/Profile";
-import SuccessLogin from "./pages/SuccessLogin";
 import AOS from "aos";
 
 export default class App extends Component {
@@ -56,7 +55,6 @@ export default class App extends Component {
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/profile/:id" component={Profile} />
             <Route exact path="/login" component={Login} />
-            <Route path="/success-login" component={SuccessLogin} />
             <Route render={() => <h2>404</h2>} />
           </Switch>
         </div>
