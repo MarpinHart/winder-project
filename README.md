@@ -5,7 +5,7 @@ We built this application as a final project for our fullstack web development b
 
 Users can sign up and log in, search for wine recommendations, save specific wines to their profile (and delete them) and add a rating to them.
 
-##Getting Started
+## Getting Started
 - Clone or fork this repository
 - In the command line for the project folder
 - $ npm init
@@ -19,12 +19,12 @@ $ npm run dev:server
 and to run the client locally:
 $ npm run dev:client
 
-##Stack
+## Stack
 - MERN boilerplate
 - Mongo DB and Mongoose for database and database operations
 - Reactstrap for styling
 - spoonacular API for food-wine pairing and wine recommendations
 - AOS library for animations on scrolling
 
-##Contributions
+## Contributions
 Are always welcome please submit a well commented pull request with changes or challenges.
